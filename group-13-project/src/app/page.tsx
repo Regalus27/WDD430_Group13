@@ -1,6 +1,7 @@
 export default function Home() {
   return (
     <>
+      <h1 className="text-center">Handcraft Haven</h1>
       <div className="container mx-auto">
         <div className="flex flex-row flex-wrap py-4">
           <aside className="w-full sm:w-1/3 md:w-1/4 px-2">
@@ -8,7 +9,7 @@ export default function Home() {
               {/** Navigation / Search */}
               <ul className="flex flex-col overflow-hidden">
                 <p>Search</p>
-                <p className="underline">Landing Page</p>
+                <p>Landing Page</p>
                 <p>Other Navigation</p>
                 <p>Mockup</p>
               </ul>
@@ -16,6 +17,7 @@ export default function Home() {
           </aside>
           <main role="main" className="w-full sm:w-2/3 md:w-3/4 pt-1 px-2">
             {/** Featured Cards */}
+            <h1>Featured Items</h1>
             <div className="grid grid-cols-3 gap-2">
               <a className="group black relative overflow-hidden rounded-lg" href="#">
                 <img className="w-full size-40 object-cover bg-gray-100 rounded-lg dark:bg-neutral-800" src="mockup.png" alt="Mockup Item Image">
@@ -36,6 +38,7 @@ export default function Home() {
               </a>
             </div>
             {/** Newest Cards */}
+            <h1>Newest Items</h1>
             <div className="grid grid-cols-4 gap-2">
             <a className="group black relative overflow-hidden rounded-lg" href="#">
                 <img className="w-full size-40 object-cover bg-gray-100 rounded-lg dark:bg-neutral-800" src="mockup.png" alt="Mockup Item Image">
@@ -114,7 +117,7 @@ export default function Home() {
       </div>
       {/** Footer */}
       <footer className="mt-auto">
-          <h1>Footer</h1>
+          <h1 className="text-center">Footer</h1>
       </footer>
     </>
   );
