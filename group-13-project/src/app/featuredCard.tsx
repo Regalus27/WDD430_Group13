@@ -9,8 +9,15 @@ export default function FeaturedCard({
     itemPicture: string,    // Path to item picture
     itemAltText: string,    // Needs to exist
     itemPrice: number,      // Set up utility function to format item price
-    itemPageLink: string    // Set up Link Validation? On a future page, validation for creating items
+    itemPageLink: string    // Set up Link Validation? On a future page, validation for creating items. Eventually just pull in an id or something? And add to link, {baseUrl}/path/{id}
 }) {
+    /**
+     * Things that need fixed:
+     * - Use proper font
+     * - Use proper color scheme
+     * - Add a hover effect
+     * - Link to an item page (requires item page to be built)
+     */
     return (
         <a className="group black relative overflow-hidden rounded-lg" href={itemPageLink}>
             <figure className="relative w-full h-full">
