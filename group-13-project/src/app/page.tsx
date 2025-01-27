@@ -1,3 +1,5 @@
+import FeaturedCard from "./featuredCard";
+
 export default function Home() {
   return (
     <>
@@ -19,17 +21,10 @@ export default function Home() {
             {/** Featured Cards */}
             <h1>Featured Items</h1>
             <div className="grid grid-cols-3 gap-2">
-              <a className="group black relative overflow-hidden rounded-lg" href="#">
-                <img className="w-full size-40 object-cover bg-gray-100 rounded-lg dark:bg-neutral-800" src="mockup.png" alt="Mockup Item Image"></img>
-              </a>
-
-              <a className="group black relative overflow-hidden rounded-lg" href="#">
-                <img className="w-full size-40 object-cover bg-gray-100 rounded-lg dark:bg-neutral-800" src="mockup.png" alt="Mockup Item Image"></img>
-              </a>
-
-              <a className="group black relative overflow-hidden rounded-lg" href="#">
-                <img className="w-full size-40 object-cover bg-gray-100 rounded-lg dark:bg-neutral-800" src="mockup.png" alt="Mockup Item Image"></img>
-              </a>
+              {/** TODO: Pull information from database and feature 3 algorithmically (probably random) items. */}
+              <FeaturedCard itemPicture={"mockup.png"} itemAltText={"Mockup Item Image"} itemPrice={1599} itemPageLink={"#"} />
+              <FeaturedCard itemPicture={"mockup.png"} itemAltText={"Mockup Item Image"} itemPrice={399} itemPageLink={"#"} />
+              <FeaturedCard itemPicture={"mockup.png"} itemAltText={"Mockup Item Image"} itemPrice={2000} itemPageLink={"#"} />
             </div>
             {/** Newest Cards */}
             <h1>Newest Items</h1>
