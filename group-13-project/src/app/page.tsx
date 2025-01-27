@@ -20,96 +20,66 @@ export default function Home() {
             <h1>Featured Items</h1>
             <div className="grid grid-cols-3 gap-2">
               <a className="group black relative overflow-hidden rounded-lg" href="#">
-                <img className="w-full size-40 object-cover bg-gray-100 rounded-lg dark:bg-neutral-800" src="mockup.png" alt="Mockup Item Image">
-                  {/** Price Here */}
-                </img>
+                <img className="w-full size-40 object-cover bg-gray-100 rounded-lg dark:bg-neutral-800" src="mockup.png" alt="Mockup Item Image"></img>
               </a>
 
               <a className="group black relative overflow-hidden rounded-lg" href="#">
-                <img className="w-full size-40 object-cover bg-gray-100 rounded-lg dark:bg-neutral-800" src="mockup.png" alt="Mockup Item Image">
-                  {/** Price Here */}
-                </img>
+                <img className="w-full size-40 object-cover bg-gray-100 rounded-lg dark:bg-neutral-800" src="mockup.png" alt="Mockup Item Image"></img>
               </a>
 
               <a className="group black relative overflow-hidden rounded-lg" href="#">
-                <img className="w-full size-40 object-cover bg-gray-100 rounded-lg dark:bg-neutral-800" src="mockup.png" alt="Mockup Item Image">
-                  {/** Price Here */}
-                </img>
+                <img className="w-full size-40 object-cover bg-gray-100 rounded-lg dark:bg-neutral-800" src="mockup.png" alt="Mockup Item Image"></img>
               </a>
             </div>
             {/** Newest Cards */}
             <h1>Newest Items</h1>
             <div className="grid grid-cols-4 gap-2">
             <a className="group black relative overflow-hidden rounded-lg" href="#">
-                <img className="w-full size-40 object-cover bg-gray-100 rounded-lg dark:bg-neutral-800" src="mockup.png" alt="Mockup Item Image">
-                  {/** Price Here */}
-                </img>
+                <img className="w-full size-40 object-cover bg-gray-100 rounded-lg dark:bg-neutral-800" src="mockup.png" alt="Mockup Item Image"></img>
               </a>
 
               <a className="group black relative overflow-hidden rounded-lg" href="#">
-                <img className="w-full size-40 object-cover bg-gray-100 rounded-lg dark:bg-neutral-800" src="mockup.png" alt="Mockup Item Image">
-                  {/** Price Here */}
-                </img>
+                <img className="w-full size-40 object-cover bg-gray-100 rounded-lg dark:bg-neutral-800" src="mockup.png" alt="Mockup Item Image"></img>
               </a>
 
               <a className="group black relative overflow-hidden rounded-lg" href="#">
-                <img className="w-full size-40 object-cover bg-gray-100 rounded-lg dark:bg-neutral-800" src="mockup.png" alt="Mockup Item Image">
-                  {/** Price Here */}
-                </img>
+                <img className="w-full size-40 object-cover bg-gray-100 rounded-lg dark:bg-neutral-800" src="mockup.png" alt="Mockup Item Image"></img>
               </a>
 
               <a className="group black relative overflow-hidden rounded-lg" href="#">
-                <img className="w-full size-40 object-cover bg-gray-100 rounded-lg dark:bg-neutral-800" src="mockup.png" alt="Mockup Item Image">
-                  {/** Price Here */}
-                </img>
+                <img className="w-full size-40 object-cover bg-gray-100 rounded-lg dark:bg-neutral-800" src="mockup.png" alt="Mockup Item Image"></img>
               </a>
 
               <a className="group black relative overflow-hidden rounded-lg" href="#">
-                <img className="w-full size-40 object-cover bg-gray-100 rounded-lg dark:bg-neutral-800" src="mockup.png" alt="Mockup Item Image">
-                  {/** Price Here */}
-                </img>
+                <img className="w-full size-40 object-cover bg-gray-100 rounded-lg dark:bg-neutral-800" src="mockup.png" alt="Mockup Item Image"></img>
               </a>
 
               <a className="group black relative overflow-hidden rounded-lg" href="#">
-                <img className="w-full size-40 object-cover bg-gray-100 rounded-lg dark:bg-neutral-800" src="mockup.png" alt="Mockup Item Image">
-                  {/** Price Here */}
-                </img>
+                <img className="w-full size-40 object-cover bg-gray-100 rounded-lg dark:bg-neutral-800" src="mockup.png" alt="Mockup Item Image"></img>
               </a>
 
               <a className="group black relative overflow-hidden rounded-lg" href="#">
-                <img className="w-full size-40 object-cover bg-gray-100 rounded-lg dark:bg-neutral-800" src="mockup.png" alt="Mockup Item Image">
-                  {/** Price Here */}
-                </img>
+                <img className="w-full size-40 object-cover bg-gray-100 rounded-lg dark:bg-neutral-800" src="mockup.png" alt="Mockup Item Image"></img>
               </a>
 
               <a className="group black relative overflow-hidden rounded-lg" href="#">
-                <img className="w-full size-40 object-cover bg-gray-100 rounded-lg dark:bg-neutral-800" src="mockup.png" alt="Mockup Item Image">
-                  {/** Price Here */}
-                </img>
+                <img className="w-full size-40 object-cover bg-gray-100 rounded-lg dark:bg-neutral-800" src="mockup.png" alt="Mockup Item Image"></img>
               </a>
 
               <a className="group black relative overflow-hidden rounded-lg" href="#">
-                <img className="w-full size-40 object-cover bg-gray-100 rounded-lg dark:bg-neutral-800" src="mockup.png" alt="Mockup Item Image">
-                  {/** Price Here */}
-                </img>
+                <img className="w-full size-40 object-cover bg-gray-100 rounded-lg dark:bg-neutral-800" src="mockup.png" alt="Mockup Item Image"></img>
               </a>
 
               <a className="group black relative overflow-hidden rounded-lg" href="#">
-                <img className="w-full size-40 object-cover bg-gray-100 rounded-lg dark:bg-neutral-800" src="mockup.png" alt="Mockup Item Image">
-                  {/** Price Here */}
-                </img>
+                <img className="w-full size-40 object-cover bg-gray-100 rounded-lg dark:bg-neutral-800" src="mockup.png" alt="Mockup Item Image"></img>
               </a>
 
               <a className="group black relative overflow-hidden rounded-lg" href="#">
-                <img className="w-full size-40 object-cover bg-gray-100 rounded-lg dark:bg-neutral-800" src="mockup.png" alt="Mockup Item Image">
-                  {/** Price Here */}
-                </img>
+                <img className="w-full size-40 object-cover bg-gray-100 rounded-lg dark:bg-neutral-800" src="mockup.png" alt="Mockup Item Image"></img>
               </a>
 
               <a className="group black relative overflow-hidden rounded-lg" href="#">
-                <img className="w-full size-40 object-cover bg-gray-100 rounded-lg dark:bg-neutral-800" src="mockup.png" alt="Mockup Item Image">
-                  {/** Price Here */}
-                </img>
+                <img className="w-full size-40 object-cover bg-gray-100 rounded-lg dark:bg-neutral-800" src="mockup.png" alt="Mockup Item Image"></img>
               </a>
             </div>
           </main>
