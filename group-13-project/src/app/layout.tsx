@@ -26,7 +26,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={OnestSans.className}>
+      <body className={OnestSans.className + " " + IndieFlower.className}>
         <div className="container mx-auto max-w-[1200px] px-10">
           <Navbar />
           {children}

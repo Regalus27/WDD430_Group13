@@ -1,9 +1,10 @@
+import Image from "next/image";
 import FeaturedCard from "./featuredCard";
 import { ulid } from "ulid";
 
 export default function Home() {
 
-  const arr = new Array(24).fill(1).map((v,i) => ulid());
+  const arr = new Array(24).fill(1).map(() => ulid());
   console.log(arr)
   
   return (
@@ -22,7 +23,7 @@ export default function Home() {
         {arr.map((v) => {
           return (
             <a key={v} className="group black relative overflow-hidden rounded-lg" href={`/product/${v}`}>
-              <img className="w-full size-40 object-cover bg-gray-100 rounded-lg dark:bg-neutral-800" src="mockup.png" alt="Mockup Item Image"></img>
+              <Image className="w-full size-40 object-cover bg-gray-100 rounded-lg dark:bg-neutral-800" src="mockup.png" alt="Mockup Item Image"></Image>
             </a>
           )
         })}
