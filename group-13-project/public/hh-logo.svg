@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 1231 501" version="1.1"
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve"
+  xmlns:serif="http://www.serif.com/"
+  style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+  <rect id="Text-Logo-Black" serif:id="Text Logo Black" x="0" y="0.837" width="500" height="500" style="fill:none;"/>
+    <path d="M62.888,379.67l-0,-118.03l260,-0l-0,118.03l-60.384,0l-0,-72.333l-139.232,0l0,72.333l-60.384,0Z" fill="currentColor"/>
+    <path d="M248.48,237.701l-111.184,-0l-0,-118.031l111.184,0l0,118.031Z" fill="currentColor"/>
+    <rect x="276.318" y="119.556" width="46.57" height="118.031" fill="currentColor"/>
+    <rect x="62.888" y="119.67" width="46.57" height="118.031" fill="currentColor"/>
+</svg>
