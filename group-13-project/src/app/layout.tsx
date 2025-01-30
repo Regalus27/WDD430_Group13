@@ -1,16 +1,18 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Onest, Indie_Flower } from "next/font/google";
 import "./globals.css";
+import { Navbar } from "./ui/navbar";
+import { Footer } from "./ui/footer";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const OnestSans = Onest({
+  variable: "--font-Onest-sans",
   subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+const IndieFlower = Indie_Flower({
+  subsets: ['latin'],
+  weight: ["400"],
+})
 
 export const metadata: Metadata = {
   title: "Handcraft Haven",
@@ -24,8 +26,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        {children}
+      <body className={OnestSans.className + " " + IndieFlower.className}>
+        <div className="container mx-auto max-w-[1200px] px-10">
+          <Navbar />
+          {children}
+          <Footer />
+        </div>
       </body>
     </html>
   );

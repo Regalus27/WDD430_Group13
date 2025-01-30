@@ -1,2 +1,95 @@
 @import "tailwindcss";
 
+@theme {
+
+    --color-azure-50: rgb(235, 244, 249);
+    --color-azure-100: rgb(215, 232, 244);
+    --color-azure-200: rgb(175, 210, 233);
+    --color-azure-300: rgb(136, 187, 221);
+    --color-azure-400: rgb(96, 164, 210);
+    --color-azure-500: rgb(56, 142, 199);
+    --color-azure-600: rgb(45, 113, 159);
+    --color-azure-700: rgb(34, 85, 119);
+    --color-azure-800: rgb(22, 57, 80);
+    --color-azure-900: rgb(11, 28, 40);
+    --color-azure-950: rgb(6, 14, 20);
+    
+    --color-seafoam-50: rgb(236, 249, 247);
+    --color-seafoam-100: rgb(216, 243, 239);
+    --color-seafoam-200: rgb(177, 231, 223);
+    --color-seafoam-300: rgb(139, 218, 206);
+    --color-seafoam-400: rgb(100, 206, 190);
+    --color-seafoam-500: rgb(61, 194, 174);
+    --color-seafoam-600: rgb(49, 155, 139);
+    --color-seafoam-700: rgb(37, 116, 104);
+    --color-seafoam-800: rgb(24, 78, 70);
+    --color-seafoam-900: rgb(12, 39, 35);
+    --color-seafoam-950: rgb(6, 19, 17);
+
+    --color-primary-50: rgb(234, 238, 251);
+    --color-primary-100: rgb(212, 221, 247);
+    --color-primary-200: rgb(169, 188, 239);
+    --color-primary-300: rgb(126, 154, 231);
+    --color-primary-400: rgb(84, 121, 222);
+    --color-primary-500: rgb(41, 87, 214);
+    --color-primary-600: rgb(33, 70, 171);
+    --color-primary-700: rgb(24, 52, 129);
+    --color-primary-800: rgb(16, 35, 86);
+    --color-primary-900: rgb(8, 17, 43);
+    --color-primary-950: rgb(4, 9, 21);
+
+    --color-accent-50: rgb(251, 250, 233);
+    --color-accent-100: rgb(247, 245, 212);
+    --color-accent-200: rgb(239, 236, 169);
+    --color-accent-300: rgb(231, 226, 126);
+    --color-accent-400: rgb(223, 216, 83);
+    --color-accent-500: rgb(215, 207, 40);
+    --color-accent-600: rgb(172, 165, 32);
+    --color-accent-700: rgb(129, 124, 24);
+    --color-accent-800: rgb(86, 83, 16);
+    --color-accent-900: rgb(43, 41, 8);
+    --color-accent-950: rgb(22, 21, 4);
+
+    --color-secondary-50: rgb(239, 251, 234);
+    --color-secondary-100: rgb(223, 247, 212);
+    --color-secondary-200: rgb(191, 239, 169);
+    --color-secondary-300: rgb(159, 231, 126);
+    --color-secondary-400: rgb(128, 222, 84);
+    --color-secondary-500: rgb(96, 214, 41);
+    --color-secondary-600: rgb(77, 171, 33);
+    --color-secondary-700: rgb(57, 129, 24);
+    --color-secondary-800: rgb(38, 86, 16);
+    --color-secondary-900: rgb(19, 43, 8);
+    --color-secondary-950: rgb(10, 21, 4);
+
+    --font-heading: 'Indie Flower', "sans-serif";
+    --font-body: "Onset", "Poppins", "sans-serif";
+
+    --font-body-sm:   0.750rem;
+    --font-body-base: 1rem;
+    --font-body-xl:   1.333rem;
+    --font-body-2xl:  1.777rem;
+    --font-body-3xl:  2.369rem;
+    --font-body-4xl:  3.158rem;
+    --font-body-5xl:  4.210rem;
+  }
+
+nav a:hover {
+  color: var(--color-primary-300)
+}
+
+nav a {
+  padding: 1rem;
+}
+
+h1, h2 {
+  font-family: var(--font-heading);
+}
+
+h1 {
+  font-size: var(--font-body-2xl);
+}
+
+h2 {
+  font-size: var(--font-body-xl);
+}
