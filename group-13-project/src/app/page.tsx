@@ -19,7 +19,7 @@ export type CardData = {
 }
 
 export default function Home() {
-  const arr = new Array(24)
+  const arr = new Array(27)
   .fill(1)
   .map((): CardData => (
     {
@@ -37,9 +37,9 @@ export default function Home() {
   return (
     <main role="main" className="w-full">
       {/** Featured Cards */}
-      <h1>Featured Item</h1>
+      <h1 className="mt-5 text-2xl uppercase">Featured Item</h1>
       <div className="grid grid-cols-[auto_1fr] gap-2 bg-azure-900 text-seafoam-100">
-        <Image className="w-max h-[300px]" alt="" src={"/placeholder.png"} height={500} width={500} />
+        <Image className="w-max aspect-3/2 object-cover" alt="" src={"/placeholder.png"} height={500} width={500} />
         <div className="p-4 grid h-full">
           <h2 className="text-4xl">Product Name</h2>
           <p>$12.99</p>
@@ -48,9 +48,9 @@ export default function Home() {
         </div>
       </div>
       {/** Newest Cards */}
-      <h1>Newest Items</h1>
+      <h1 className="mt-5 text-2xl uppercase">Newest Items</h1>
       <Suspense fallback={<GridSkeleton />}>
-        <CardGrid data={arr} max_col={6} filter={{sortBy: "newest"}}/>
+        <CardGrid data={arr} max_col={3} max_row={3} filter={{sortBy: "newest"}}/>
       </Suspense>
     </main>
   );

@@ -62,7 +62,7 @@
     --color-secondary-900: rgb(19, 43, 8);
     --color-secondary-950: rgb(10, 21, 4);
 
-    --font-heading: 'Indie Flower', "sans-serif";
+    /* --font-heading: 'Indie Flower', "sans-serif"; */
     --font-body: "Onset", "Poppins", "sans-serif";
 
     --font-body-sm:   0.750rem;
@@ -82,11 +82,11 @@ nav a {
   padding: 1rem;
 }
 
-/* h1, h2 {
+h1, h2 {
   font-family: var(--font-heading);
 }
 
-h1 {
+/* h1 {
   font-size: var(--font-body-3xl);
 }
 
