@@ -82,14 +82,14 @@ nav a {
   padding: 1rem;
 }
 
-h1, h2 {
+/* h1, h2 {
   font-family: var(--font-heading);
 }
 
 h1 {
-  font-size: var(--font-body-2xl);
+  font-size: var(--font-body-3xl);
 }
 
 h2 {
-  font-size: var(--font-body-xl);
-}
+  font-size: var(--font-body-3xl);
+} */

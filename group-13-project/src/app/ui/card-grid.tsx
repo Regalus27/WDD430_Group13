@@ -1,24 +1,27 @@
 import Image from "next/image"
 import { CardData } from "../page"
 import { clsx } from "clsx"
+import { ProductCard } from "./product-card"
 
-export function CardGrid (props: {data: Array<CardData>, max_col?: number, max_row?: number}) {
-  const { data, max_col, max_row } = props
+/*
+  TODO: Pagination
+  TODO: 
+*/
 
-  const style = `grid-cols-${max_col}`
+export function CardGrid (props: {data: Array<CardData>, max_col?: number, max_row?: number, filter?: object}) {
+
+  let max_col = props.max_col ? props.max_col : 1;
+  let max_row = props.max_row ? props.max_row : 1;
+  let data = props.data.slice(max_col * 0, max_col * (max_row + 1) )
 
   return (
     <div className={clsx("grid gap-2")} style={{gridTemplateColumns: `repeat(${max_col}, 1fr)`}}>
-        {data.map((item: any) => {
+        {data.map((item: CardData, index: number) => {
           return (
-            <a key={item.id} className="group black relative overflow-hidden rounded-lg" href={`/product/${item.id}`}>
-              <Image className="w-full size-40 object-cover bg-gray-100 rounded-lg dark:bg-neutral-800" src="/mockup.png" alt="Mockup Item Image" width={100} height={100}></Image>
-              <p>${item.price}</p>
-              <p>{item.name}</p>
-              <p>{item.creator.u_name}</p>
-            </a>
+            <ProductCard img={"/placeholder.png"} id={item.id} username={item.creator.u_name} key={item.id} price={item.price} rating={6} title={item.name} index={index}/>
           )
         })}
+        {/* <Pagination totalPages={totalPages} /> */}
       </div>
   )
 }
