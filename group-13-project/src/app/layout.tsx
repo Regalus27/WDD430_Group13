@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Onest, Indie_Flower } from "next/font/google";
+import { Onest } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "./ui/navbar";
 import { Footer } from "./ui/footer";
@@ -8,11 +8,6 @@ const OnestSans = Onest({
   variable: "--font-Onest-sans",
   subsets: ["latin"],
 });
-
-const IndieFlower = Indie_Flower({
-  subsets: ['latin'],
-  weight: ["400"],
-})
 
 export const metadata: Metadata = {
   title: "Handcraft Haven",
@@ -26,7 +21,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={OnestSans.className + " " + IndieFlower.className}>
+      <body className={OnestSans.className}>
         <div className="container mx-auto max-w-[1200px] px-10">
           <Navbar />
           {children}
