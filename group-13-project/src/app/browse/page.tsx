@@ -218,7 +218,7 @@ const ProductGallery = () => {
                                     </div>
                                     <div className={`${isMobile ? 'block' : 'flex'} gap-2 mt-3 `}>
                                         <button className="px-4 py-2 bg-black text-white rounded-full hover:bg-opacity-70">Add To Cart</button>
-                                        <button className={` px-4 py-2 bg-customBrown text-white ${isMobile ? 'mt-3 mb-2' : ''} rounded-full hover:bg-opacity-90 `}>Buy Now</button>
+                                        <button className={` px-4 py-2 bg-azure-900 text-white ${isMobile ? 'mt-3 mb-2' : ''} rounded-full hover:bg-opacity-90 `}>Buy Now</button>
                                     </div>
                                 </div>
                             </div>
