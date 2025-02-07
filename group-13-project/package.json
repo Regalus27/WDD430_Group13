@@ -10,6 +10,8 @@
   },
   "dependencies": {
     "@tailwindcss/postcss": "^4.0.0",
+    "@vercel/postgres": "^0.10.0",
+    "bcryptjs": "^2.4.3",
     "next": "15.1.6",
     "postcss": "^8.5.1",
     "react": "^19.0.0",
