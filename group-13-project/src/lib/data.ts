@@ -1,5 +1,4 @@
 import { sql } from '@vercel/postgres';
-import { formatPrice } from './utils';
 import { Product } from './definitions';
 
 export async function fetchProductById(product_id: string) {
@@ -22,6 +21,7 @@ export async function fetchProductById(product_id: string) {
 
         return product[0];
     } catch (error) {
+        console.error(error);
         throw new Error("Product not found.");
     }
 }
