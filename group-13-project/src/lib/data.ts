@@ -1,5 +1,4 @@
 import { sql } from '@vercel/postgres';
-import { formatPrice } from './utils';
 import { Product } from './definitions';
 
 export async function fetchProductById(product_id: string) {
@@ -12,20 +11,18 @@ export async function fetchProductById(product_id: string) {
                 products.price_in_cents,
                 products.category,
                 products.description,
+                products.image_url,
                 products.created_at
             FROM products
             WHERE products.product_id = ${product_id};
         `;
-
         const product = data.rows.map((product) => ({
-            ...product,
-            // convert from cents to dollars
-            // consider renaming type from price in cents to just price?
-            price_in_cents: formatPrice(product.price_in_cents),
+            ...product
         }));
 
         return product[0];
     } catch (error) {
-        throw new Error('Failed to fetch product.');
+        console.error(error);
+        throw new Error("Product not found.");
     }
 }
