@@ -25,18 +25,18 @@ export default function ProductPage() {
   const { id } = params;
   const [isMobile, setIsMobile] = useState(false);
 
-  const product = products.find((p) => p.id === Number(id));
-
-  if (!product) {
-    return <div className="text-center text-xl font-semibold mt-10">Product not found</div>;
-  }
-
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 720);
     handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  const product = products.find((p) => p.id === Number(id));
+
+  if (!product) {
+    return <div className="text-center text-xl font-semibold mt-10">Product not found</div>;
+  }
 
   return (
     <section className={`flex ${isMobile ? "flex-col" : ""} bg-[#f5f1eb] rounded-lg shadow-md w-full`}>
