@@ -104,7 +104,7 @@ const ProductGallery = () => {
                 {/* Filter products by price */}
                 <div className="mb-5">
                     <p>Sort by Price</p>
-                    <input type="number" value={minPrice} onChange={(e) => setMinPrice(e.target.value ? parseFloat(e.target.value) : "")} placeholder="Min Price" className="mr-2"/>
+                    <input type="number" value={minPrice} onChange={(e) => setMinPrice(e.target.value ? parseFloat(e.target.value) : "")} placeholder="Min Price" className="mr-2" />
                     <input type="number" value={maxPrice} onChange={(e) => setMaxPrice(e.target.value ? parseFloat(e.target.value) : "")} placeholder="Max Price" />
                 </div>
 
@@ -208,6 +208,8 @@ const ProductGallery = () => {
                             setSearch("");
                             setSelectedCategories([]);
                             setSelectedDietary([]);
+                            setMinPrice("");
+                            setMaxPrice("");
                         }}
                         className="text-black cursor-pointer"
                     >
