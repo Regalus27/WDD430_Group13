@@ -7,16 +7,16 @@ import Image from 'next/image';
 // should replace this. We can also store the product in the localstorage and 
 // implement logic to fetch the product from the local storage
 const products = [
-    { id: 1, category: "Tables", image: "/mockup.png", title: "Real Craftsmanship", price: 275, dietaryOptions: "Eco Friendly" },
-    { id: 2, category: "Chairs", image: "/mockup.png", title: "Modern Chair", price: 275, dietaryOptions: "Gluten Free" },
-    { id: 3, category: "Beds", image: "/mockup.png", title: "Comfortable Bed", price: 275, dietaryOptions: "Nut Free" },
+    { id: 1, category: "Tables", image: "/mockup.png", title: "Real Craftsmanship", price: 25, dietaryOptions: "Eco Friendly" },
+    { id: 2, category: "Chairs", image: "/mockup.png", title: "Modern Chair", price: 200, dietaryOptions: "Gluten Free" },
+    { id: 3, category: "Beds", image: "/mockup.png", title: "Comfortable Bed", price: 175, dietaryOptions: "Nut Free" },
     { id: 4, category: "Chairs", image: "/mockup.png", title: "Classic Chair", price: 275, dietaryOptions: "Eco Friendly" },
-    { id: 5, category: "Chairs", image: "/mockup.png", title: "Wooden Chair", price: 275, dietaryOptions: "Gluten Free" },
-    { id: 6, category: "Tables", image: "/mockup.png", title: "Real Craftsmanship", price: 275, dietaryOptions: "Nut Free" },
-    { id: 7, category: "Chairs", image: "/mockup.png", title: "Modern Chair", price: 275, dietaryOptions: "Eco Friendly" },
-    { id: 8, category: "Beds", image: "/mockup.png", title: "Comfortable Bed", price: 275, dietaryOptions: "Gluten Free" },
-    { id: 9, category: "Chairs", image: "/mockup.png", title: "Classic Chair", price: 275, dietaryOptions: "Nut Free" },
-    { id: 10, category: "Chairs", image: "/mockup.png", title: "Wooden Chair", price: 275, dietaryOptions: "Eco Friendly" },
+    { id: 5, category: "Chairs", image: "/mockup.png", title: "Wooden Chair", price: 295, dietaryOptions: "Gluten Free" },
+    { id: 6, category: "Tables", image: "/mockup.png", title: "Real Craftsmanship", price: 125, dietaryOptions: "Nut Free" },
+    { id: 7, category: "Chairs", image: "/mockup.png", title: "Modern Chair", price: 100, dietaryOptions: "Eco Friendly" },
+    { id: 8, category: "Beds", image: "/mockup.png", title: "Comfortable Bed", price: 75, dietaryOptions: "Gluten Free" },
+    { id: 9, category: "Chairs", image: "/mockup.png", title: "Classic Chair", price: 205, dietaryOptions: "Nut Free" },
+    { id: 10, category: "Chairs", image: "/mockup.png", title: "Wooden Chair", price: 315, dietaryOptions: "Eco Friendly" },
 ];
 
 const categories = ["Chairs", "Beds", "Tables"];
@@ -31,6 +31,8 @@ const ProductGallery = () => {
     const [expandedDietary, setExpandedDietary] = useState(false);
     const itemsPerPage = 6;
     const [isMobile, setIsMobile] = useState(false);
+    const [minPrice, setMinPrice] = useState<number | "">("");
+    const [maxPrice, setMaxPrice] = useState<number | "">("");
 
     useEffect(() => {
         const handleResize = () => setIsMobile(window.innerWidth < 800);
@@ -51,12 +53,14 @@ const ProductGallery = () => {
     }, {} as Record<string, number>);
 
     // Filtering Logic
-    const filteredProducts = products
-        .filter(product =>
-            product.title.toLowerCase().includes(search.toLowerCase()) &&
-            (selectedCategories.length === 0 || selectedCategories.includes(product.category)) &&
-            (selectedDietary.length === 0 || selectedDietary.includes(product.dietaryOptions))
-        );
+    const filteredProducts = products.filter(product => {
+        const matchesSearch = product.title.toLowerCase().includes(search.toLowerCase());
+        const matchesCategory = selectedCategories.length === 0 || selectedCategories.includes(product.category);
+        const matchesDietary = selectedDietary.length === 0 || selectedDietary.includes(product.dietaryOptions);
+        const matchesPrice = (minPrice === "" || product.price >= minPrice) && (maxPrice === "" || product.price <= maxPrice);
+
+        return matchesSearch && matchesCategory && matchesDietary && matchesPrice;
+    });
 
     // Pagination Logic
     const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
@@ -96,6 +100,13 @@ const ProductGallery = () => {
                         Clear All
                     </button>
                 </div><br></br>
+
+                {/* Filter products by price */}
+                <div className="mb-5">
+                    <p>Sort by Price</p>
+                    <input type="number" value={minPrice} onChange={(e) => setMinPrice(e.target.value ? parseFloat(e.target.value) : "")} placeholder="Min Price" className="mr-2"/>
+                    <input type="number" value={maxPrice} onChange={(e) => setMaxPrice(e.target.value ? parseFloat(e.target.value) : "")} placeholder="Max Price" />
+                </div>
 
                 {/* Categories */}
                 <div className="mb-4">
