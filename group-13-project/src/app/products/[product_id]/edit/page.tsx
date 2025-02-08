@@ -20,6 +20,7 @@ export default async function Page(props: {params: Promise<{product_id: string}>
 
     return (
         <main>
+            <h1>Edit Product</h1>
             <EditProductForm product={product}/>
         </main>
     );
