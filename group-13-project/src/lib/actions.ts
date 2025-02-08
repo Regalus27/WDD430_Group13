@@ -13,6 +13,7 @@ const UpdateFormSchema = z.object({
     price_in_cents: z.coerce.number(),
     category: z.string(),
     description: z.string(),
+    image_url: z.string(),
     created_at: z.string()
 });
 
@@ -21,6 +22,7 @@ const UpdateProduct = UpdateFormSchema.omit({
     product_id: true,
     user_id: true,
     created_at: true,
+    image_url: true, // remove once add image processing
 });
 
 export async function updateProduct(product_id: string, formData: FormData) {

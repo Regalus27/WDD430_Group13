@@ -11,6 +11,7 @@ export async function fetchProductById(product_id: string) {
                 products.price_in_cents,
                 products.category,
                 products.description,
+                products.image_url,
                 products.created_at
             FROM products
             WHERE products.product_id = ${product_id};

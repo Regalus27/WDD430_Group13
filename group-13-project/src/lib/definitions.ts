@@ -5,13 +5,8 @@ export type Product = {
     price_in_cents: number;
     category: string;
     description: string;
+    image_url: string;
     created_at: Date;
-};
-
-export type ProductImage = {
-    image_id: string;
-    product_id: string;
-    image_path: string;
 };
 
 export type Review = {
