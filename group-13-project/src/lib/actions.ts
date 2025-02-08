@@ -10,7 +10,7 @@ const UpdateFormSchema = z.object({
     product_id: z.string(),
     user_id: z.string(),
     product_name: z.string(),
-    price_in_cents: z.coerce.number(),
+    price_in_cents: z.coerce.number().positive("Price must be greater than $0."),
     category: z.string(),
     description: z.string(),
     image_url: z.string(),
@@ -42,9 +42,6 @@ export async function updateProduct(product_id: string, formData: FormData) {
     const actual_price_in_cents = price_in_cents * 100; // sloppy
     const created_at = Date.now();
 
-    // SQL
-    // AAAAA I NEED PRODUCT ID FOR THE QUERY
-    // > read the invoice id from the page params I'M SO DUMB
     await sql`
         UPDATE products
         SET product_name = ${product_name}, price_in_cents = ${actual_price_in_cents}, category = ${category}, description = ${description}, created_at = to_timestamp(${created_at} / 1000.0)
