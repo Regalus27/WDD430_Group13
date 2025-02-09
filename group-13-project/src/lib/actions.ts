@@ -5,6 +5,51 @@ import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { z } from 'zod';
 
+const CreateFormSchema = z.object({
+    product_id: z.string(),
+    user_id: z.string(),
+    product_name: z.string(),
+    price_in_cents: z.coerce.number().positive(),
+    category: z.string(),
+    description: z.string(),
+    image_url: z.string(),
+    created_at: z.string(),
+});
+
+const CreateProduct = CreateFormSchema.omit({
+    product_id: true,
+    created_at: true,
+});
+
+export async function createProduct(user_id: string, formData: FormData) {
+    // Validate Form Data
+    const {
+        product_name,
+        price_in_cents,
+        category,
+        description,
+        image_url
+    } = CreateProduct.parse({
+        product_name : formData.get('product_name'),
+        price_in_cents: formData.get('price_in_cents'),
+        category: formData.get('category'),
+        description: formData.get('description'),
+        image_url: formData.get('image_url'),
+    });
+
+    // adjust price to be in cents (Input in dollars)
+    const actual_price_in_cents = price_in_cents * 100;
+    const created_at = Date.now();
+
+    await sql`
+        INSERT INTO products (user_id, product_name, price_in_cents, category, description, image_url, created_at)
+        VALUES (${user_id}, ${product_name}, ${actual_price_in_cents}, ${category}, ${description}, ${image_url}, to_timestamp(${created_at} / 1000.0));
+    `;
+
+    // redirect to creator profile? Otherwise grab newest item tied to user account and navigate to that
+    redirect(`/`);
+}
+
 // Shape of Update Form Data
 const UpdateFormSchema = z.object({
     product_id: z.string(),
