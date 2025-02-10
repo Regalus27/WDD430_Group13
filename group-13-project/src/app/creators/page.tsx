@@ -1,8 +1,6 @@
-import ArtistProfile from '@/app/ui/creators/artist-profile';
+
 import {fetchUserProfiles} from '@/lib/data';
-import { UserProfileRaw } from '@/lib/definitions';
-import Link from "next/link";
-import clsx from 'clsx';
+
 import Image from 'next/image';
 import { ViewArtist } from '@/app/ui/creators/buttons';
 
