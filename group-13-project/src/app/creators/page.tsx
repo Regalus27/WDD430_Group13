@@ -11,7 +11,7 @@ export default async function Page() {
 
     <div className="flex w-full flex-col md:col-span-4">
         <h2 className={"mb-4 text-xl md:text-2xl"}>
-            Artists Catalogue
+            Creators Catalogue
         </h2>
 
 
@@ -53,7 +53,7 @@ export default async function Page() {
                         <thead className="rounded-lg text-left text-sm font-normal">
                             <tr>
                             <th scope="col" className="px-4 py-5 font-medium sm:pl-6">
-                                Artist
+                                Creator
                             </th>
                             <th scope="col" className="px-3 py-5 font-medium">
                                 Style
