@@ -5,7 +5,7 @@ import Link from 'next/link';
 export function ViewArtist({ id }: { id: string }) {
   return (
     <Link
-      href={`/artist/${id}/profile`}
+      href={`/creators/${id}/profile`}
       className="rounded-md border p-2 hover:bg-blue-200"
     >
       <EyeIcon className="w-6 h-6 text-gray-500" />

@@ -1,15 +1,14 @@
-import ArtistProfile from '@/app/ui/artist/artist-profile';
+import ArtistProfile from '@/app/ui/creators/artist-profile';
 import {fetchUserProfiles} from '@/lib/data';
 import { UserProfileRaw } from '@/lib/definitions';
 import Link from "next/link";
 import clsx from 'clsx';
 import Image from 'next/image';
-import { ViewArtist } from '@/app/ui/artist/buttons';
+import { ViewArtist } from '@/app/ui/creators/buttons';
 
 export default async function Page() {
     // const users = await fetchusers();
     const users = await fetchUserProfiles();
-    console.log(`users id : = ${users[0].user_id}`)
   return (
 
     <div className="flex w-full flex-col md:col-span-4">
