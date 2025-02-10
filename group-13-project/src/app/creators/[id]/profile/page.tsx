@@ -5,9 +5,9 @@ import { Metadata } from 'next';
 import { FaFacebook, FaInstagram, FaPinterest } from "react-icons/fa";
 import Image from 'next/image';
 
-export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {
-  const id = params.id;
-  const artistData = await fetchArtistById(id);
+export async function generateMetadata(props: { params: { id: string } }): Promise<Metadata> {
+  const params = await props.params;
+  const artistData = await fetchArtistById(params.id);
 
   return {
     title: artistData?.name || "Creator not found",
