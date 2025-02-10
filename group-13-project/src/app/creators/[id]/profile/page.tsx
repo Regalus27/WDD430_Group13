@@ -5,9 +5,21 @@ import { Metadata } from 'next';
 import { FaFacebook, FaInstagram, FaPinterest } from "react-icons/fa";
 import Image from 'next/image';
 
-export const metadata: Metadata = {
-  title: 'Artist artistData',
-};
+// let artistName = "";
+// export const metadata: Metadata = {
+//   title: artistName ,
+// };
+
+
+
+export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {
+  const id = params.id;
+  const artistData = await fetchArtistById(id);
+
+  return {
+    title: artistData?.name || "Creator not found",
+  };
+}
 
 export default async function Page(props: { params: Promise<{ id: string }> }) {
     const params = await props.params;
@@ -16,7 +28,7 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
     if (!artistData) {
       notFound();
     }
-  
+
   return (
     <div className="p-8 min-h-screen flex flex-col items-center text-black bg-grey-800">
       <h1 className="text-4xl font-extrabold mb-4">{artistData.name}</h1>
