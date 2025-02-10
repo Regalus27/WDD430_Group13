@@ -5,13 +5,6 @@ import { Metadata } from 'next';
 import { FaFacebook, FaInstagram, FaPinterest } from "react-icons/fa";
 import Image from 'next/image';
 
-// let artistName = "";
-// export const metadata: Metadata = {
-//   title: artistName ,
-// };
-
-
-
 export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {
   const id = params.id;
   const artistData = await fetchArtistById(id);
