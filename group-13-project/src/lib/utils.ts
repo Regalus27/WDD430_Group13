@@ -15,3 +15,7 @@ export const formatPrice = (price: number) => {
 export const convertToActualPriceInCents = (price: number) => {
     return Math.round(price * 100);
 };
+
+export default function cn(...classes: string[]) {
+    return classes.filter(Boolean).join(' ');
+}
