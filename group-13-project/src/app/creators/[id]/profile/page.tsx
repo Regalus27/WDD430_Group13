@@ -23,31 +23,50 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
     }
 
   return (
-    <div className="p-8 min-h-screen flex flex-col items-center text-black bg-grey-800">
-      <h1 className="text-4xl font-extrabold mb-4">{artistData.name}</h1>
 
-      <Image
-        src={'/mockup.png'}
-        className="mr-2 w-40 h-40 rounded-full border-4 border-white shadow-lg mb-4"
-        width={28}
-        height={28}
-        alt={`${artistData.name}'s profile picture`}
-      />
+    <div className=" py-8 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-6xl mx-auto bg-white p-6 rounded-lg shadow-lg">
+        {/* Header */}
+        <div className="flex items-center space-x-6">
+          <img
+            src={'/mockup.png'}
+            alt={artistData.name}
+            className="w-32 h-32 rounded-full border-4  border-yellow-400 object-cover"
+          />
+          <div>
+            <h1 className="text-3xl font-semibold text-gray-900">{artistData.name}</h1>
+            <p className="text-sm text-gray-600">{artistData.email}</p>
+          </div>
+        </div>
 
-      <p className="text-lg italic">{artistData.artstyle || "Art style not specified"}</p>
-      <p className="text-md mt-2">{artistData.bio || "No bio available."}</p>
-      <p className="text-md mt-2">{artistData.description || "No description available."}</p>
-      <div className="flex justify-around mt-4">
-            <a href={artistData.instagram} target="_blank" className="text-pink-600">
-              <FaInstagram size={28} />
+        {/* Bio Section */}
+        <div className="mt-6">
+          <p className="text-xl text-gray-800">{artistData.bio}</p>
+    
+          <p className="mt-2 text-gray-600">{artistData.description}</p>
+        </div>
+
+        {/* Art Style */}
+        <div className="mt-6">
+          <h3 className="text-lg font-semibold text-gray-900">Art Style:</h3>
+          <p className="text-gray-700">{artistData.artstyle}</p>
+        </div>
+
+        {/* Social Media Links */}
+        <div className="flex justify-around mt-6">
+            <a href={artistData.instagram} target="_blank" className="text-pink-600 transform hover:scale-135 transition duration-500">
+              <FaInstagram size={30} />
             </a>
-            <a href={artistData.facebook} target="_blank" className="text-blue-600">
-              <FaFacebook size={28} />
+            <a href={artistData.facebook} target="_blank" className="text-blue-600 transform hover:scale-135 transition duration-500">
+              <FaFacebook size={30} />
             </a>
-            <a href={artistData.pinterest} target="_blank" className="text-red-600">
-              <FaPinterest size={28} />
+            <a href={artistData.pinterest} target="_blank" className="text-red-600 transform hover:scale-135 transition duration-500">
+              <FaPinterest size={30} />
             </a>
           </div>
+      </div>
     </div>
+
+    
   );
 }

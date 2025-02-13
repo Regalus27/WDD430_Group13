@@ -22,7 +22,6 @@ export async function fetchUserProfiles() {
 
     return data.rows;
   } catch (error) {
-    console.error("Database Error:", error);
     throw new Error("Failed to fetch user profiles.");
   }
 }
@@ -53,7 +52,6 @@ export async function fetchArtistById(id: string) {
     const artist = data.rows[0];
     return artist;
   } catch (error) {
-    console.error('Database Error:', error);
     throw new Error('Failed to fetch invoice.');
   }
 }
