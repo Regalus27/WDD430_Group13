@@ -69,7 +69,7 @@ const ProductGallery = () => {
 
     return (
         <div>
-            <h2 className="text-center">Browse Products</h2>
+            <h2 className="text-center text-3xl font-extrabold">Browse Products</h2>
             <section className={`${isMobile ? 'w-full flex flex-col gap-2 px-4 py-10' : 'w-full flex gap-10 px-4 py-10'}`}>
                 {/* Sidebar Filters */}
                 <aside className={`${isMobile ? 'flex flex-col' : 'w-1/4'}`}>
