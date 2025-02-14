@@ -1,4 +1,4 @@
-import CreateProductForm from "@/app/ui/createProductForm";
+import CreateProductForm from "@/app/ui/products/createProductForm";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
