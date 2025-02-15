@@ -4,34 +4,13 @@ import { CardGrid } from "./ui/card-grid";
 import { Suspense } from "react";
 import { GridSkeleton } from "./ui/skeletons";
 import Image from "next/image";
+import { fetchNewestProduct } from "@/lib/data";
 
-export type CardData = {
-  id: string,
-  name: string,
-  price: string,
-  creator: {
-    id: string,
-    f_name: string,
-    l_name: string,
-    u_name: string
-  }
-}
 
-export default function Home() {
-  const arr = new Array(27)
-  .fill(1)
-  .map((): CardData => (
-    {
-      id: ulid(),
-      name: "Test Name",
-      price: "12.99",
-      creator: {
-        id: ulid(),
-        f_name: "John",
-        l_name: "Doe",
-        u_name: "JDoeMakes"
-      }
-    }))
+export default async function Home() {
+  const data = await fetchNewestProduct();
+
+  console.log(data)
   
   return (
     <main role="main" className="w-full">
@@ -49,7 +28,7 @@ export default function Home() {
       {/** Newest Cards */}
       <h1 className="mt-5 text-2xl uppercase">Newest Items</h1>
       <Suspense fallback={<GridSkeleton />}>
-        <CardGrid data={arr} max_col={3} max_row={3} filter={{sortBy: "newest"}}/>
+        <CardGrid data={data.flat()} /* filter={{sortBy: "newest"}} *//>
       </Suspense>
     </main>
   );

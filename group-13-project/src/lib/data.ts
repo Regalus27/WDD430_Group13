@@ -1,5 +1,5 @@
 import { sql } from '@vercel/postgres';
-import { Product, UserProfile } from './definitions';
+import { CardData, Product, UserProfile } from './definitions';
 
 
 export async function fetchProductById(product_id: string) {
@@ -31,11 +31,33 @@ export async function fetchProductById(product_id: string) {
 export async function fetchProducts() {
   try {
     const data = await sql<Product[]>`
-      SELECT
-      *
+      SELECT *
       FROM products
     `;
     return data.rows.flat();
+  } catch (error) {
+    throw new Error("Error fetching products. Message: " + error)
+  }
+}
+
+export async function fetchNewestProduct() {
+  try {
+    const data = await sql<CardData[]>`
+      SELECT
+        products.product_id,
+        products.user_id,
+        products.product_name,
+        products.price_in_cents,
+        products.category,
+        products.image_url,
+        products.created_at,
+        users.name
+      FROM products
+      LEFT JOIN users ON products.user_id = users.user_id
+      ORDER BY created_at
+    `
+    // console.log(data.rows)
+    return data.rows;
   } catch (error) {
     throw new Error("Error fetching products. Message: " + error)
   }
