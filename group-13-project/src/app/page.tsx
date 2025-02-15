@@ -1,5 +1,4 @@
 // import Image from "next/image";
-import FeaturedCard from "./featuredCard";
 import { ulid } from "ulid";
 import { CardGrid } from "./ui/card-grid";
 import { Suspense } from "react";
