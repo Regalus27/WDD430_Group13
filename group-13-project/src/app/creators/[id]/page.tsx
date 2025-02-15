@@ -2,7 +2,7 @@
 import { fetchArtistById } from '@/lib/data'; 
 import { notFound } from 'next/navigation';
 import { FaFacebook, FaInstagram, FaPinterest } from "react-icons/fa";
-import Image from 'next/image';
+// import Image from 'next/image';
 
 // eslint-disable-next-line
 export async function generateMetadata(props: {params: any}) {;
