@@ -1,5 +1,6 @@
 import { sql } from '@vercel/postgres';
-import { Product } from './definitions';
+import { Product, UserProfile } from './definitions';
+
 
 export async function fetchProductById(product_id: string) {
     try {
@@ -23,10 +24,22 @@ export async function fetchProductById(product_id: string) {
         return product[0];
     } catch (error) {
         console.error(error);
-        throw new Error("Product not found.");
+        // throw new Error("Product not found.");
     }
 }
-import { UserProfile} from './definitions';
+
+export async function fetchProducts() {
+  try {
+    const data = await sql<Product[]>`
+      SELECT
+      *
+      FROM products
+    `;
+    return data.rows.flat();
+  } catch (error) {
+    throw new Error("Error fetching products. Message: " + error)
+  }
+}
 
 export async function fetchUserProfiles() {
   try {
@@ -48,12 +61,8 @@ export async function fetchUserProfiles() {
   `;
 
     return data.rows;
-<<<<<<< HEAD
     // eslint-disable-next-line
   } catch (error) {
-=======
-  } catch {
->>>>>>> origin/kolawole_Jegs
     throw new Error("Failed to fetch user profiles.");
   }
 }

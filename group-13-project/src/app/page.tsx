@@ -37,7 +37,7 @@ export default function Home() {
     <main role="main" className="w-full">
       {/** Featured Cards */}
       <h1 className="mt-5 text-2xl uppercase">Featured Item</h1>
-      <div className="grid grid-cols-[auto_1fr] gap-2 bg-azure-900 text-seafoam-100">
+      <div className="grid grid-cols-[auto_1fr] gap-2 bg-azure-900 text-seafoam-100 h-max">
         <Image className="w-max aspect-3/2 object-cover" alt="" src={"/placeholder.png"} height={500} width={500} />
         <div className="p-4 grid h-full">
           <h2 className="text-4xl">Product Name</h2>

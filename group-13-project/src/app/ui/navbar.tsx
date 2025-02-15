@@ -31,7 +31,7 @@ export function Navbar() {
       </div>
       <div className="grid grid-cols-2 col-end-5">
         <Link href="/cart" className={pathname === "/cart" ? "underline text-orange-500" : ""}>Cart</Link>
-        {true
+        {false
           ? <Link href="/profile" className={pathname === "/profile" ? "underline text-orange-500" : ""}>Profile</Link>
           : <Link href="/login" className={pathname === "/login" ? "underline text-orange-500" : ""}>Login</Link>
         }
