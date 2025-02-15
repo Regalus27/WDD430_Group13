@@ -27,7 +27,7 @@ export default async function CreatorsTable({
         
               <div className="mb-2 flex items-center">
                 <Image
-                  src={user.image_url}
+                  src={user.image_url? user.image_url : "/creators/default.png"}
                   className="mr-2 rounded-full"
                   width={28}
                   height={28}
@@ -73,7 +73,7 @@ export default async function CreatorsTable({
             <td className="whitespace-nowrap py-3 pl-6 pr-3">
               <div className="flex items-center gap-3">
                 <Image
-                  src={`${user.image_url}`}
+                  src={user.image_url? user.image_url : "/creators/default.png"}
                   className="rounded-full"
                   width={28}
                   height={28}
