@@ -83,6 +83,43 @@ export async function fetchArtistById(id: string) {
   }
 }
 
+const ITEMS_PER_PAGE = 3;
+export async function fetchFilteredCreators(
+  query: string,
+  currentPage: number,
+  ) {
+  const offset = (currentPage - 1) * ITEMS_PER_PAGE;
+
+  try {
+    const creators = await sql<UserProfile>`
+      SELECT
+         users.user_id,
+        users.name,
+        users.email,
+        users.image_url,
+        user_profiles.bio,
+        user_profiles.description,
+        user_profiles.artstyle,
+        user_profiles.instagram,
+        user_profiles.facebook,
+        user_profiles.pinterest
+      FROM users
+      LEFT JOIN user_profiles ON users.user_id = user_profiles.user_id
+      WHERE user_profiles.user_id ILIKE ${`%${query}%`} OR
+        user_profiles.name ILIKE ${`%${query}%`} OR
+        user_profiles.email ILIKE ${`%${query}%`} OR
+        user_profiles.description ILIKE ${`%${query}%`} OR
+        user_profiles.artstyle ILIKE ${`%${query}%`} OR
+      ORDER BY user_profiles.name
+      LIMIT ${ITEMS_PER_PAGE} OFFSET ${offset}
+    `;
+
+    return creators.rows;
+  } catch (error) {
+    console.error('Database Error:', error);
+    // throw new Error('Failed to fetch invoices.');
+  }
+}
 
 
 
