@@ -30,9 +30,9 @@ export type UserProfile = {
     user_id: string;
     name: string,
     email: string,
+    image_url: string,
     bio: string;
     description: string;
-    workshop: string;
     artstyle: string;
     instagram: string;
     facebook: string;

@@ -97,27 +97,19 @@ export async function fetchFilteredCreators(
         users.name,
         users.email,
         users.image_url,
-        user_profiles.bio,
-        user_profiles.description,
-        user_profiles.artstyle,
-        user_profiles.instagram,
-        user_profiles.facebook,
-        user_profiles.pinterest
+        user_profiles.artstyle
       FROM users
       LEFT JOIN user_profiles ON users.user_id = user_profiles.user_id
-      WHERE user_profiles.user_id ILIKE ${`%${query}%`} OR
-        user_profiles.name ILIKE ${`%${query}%`} OR
-        user_profiles.email ILIKE ${`%${query}%`} OR
-        user_profiles.description ILIKE ${`%${query}%`} OR
-        user_profiles.artstyle ILIKE ${`%${query}%`} OR
-      ORDER BY user_profiles.name
+      WHERE users.name ILIKE ${`%${query}%`} OR
+        users.email ILIKE ${`%${query}%`} OR
+        user_profiles.artstyle ILIKE ${`%${query}%`}
+      ORDER BY users.name
       LIMIT ${ITEMS_PER_PAGE} OFFSET ${offset}
     `;
 
     return creators.rows;
   } catch (error) {
-    console.error('Database Error:', error);
-    // throw new Error('Failed to fetch invoices.');
+    throw new Error('Failed to fetch invoices.');
   }
 }
 
