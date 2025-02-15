@@ -31,6 +31,7 @@ export type UserProfile = {
     name: string,
     email: string,
     bio: string;
+    image_url: string,
     description: string;
     workshop: string;
     artstyle: string;

@@ -1,13 +1,12 @@
 
 import { fetchArtistById } from '@/lib/data'; 
 import { notFound } from 'next/navigation';
-import { Metadata } from 'next';
 import { FaFacebook, FaInstagram, FaPinterest } from "react-icons/fa";
 import Image from 'next/image';
 
-export async function generateMetadata(props: { params: { id: string } }): Promise<Metadata> {
-  const params = await props.params;
-  const artistData = await fetchArtistById(params.id);
+// eslint-disable-next-line
+export async function generateMetadata(props: {params: any}) {;
+  const artistData = await fetchArtistById(props.params.id);
 
   return {
     title: artistData?.name || "Creator not found",
@@ -28,7 +27,7 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
       <div className="max-w-6xl mx-auto bg-white p-6 rounded-lg shadow-lg">
         {/* Header */}
         <div className="flex items-center space-x-6">
-          <img
+          <Image
             src={'/mockup.png'}
             alt={artistData.name}
             className="w-32 h-32 rounded-full border-4  border-yellow-400 object-cover"

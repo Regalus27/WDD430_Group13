@@ -26,8 +26,8 @@ export function Navbar() {
       </Link>
       <div className="flex flex-row justify-between">
         <Link href="/" className={pathname === "/" ? "underline text-orange-500" : ""}>Home</Link>
-        <Link href="/browse" className={pathname === "/browse" ? "underline text-orange-500" : ""}>Browse</Link>
-        <Link href="/creators" className={pathname === "/creators" ? "underline text-orange-500" : ""}>Creators</Link>
+        <Link href="/browse" className={pathname.includes("/browse") ? "underline text-orange-500" : ""}>Browse</Link>
+        <Link href="/creators" className={pathname.includes("/creators") ? "underline text-orange-500" : ""}>Creators</Link>
       </div>
       <div className="grid grid-cols-2 col-end-5">
         <Link href="/cart" className={pathname === "/cart" ? "underline text-orange-500" : ""}>Cart</Link>
