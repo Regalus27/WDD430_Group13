@@ -16,7 +16,9 @@ export function ProductCard (
     title,
     username,
     id,
-    rating = 2, 
+    // eslint-disable-next-line
+    rating = 2,
+    // eslint-disable-next-line
     img = "/placeholder.png",
   } = props
 

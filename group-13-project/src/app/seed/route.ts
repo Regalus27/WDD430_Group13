@@ -1,10 +1,13 @@
-import bcrypt from 'bcrypt';
+// import bcrypt from 'bcrypt';
 // import bcrypt from 'bcryptjs';
 import { userProfiles, users } from '@/lib/placeholder-data';
 import { sql } from '@vercel/postgres';
-import { User, UserProfile } from '@/lib/definitions';
+import { User } from '@/lib/definitions';
 import { NextResponse } from 'next/server';
+import { fetchUsers } from '@/lib/utils';
 
+
+// eslint-disable-next-line
 async function seedUsers() {
   const insertedUsers = await Promise.all(
     users.map(async (user) => {
@@ -17,23 +20,6 @@ async function seedUsers() {
     })
   );
   return insertedUsers;
-}
-
-
-export async function fetchUsers() {
- 
-  try {
-    const data = await sql<User>`
-      SELECT *
-      FROM users;
-    `;
-    
-
-    return data.rows;
-  } catch (error) {
-    console.error('Database Error:', error);
-    throw new Error('Failed to fetch invoice.');
-  }
 }
 
 async function seedUserProfile(userIds: string[]) {

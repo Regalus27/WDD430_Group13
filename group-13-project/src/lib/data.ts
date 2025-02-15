@@ -48,11 +48,11 @@ export async function fetchUserProfiles() {
   `;
 
     return data.rows;
+    // eslint-disable-next-line
   } catch (error) {
     throw new Error("Failed to fetch user profiles.");
   }
 }
-
 
 export async function fetchArtistById(id: string) {
  

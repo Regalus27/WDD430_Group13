@@ -1,4 +1,4 @@
-import Image from "next/image"
+// import Image from "next/image"
 import { CardData } from "../page"
 import { clsx } from "clsx"
 import { ProductCard } from "./product-card"
