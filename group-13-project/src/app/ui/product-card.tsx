@@ -16,8 +16,8 @@ export function ProductCard (
     title,
     username,
     id,
-    rating = 2, 
-    img = "/placeholder.png",
+    // rating = 2, 
+    // img = "/placeholder.png",
   } = props
 
   return (

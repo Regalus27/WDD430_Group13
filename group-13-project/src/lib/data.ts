@@ -48,7 +48,7 @@ export async function fetchUserProfiles() {
   `;
 
     return data.rows;
-  } catch (error) {
+  } catch {
     throw new Error("Failed to fetch user profiles.");
   }
 }
