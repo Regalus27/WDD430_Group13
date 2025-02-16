@@ -5,6 +5,18 @@ import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { z } from 'zod';
 
+export async function deleteProduct(product_id: string, user_id: string) {
+    // Form has no data to validate
+    // TODO add authentication
+    await sql`
+        DELETE FROM products
+        WHERE product_id=${product_id} AND user_id=${user_id};
+    `;
+
+    revalidatePath(`/creators/${user_id}`);
+    redirect(`/creators/${user_id}`);
+}
+
 // Shape of Update Form Data
 const UpdateFormSchema = z.object({
     product_id: z.string(),

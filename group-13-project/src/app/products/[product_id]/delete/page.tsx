@@ -1,3 +1,4 @@
+import DeleteProductForm from "@/app/ui/products/deleteProductForm";
 import { fetchProductById } from "@/lib/data";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
@@ -20,7 +21,7 @@ export default async function Page(props: {params: Promise<{product_id: string}>
     return (
         <main>
             <h1>Delete Product</h1>
-            {/** Delete Form */}
+            <DeleteProductForm product={product}/>
         </main>
     );
 }

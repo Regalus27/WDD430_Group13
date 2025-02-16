@@ -1,4 +1,4 @@
-import EditProductForm from "@/app/ui/editProductForm";
+import EditProductForm from "@/app/ui/products/editProductForm";
 import { fetchProductById } from "@/lib/data";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
