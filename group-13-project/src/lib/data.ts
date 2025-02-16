@@ -31,8 +31,17 @@ export async function fetchProductById(product_id: string) {
 export async function fetchProducts() {
   try {
     const data = await sql<Product[]>`
-      SELECT *
+      SELECT
+        products.product_id,
+        products.user_id,
+        products.product_name,
+        products.price_in_cents,
+        products.category,
+        products.image_url,
+        products.created_at,
+        users.name
       FROM products
+      LEFT JOIN users ON products.user_id = users.user_id
     `;
     return data.rows.flat();
   } catch (error) {

@@ -1,22 +1,21 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import type { Product } from "@/lib/definitions";
+import type { CardData, Product } from "@/lib/definitions";
 import { CardGrid } from "../ui/card-grid";
+import { formatPrice } from "@/lib/utils";
 
 const categories = ["Chairs", "Beds", "Tables"];
 // TODO: We need to add more options to filter by. Eg. Material (wood, metal, etc), Medium(Oil Painting, jewlery, Sculpter), Theme (Nature, Industrial, Romance, Anime)
 
-export const ProductGallery = (props: { products: Product[] }) => {
+export const ProductGallery = (props: { products: CardData[] }) => {
   const { products } = props;
 
   const [search, setSearch] = useState("");
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   // const [selectedDietary, setSelectedDietary] = useState<string[]>([]);
-  const [currentPage, setCurrentPage] = useState(1);
   const [expanded, setExpanded] = useState(false);
   // const [expandedDietary, setExpandedDietary] = useState(false);
-  const itemsPerPage = 6;
   const [isMobile, setIsMobile] = useState(false);
   const [minPrice, setMinPrice] = useState<number | "">("");
   const [maxPrice, setMaxPrice] = useState<number | "">("");
@@ -49,21 +48,16 @@ export const ProductGallery = (props: { products: Product[] }) => {
       selectedCategories.length === 0 ||
       selectedCategories.includes(product.category);
     // const matchesDietary = selectedDietary.length === 0 || selectedDietary.includes(product.dietaryOptions);
+    const price = parseInt(product.price_in_cents)
+
     const matchesPrice =
-      (minPrice === "" || product.price_in_cents >= minPrice) &&
-      (maxPrice === "" || product.price_in_cents <= maxPrice);
+      (minPrice === "" || price >= minPrice*100) &&
+      (maxPrice === "" || price <= maxPrice*100);
 
     return (
       matchesSearch && matchesCategory /* && matchesDietary */ && matchesPrice
     );
   });
-
-  // Pagination Logic
-  const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
-  const paginatedProducts = filteredProducts.slice(
-    (currentPage - 1) * itemsPerPage,
-    currentPage * itemsPerPage
-  );
 
   return (
     <div>
@@ -240,79 +234,8 @@ export const ProductGallery = (props: { products: Product[] }) => {
             </button>
           </div>
           {/* Product List */}
-          {/* <CardGrid data={products} /> */}
+          <CardGrid data={filteredProducts} />
 
-          {/* Pagination Controls */}
-          <div className="flex justify-between items-center mt-6">
-            <button
-              disabled={currentPage === 1}
-              onClick={() => setCurrentPage((prev) => prev - 1)}
-              className="pr-2 py-2 border rounded-md flex items-center gap-2 disabled:opacity-50"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                className="w-5 h-5"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M15 19l-7-7 7-7"
-                />
-              </svg>
-              Back
-            </button>
-
-            <div className="flex gap-2">
-              {totalPages > 0 ? (
-                Array.from({ length: totalPages }).map((_, index) => (
-                  <button
-                    key={index}
-                    onClick={() => setCurrentPage(index + 1)}
-                    className={`px-3 py-1 rounded-full ${
-                      currentPage === index + 1
-                        ? "bg-black text-white"
-                        : "border"
-                    }`}
-                  >
-                    {index + 1}
-                  </button>
-                ))
-              ) : (
-                <span className="text-gray-500">No pages available</span>
-              )}
-            </div>
-
-            <button
-              disabled={currentPage === totalPages || totalPages === 0}
-              onClick={() => setCurrentPage((prev) => prev + 1)}
-              className="pl-2 py-2 border rounded-md flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              Next
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                className="w-5 h-5"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M9 5l7 7-7 7"
-                />
-              </svg>
-            </button>
-          </div>
-          <p className="pt-5">
-            {(currentPage - 1) * itemsPerPage + 1}-
-            {Math.min(currentPage * itemsPerPage, filteredProducts.length)} of{" "}
-            {filteredProducts.length}
-          </p>
         </main>
       </section>
     </div>

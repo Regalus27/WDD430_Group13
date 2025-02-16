@@ -1,34 +1,108 @@
-'use client'
+"use client";
 
 // import Image from "next/image"
 import type { CardData } from "@/lib/definitions";
-import { clsx } from "clsx"
-import { ProductCard } from "./product-card"
+import { clsx } from "clsx";
+import { ProductCard } from "./product-card";
+import { useState } from "react";
 
 /*
   TODO: Pagination
   TODO: 
 */
 
-export function CardGrid (props: {data: Array<CardData>, max_col?: number, max_row?: number, filter?: object}) {
-
-  const max_col = props.max_col ? props.max_col : 1;
-  const max_row = props.max_row ? props.max_row : 1;
+export function CardGrid(props: { data: Array<CardData> }) {
   // Replace 0 with current page
-  const currentPage = 1;
   const itemsPerPage = 12;
-  const dataStart = max_col * (currentPage * max_row)
-  const dataEnd = (max_col * max_row) + dataStart > props.data.length ? props.data.length : dataStart + (max_col * max_row);
-  const data = props.data.slice(0, itemsPerPage)
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const data = props.data;
+
+  // Pagination Logic
+  const totalPages = Math.ceil(data.length / itemsPerPage);
+  const paginatedProducts = data.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
 
   return (
-    <div className={clsx("grid gap-2")} style={{gridTemplateColumns: `repeat(auto-fit, minmax(200px, 1fr))`}}>
-      {data.map((item: CardData, index: number) => {
-        return (
-          <ProductCard key={item.product_id} data={item}/>
-        )
-      })}
-      {/* <Pagination totalPages={totalPages} /> */}
+    <div>
+      <div
+        className={"grid gap-2"}
+        style={{ gridTemplateColumns: `repeat(auto-fit, minmax(200px, 1fr))` }}
+      >
+        {paginatedProducts.map((item: CardData) => {
+          return <ProductCard key={item.product_id} data={item} />;
+        })}
+        {/* Pagination Controls */}
+      </div>
+        <div className="flex justify-between items-center mt-6">
+          <button
+            disabled={currentPage === 1}
+            onClick={() => setCurrentPage((prev) => prev - 1)}
+            className="pr-2 py-2 border rounded-md flex items-center gap-2 disabled:opacity-50"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              className="w-5 h-5"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M15 19l-7-7 7-7"
+              />
+            </svg>
+            Back
+          </button>
+
+          <div className="flex gap-2">
+            {totalPages > 0 ? (
+              Array.from({ length: totalPages }).map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setCurrentPage(index + 1)}
+                  className={`px-3 py-1 rounded-full ${
+                    currentPage === index + 1 ? "bg-black text-white" : "border"
+                  }`}
+                >
+                  {index + 1}
+                </button>
+              ))
+            ) : (
+              <span className="text-gray-500">No pages available</span>
+            )}
+          </div>
+
+          <button
+            disabled={currentPage === totalPages || totalPages === 0}
+            onClick={() => setCurrentPage((prev) => prev + 1)}
+            className="pl-2 py-2 border rounded-md flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            Next
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              className="w-5 h-5"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M9 5l7 7-7 7"
+              />
+            </svg>
+          </button>
+        </div>
+        <p className="pt-5 text-center">
+          {(currentPage - 1) * itemsPerPage + 1}-
+          {Math.min(currentPage * itemsPerPage, data.length)} of {data.length}
+        </p>
     </div>
-  )
+  );
 }

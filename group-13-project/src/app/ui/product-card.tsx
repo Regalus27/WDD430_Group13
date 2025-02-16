@@ -1,4 +1,5 @@
 import { CardData } from "@/lib/definitions";
+import { formatPrice } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -16,7 +17,7 @@ export function ProductCard (
       <div className="relative w-full">
         <Image height={500} width={500} src={img || "/placeholder.png"} alt={"Product image"} className="w-full aspect-3/2 bg-gray-500 object-cover">
         </Image>
-        <p className="font-bold absolute right-0 rounded-tl-2xl bottom-0 bg-primary-500 text-seafoam-50 px-4 py-2">${price}</p>
+        <p className="font-bold absolute right-0 rounded-tl-2xl bottom-0 bg-primary-500 text-seafoam-50 px-4 py-2">{formatPrice(parseInt(price))}</p>
       </div>
         {/* <p>{props.index}</p> */}
         <p className="text-xs bg-secondary-500 text-azure-50 p-2 rounded-2xl max-w-max my-3">{category}</p>
