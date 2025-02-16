@@ -1,6 +1,8 @@
 'use client';
 
 import { createProduct } from "@/lib/actions";
+import CreateCategorySelect from "./categorySelect";
+import { fetchProductCategories } from "@/lib/data";
 
 export default function CreateProductForm() {
     /**
@@ -16,6 +18,7 @@ export default function CreateProductForm() {
     // test user id until authentication lets us grab user id
     const user_id = '891ccb08-e0b6-4aba-a439-33154b58dff0';
     const createProductWithId = createProduct.bind(null, user_id);
+    const defaultCategory = fetchProductCategories()[0];
 
     return (
         <form action={createProductWithId} id="create_form">
@@ -29,7 +32,7 @@ export default function CreateProductForm() {
             </div>
             <div className="mb-5">
                 <label htmlFor="category" className="block mb-2 text-sm font-medium text-gray-900">Category</label>
-                <input type="text" name="category" id="category" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required />
+                <CreateCategorySelect defaultCategory={defaultCategory}></CreateCategorySelect>
             </div>
             <div className="mb-5">
                 <label htmlFor="description" className="block mb-2 text-sm font-medium text-gray-900">Description</label>

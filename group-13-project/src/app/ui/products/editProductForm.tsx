@@ -2,6 +2,7 @@
 
 import { updateProduct } from "@/lib/actions";
 import { Product } from "@/lib/definitions";
+import CreateCategorySelect from "./categorySelect";
 
 export default function EditProductForm({
     product,
@@ -30,7 +31,7 @@ export default function EditProductForm({
             </div>
             <div className="mb-5">
                 <label htmlFor="category" className="block mb-2 text-sm font-medium text-gray-900">Category</label>
-                <input type="text" name="category" id="category" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" defaultValue={product.category} required />
+                <CreateCategorySelect defaultCategory={product.category}></CreateCategorySelect>    
             </div>
             <div className="mb-5">
                 <label htmlFor="description" className="block mb-2 text-sm font-medium text-gray-900">Description</label>

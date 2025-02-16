@@ -1,6 +1,13 @@
 import { sql } from '@vercel/postgres';
 import { Product } from './definitions';
 
+// returns an array of strings representing the categories products can be sorted into.
+export function fetchProductCategories() {
+    // Imperfect, but its 2am. In a real application, I would use enum_range(null::category_enum) to get the values and pull from that.
+    // Or I'll end up doing that next week if we want to add more categories.
+    return ['Art & Collectibles', 'Bath & Beauty', 'Books, Movies & Music', 'Clothing & Accessories', 'Electronics', 'Home & Living', 'Toys & Games'];
+}
+
 export async function fetchProductById(product_id: string) {
     try {
         const data = await sql<Product>`
