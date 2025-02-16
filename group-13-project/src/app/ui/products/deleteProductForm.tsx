@@ -18,8 +18,6 @@ export default function DeleteProductForm({
     // Blocked by auth, temp user id
     const user_id = '891ccb08-e0b6-4aba-a439-33154b58dff0';
 
-    console.log(product.product_id); // correct value
-
     const deleteProductWithId = deleteProduct.bind(null, product.product_id, user_id);
 
     return (
