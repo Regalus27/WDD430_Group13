@@ -9,8 +9,6 @@ import { fetchNewestProduct } from "@/lib/data";
 
 export default async function Home() {
   const data = await fetchNewestProduct();
-
-  console.log(data)
   
   return (
     <main role="main" className="w-full">

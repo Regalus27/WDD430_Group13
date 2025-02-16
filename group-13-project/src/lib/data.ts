@@ -56,7 +56,6 @@ export async function fetchNewestProduct() {
       LEFT JOIN users ON products.user_id = users.user_id
       ORDER BY created_at
     `
-    // console.log(data.rows)
     return data.rows;
   } catch (error) {
     throw new Error("Error fetching products. Message: " + error)

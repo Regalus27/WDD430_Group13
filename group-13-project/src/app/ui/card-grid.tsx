@@ -1,3 +1,5 @@
+'use client'
+
 // import Image from "next/image"
 import type { CardData } from "@/lib/definitions";
 import { clsx } from "clsx"
@@ -20,7 +22,7 @@ export function CardGrid (props: {data: Array<CardData>, max_col?: number, max_r
   const data = props.data.slice(0, itemsPerPage)
 
   return (
-    <div className={clsx("grid gap-2")} style={{gridTemplateColumns: `repeat(auto-fit, minmax(250px, 1fr))`}}>
+    <div className={clsx("grid gap-2")} style={{gridTemplateColumns: `repeat(auto-fit, minmax(200px, 1fr))`}}>
       {data.map((item: CardData, index: number) => {
         return (
           <ProductCard key={item.product_id} data={item}/>
