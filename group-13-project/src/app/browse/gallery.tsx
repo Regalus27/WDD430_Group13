@@ -2,7 +2,7 @@
 
 import { useState, Suspense } from "react";
 import type { Product } from "@/lib/definitions";
-import { CardGrid } from "../ui/card-grid";
+import { CardGrid } from "../ui/cards/card-grid";
 
 const categories = ["Chairs", "Beds", "Tables"];
 // TODO: We need to add more options to filter by. Eg. Material (wood, metal, etc), Medium(Oil Painting, jewlery, Sculpter), Theme (Nature, Industrial, Romance, Anime)
@@ -177,7 +177,7 @@ export const ProductGallery = ({products, categories}: { products: Product[], ca
           </div> */}
           {/* Product List */}
           <Suspense>
-            <CardGrid data={filteredProducts} itemsPerPage={9} />
+            <CardGrid data={filteredProducts} itemsPerPage={6} />
           </Suspense>
         </main>
       </section>

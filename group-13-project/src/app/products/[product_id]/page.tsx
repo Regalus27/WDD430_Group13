@@ -18,7 +18,7 @@ export default async function Product(props: {params: Promise<{product_id: strin
 
   return(
     <Suspense fallback={<p>Loading...</p>}>
-      <ProductPage product={product!} reviews={reviews}/>
+      <ProductPage product={product} reviews={reviews}/>
     </Suspense>
   )
 }

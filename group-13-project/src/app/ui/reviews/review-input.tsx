@@ -31,8 +31,6 @@ export default function ReviewInput() {
     }
 
     createReview(reviewObj);
-
-    console.log(reviewObj)
   }
 
   return (

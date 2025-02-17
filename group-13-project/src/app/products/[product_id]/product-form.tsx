@@ -1,19 +1,23 @@
 "use client";
 
 import Image from "next/image";
-import { formatPrice } from "@/lib/utils";
+import { formatPrice, isAuth } from "@/lib/utils";
 import { Product, Review } from "@/lib/definitions";
 import ReviewInput from "@/app/ui/reviews/review-input";
 import ReviewPost from "@/app/ui/reviews/review-post";
 import {ulid} from 'ulid'
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export default function ProductPage({product, reviews} : {product: Product, reviews: Review[]}) {
   const isMobile = false;
+  const path = usePathname();
 
-  console.log(reviews)
+  const auth = isAuth();
 
   return (
     <>
+    {auth ? <Link href={path + "/edit"}>Edit Page</Link> : null}
     <section className={`flex ${isMobile ? "flex-col" : ""} bg-[#f5f1eb] rounded-lg shadow-md w-full`}>
       {/* Left Side - Images */}
       <div className={`${isMobile ? '' : 'flex md:flex-row gap-4'}`}>

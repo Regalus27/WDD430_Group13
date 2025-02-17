@@ -4,12 +4,22 @@ import { UserProfile } from "@/lib/definitions";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import React, { useActionState } from "react";
+import React, { useState } from "react";
+import { RiEmotionSadLine } from "react-icons/ri";
 
 
 export default function ProfilePage({artist}: {artist: UserProfile}) {
+
+  const [form, setForm] = useState({
+    email: artist.email,
+    name: artist.name,
+    password: "",
+  })
+
   function handleSubmit(formData: FormData) {
-    console.log(formData.entries().toArray().toString())
+    // TODO: validate and update values in DB
+
+    // console.log(formData.entries().toArray().toString())
     return
   }
 
@@ -24,10 +34,10 @@ export default function ProfilePage({artist}: {artist: UserProfile}) {
           <input type="file" name="image" id="image" accept="image/*"/>
         
           <label htmlFor="username">Change Username: </label>
-          <input type="text" inputMode="text" name="username" id="username" value={artist.name}/>
+          <input type="text" inputMode="text" name="username" id="username" defaultValue={form.name}/>
         
           <label htmlFor="email">Change Email: </label>
-          <input type="text" inputMode="email" name="email" id="email" value={artist.email}/>
+          <input type="text" inputMode="email" name="email" id="email" defaultValue={form.email}/>
         
           <label htmlFor="password">Password: </label>
           <input type="password" inputMode="text" name="password" id="password"/>

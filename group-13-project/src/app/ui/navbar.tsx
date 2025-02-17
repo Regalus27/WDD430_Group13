@@ -6,12 +6,13 @@ import { useState } from "react";
 import { Logo } from "./Logo";
 import { usePathname } from "next/navigation";
 import { RiMenuLine, RiCloseLargeFill } from "react-icons/ri";
+import { isAuth } from "@/lib/utils";
 
 export function Navbar() {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   // const [isLoggedIn, setLoggedIn] = useState(false);
-  const isLoggedIn = false;
+  const isLoggedIn = isAuth();
 
   return (
     <nav
