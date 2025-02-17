@@ -9,6 +9,17 @@ export type Product = {
     created_at: Date;
 };
 
+export type CardData = {
+    product_id: string,
+    user_id: string,
+    product_name: string,
+    price_in_cents: string,
+    category: string,
+    image_url: string,
+    created_at: string,
+    name: string,
+}
+
 export type Review = {
     review_id: string;
     user_id: string;

@@ -26,7 +26,6 @@ import { User } from "./definitions";
 //       return null; // No artist found, return null
 //     }
 //     const artist = data.rows[0];
-//     console.log(artist);
 //     return artist;
 //   } catch (error) {
 //     console.error('Database Error:', error);

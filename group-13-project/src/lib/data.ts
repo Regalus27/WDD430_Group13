@@ -1,5 +1,6 @@
 import { sql } from '@vercel/postgres';
-import { Product } from './definitions';
+import { CardData, Product, UserProfile } from './definitions';
+
 
 // returns an array of strings representing the categories products can be sorted into.
 export function fetchProductCategories() {
@@ -30,10 +31,52 @@ export async function fetchProductById(product_id: string) {
         return product[0];
     } catch (error) {
         console.error(error);
-        throw new Error("Product not found.");
+        // throw new Error("Product not found.");
     }
 }
-import { UserProfile} from './definitions';
+
+export async function fetchProducts() {
+  try {
+    const data = await sql<Product[]>`
+      SELECT
+        products.product_id,
+        products.user_id,
+        products.product_name,
+        products.price_in_cents,
+        products.category,
+        products.image_url,
+        products.created_at,
+        users.name
+      FROM products
+      LEFT JOIN users ON products.user_id = users.user_id
+    `;
+    return data.rows.flat();
+  } catch (error) {
+    throw new Error("Error fetching products. Message: " + error)
+  }
+}
+
+export async function fetchNewestProduct() {
+  try {
+    const data = await sql<CardData[]>`
+      SELECT
+        products.product_id,
+        products.user_id,
+        products.product_name,
+        products.price_in_cents,
+        products.category,
+        products.image_url,
+        products.created_at,
+        users.name
+      FROM products
+      LEFT JOIN users ON products.user_id = users.user_id
+      ORDER BY created_at
+    `
+    return data.rows;
+  } catch (error) {
+    throw new Error("Error fetching products. Message: " + error)
+  }
+}
 
 export async function fetchUserProfiles() {
   try {
