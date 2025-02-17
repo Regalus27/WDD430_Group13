@@ -30,7 +30,6 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
         <div className="flex items-center space-x-6">
           <Image
             src={'/mockup.png'}
-            height={500} width={500}
             alt={artistData.name}
             className="w-32 h-32 rounded-full border-4  border-yellow-400 object-cover"
             width={100}
