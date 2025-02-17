@@ -112,3 +112,30 @@ export async function updateProduct(product_id: string, formData: FormData) {
     revalidatePath(`/products/${product_id}/edit`);
     redirect(`/products/${product_id}/edit`);
 }
+
+const CreateReviewSchema = z.object({
+    rating: z.number(),
+    review_text: z.string(),
+    product_id: z.string(),
+    user_id: z.string()
+})
+
+export async function createReview(review: {rating: number, review_text: string, product_id: string, user_id: string}) {
+
+    const {
+        rating,
+        review_text,
+        product_id,
+        user_id
+    } = CreateReviewSchema.parse({
+        rating: review.rating,
+        review_text: review.review_text,
+        product_id: review.product_id,
+        user_id: review.user_id
+    })
+
+    await sql`
+        INSERT INTO review (rating, review_text, product_id, user_id)
+        VALUES (${rating}, ${review_text}, ${product_id}, ${user_id});
+    `
+}

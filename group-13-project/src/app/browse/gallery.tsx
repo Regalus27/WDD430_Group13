@@ -2,13 +2,13 @@
 
 import { useState, Suspense } from "react";
 import type { Product } from "@/lib/definitions";
-import { CardGrid } from "../ui/card-grid";
+import { CardGrid } from "../ui/cards/card-grid";
 
 const categories = ["Chairs", "Beds", "Tables"];
 // TODO: We need to add more options to filter by. Eg. Material (wood, metal, etc), Medium(Oil Painting, jewlery, Sculpter), Theme (Nature, Industrial, Romance, Anime)
+// TODO: Replace useStates and use formData instead
 
-export const ProductGallery = (props: { products: Product[] }) => {
-  const { products } = props;
+export const ProductGallery = ({products, categories}: { products: Product[], categories: string[] }) => {
 
   const [search, setSearch] = useState("");
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
@@ -161,7 +161,7 @@ export const ProductGallery = (props: { products: Product[] }) => {
         {/* Main Product Grid */}
         <main className={"w-full md:w-3/4"}>
           {/* Show All Products Button */}
-          <div className="text-center mb-5">
+          {/* <div className="text-center mb-5">
             <button
               onClick={() => {
                 setSearch("");
@@ -174,10 +174,10 @@ export const ProductGallery = (props: { products: Product[] }) => {
             >
               Show all products ({products.length})
             </button>
-          </div>
+          </div> */}
           {/* Product List */}
           <Suspense>
-            <CardGrid data={filteredProducts} itemsPerPage={9} />
+            <CardGrid data={filteredProducts} itemsPerPage={6} />
           </Suspense>
         </main>
       </section>

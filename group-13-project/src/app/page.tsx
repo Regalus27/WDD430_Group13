@@ -1,7 +1,7 @@
-import { CardGrid } from "./ui/card-grid";
+import { CardGrid } from "./ui/cards/card-grid";
 import { Suspense } from "react";
 import { fetchNewestProduct, fetchProducts } from "@/lib/data";
-import FeaturedCard from "./ui/featuredCard";
+import FeaturedCard from "./ui/cards/featuredCard";
 import { notFound } from "next/navigation";
 
 export default async function Home() {
@@ -21,9 +21,7 @@ export default async function Home() {
       </Suspense>
       {/** Newest Cards */}
       <h1 className="mt-5 text-2xl uppercase">Newest Items</h1>
-      <Suspense fallback={<h2>Loading...</h2>}>
-        <CardGrid data={data.flat()} itemsPerPage={10} />
-      </Suspense>
+      <CardGrid data={data.flat()} itemsPerPage={6} />
     </main>
   );
 }

@@ -1,20 +1,28 @@
 "use client";
 
 import Image from "next/image";
-import { formatPrice } from "@/lib/utils";
-import { Product } from "@/lib/definitions";
+import { formatPrice, isAuth } from "@/lib/utils";
+import { Product, Review } from "@/lib/definitions";
+import ReviewInput from "@/app/ui/reviews/review-input";
+import ReviewPost from "@/app/ui/reviews/review-post";
 import { addToCart, CartItem } from "@/lib/cartUtils";
-import { useRouter } from "next/navigation";
+import {ulid} from 'ulid'
+import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
 
-
-export default function ProductPage({ product }: { product: Product }) {
-  const router = useRouter();
+export default function ProductPage({product, reviews} : {product: Product, reviews: Review[]}) {
   const isMobile = false;
+  const path = usePathname();
+  const router = useRouter();
+
+  const auth = isAuth();
 
   return (
+    <>
+    {auth ? <Link href={path + "/edit"}>Edit Page</Link> : null}
     <section className={`flex ${isMobile ? "flex-col" : ""} bg-[#f5f1eb] rounded-lg shadow-md w-full`}>
       {/* Left Side - Images */}
-      <div className={`${isMobile ? '' : 'flex md:flex-row gap-4'} px-4`}>
+      <div className={`${isMobile ? '' : 'flex md:flex-row gap-4'}`}>
 
         {/* Main Image */}
         <div className={`relative  gap-3 w-auto ${isMobile ? 'fixed mt-5' : 'flex md:flex-col'}`}>
@@ -24,40 +32,39 @@ export default function ProductPage({ product }: { product: Product }) {
             alt="Main Product"
             width={400}
             height={200}
-            className="w-[450px] h-auto rounded-lg shadow-lg"
+            className="w-[450px] h-auto rounded-lg"
           />
-          {/* Guarantee Badge */}
+          {/* Guarantee Badge 
           <div className={`absolute top-3 right-3 items-center ${isMobile ? 'p-1' : 'flex flex-col'}`}>
             <div className="relative flex flex-col items-center">
-              {/* Yellow Dot */}
+              {/* Yellow Dot 
               <div className="w-2 h-2 bg-yellow-400 border-[2px] border-[#14132B] rounded-full z-10 relative"></div>
 
-              {/* Left and Right Bent Strings */}
+              {/* Left and Right Bent Strings 
               <div className="relative h-6 flex justify-between">
                 <div className="w-0.5 h-8 bg-[#14132B] absolute left-[-2px] top-[2px] rotate-[40deg] origin-top"></div>
                 <div className="w-0.5 h-8 bg-[#14132B] absolute right-[-2px] top-[2px] -rotate-[40deg] origin-top"></div>
               </div>
-            </div>
+            </div> 
 
-            {/* Badge */}
+            {/* Badge 
             <div className={`relative bg-[#14132B] text-white ${isMobile ? 'px-1 py-1' : 'px-4 py-2'} text-sm font-semibold rounded-md shadow-lg rotate-[-10deg] mt-[-4px]`}>
               <span className={`block ${isMobile ? 'text-sm' : ''} text-lg font-bold`}>90 days</span>
               <span className="text-yellow-400 font-bold text-xs tracking-wide">GUARANTEE</span>
             </div>
-          </div>
+          </div>*/}
+
         </div>
-      </div>
+      </div> 
 
       {/* Right Side - Product Details */}
-      <div className="flex-1 px-4 py-4">
+      <div className="flex-1 grid grid-rows-[auto_auto_1fr_auto] px-4 py-4">
         <h1 className="text-2xl font-bold">{product.product_name}</h1>
-        <div className="flex items-center justify-between">
+        <div className="items-center justify-between">
 
           <p className="text-xl text-customBrown font-semibold mt-2">{formatPrice(product.price_in_cents)}</p>
 
         </div>
-
-        <br></br>
 
         {/* Description */}
         <div className="mt-4">
@@ -92,5 +99,13 @@ export default function ProductPage({ product }: { product: Product }) {
         </div>
       </div>
     </section>
+    <p>Total reviews: {reviews.length}</p>
+    <ReviewInput />
+    <div>
+      {!reviews ? null : reviews.map(review => (
+        <ReviewPost review={review} key={ulid()}/>
+      ))}
+    </div>
+    </>
   );
 };
