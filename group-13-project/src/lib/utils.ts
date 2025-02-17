@@ -26,7 +26,6 @@ import { User } from "./definitions";
 //       return null; // No artist found, return null
 //     }
 //     const artist = data.rows[0];
-//     console.log(artist);
 //     return artist;
 //   } catch (error) {
 //     console.error('Database Error:', error);
@@ -50,9 +49,16 @@ export async function fetchUsers() {
   }
 }
 
+// Convert form price data to database format
+export const convertToActualPriceInCents = (price: number) => {
+  return Math.round(price * 100);
+};
 
-export const formatPrice = (price: number) => {
+export const formatPrice = (price: number | string) => {
   // Requires item prices to be stored in cents.
+
+  // if price is string it will convert to number
+  price = +(price)
 
   if (price < 0) {
       price *= -1;

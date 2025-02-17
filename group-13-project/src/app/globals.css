@@ -62,6 +62,9 @@
     --color-secondary-900: rgb(19, 43, 8);
     --color-secondary-950: rgb(10, 21, 4);
 
+    --color-danger: rgb(255, 50, 70);
+    --color-danger-hover: rgb(205, 0, 0);
+
     /* --font-heading: 'Indie Flower', "sans-serif"; */
     --font-body: "Onset", "Poppins", "sans-serif";
 
@@ -85,11 +88,3 @@ nav a {
 h1, h2 {
   font-family: var(--font-heading);
 }
-
-/* h1 {
-  font-size: var(--font-body-3xl);
-}
-
-h2 {
-  font-size: var(--font-body-3xl);
-} */

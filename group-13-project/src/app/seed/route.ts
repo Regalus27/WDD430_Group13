@@ -43,8 +43,6 @@ export async function GET() {
     const users = await fetchUsers();
     const userIds = users.map(user => user.user_id); // Extract only the IDs
 
-    // console.log("User IDs:", userIds); 
-
     await seedUserProfile(userIds); // Pass extracted IDs
     await sql`COMMIT`;
 

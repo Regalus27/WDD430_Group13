@@ -1,13 +1,10 @@
-import EditProductForm from "@/app/ui/products/editProductForm";
+import DeleteProductForm from "@/app/ui/products/deleteProductForm";
 import { fetchProductById } from "@/lib/data";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
-// TODO: Update the update query to check if user_id matches user_id of queried object
-// Needs auth first though.
-
 export const metadata: Metadata = {
-    title: 'Edit Product',
+    title: 'Delete Product',
 };
 
 export default async function Page(props: {params: Promise<{product_id: string}>}) {
@@ -23,8 +20,8 @@ export default async function Page(props: {params: Promise<{product_id: string}>
 
     return (
         <main>
-            <h1>Edit Product</h1>
-            <EditProductForm product={product}/>
+            <h1>Delete Product</h1>
+            <DeleteProductForm product={product}/>
         </main>
     );
 }

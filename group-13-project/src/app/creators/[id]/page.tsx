@@ -4,23 +4,23 @@ import { notFound } from 'next/navigation';
 import { FaFacebook, FaInstagram, FaPinterest } from "react-icons/fa";
 import Image from 'next/image';
 
-// eslint-disable-next-line
-export async function generateMetadata(props: { params: any }) {
-  ;
-  const artistData = await fetchArtistById(props.params.id);
+
+export async function generateMetadata(props: {params: Promise<{id: string}> }) {;
+  const {id} = await props.params
+  const artistData = await fetchArtistById(id);
 
   return {
-    title: artistData?.name || "Creator not found",
+    title: `Handcraft Haven | ${artistData?.name}` || "Creator not found",
   };
 }
 
 export default async function Page(props: { params: Promise<{ id: string }> }) {
-  const params = await props.params;
-  const id = params.id;
-  const artistData = await fetchArtistById(id);
-  if (!artistData) {
-    notFound();
-  }
+    const params = await props.params;
+    const {id} = await params;
+    const artistData = await fetchArtistById(id);
+    if (!artistData) {
+      notFound();
+    }
 
   return (
 
@@ -30,10 +30,9 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
         <div className="flex items-center space-x-6">
           <Image
             src={'/mockup.png'}
+            height={500} width={500}
             alt={artistData.name}
             className="w-32 h-32 rounded-full border-4  border-yellow-400 object-cover"
-            width={128}
-            height={128}
           />
           <div>
             <h1 className="text-3xl font-semibold text-gray-900">{artistData.name}</h1>
