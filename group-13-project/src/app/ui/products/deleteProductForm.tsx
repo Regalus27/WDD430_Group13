@@ -21,7 +21,8 @@ export default function DeleteProductForm({
     const deleteProductWithId = deleteProduct.bind(null, product.product_id, user_id);
 
     return (
-        <form action={deleteProductWithId}>
+        <form action={deleteProductWithId} className="max-w-sm mx-auto">
+            <label className="block mb-2 text-sm font-medium text-gray-900">Item Name: {product.product_name}</label>
             <button type="submit" className="text-white bg-danger hover:bg-danger-hover focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Really Delete This Item?</button>
         </form>
     );
