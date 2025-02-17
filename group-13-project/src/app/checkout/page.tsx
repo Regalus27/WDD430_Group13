@@ -20,7 +20,7 @@ const getLocalStorage = (key: string): CartItem[] => {
 const Checkout = () => {
     const [cartItems, setCartItems] = useState<CartItem[]>([]);
     const [cartTotal, setCartTotal] = useState(0);
-    const [shipping, setShipping] = useState(10);
+    const [shipping] = useState(10);
     const [tax, setTax] = useState(0);
     const router = useRouter();
 
