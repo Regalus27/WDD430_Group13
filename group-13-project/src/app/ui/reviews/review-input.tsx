@@ -1,6 +1,6 @@
 'use client'
 
-import { createReview } from "@/app/lib/actions";
+import { createReview } from "@/lib/actions";
 import { useParams } from "next/navigation";
 import React, { useState } from "react";
 import { RiStarFill, RiStarLine } from "react-icons/ri"

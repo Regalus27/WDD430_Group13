@@ -1,6 +1,6 @@
-import { formatPrice } from "@/app/lib/utils";
+import { formatPrice } from "@/lib/utils";
 import Image from "next/image";
-import { Product } from "@/app/lib/definitions";
+import { Product } from "@/lib/definitions";
 import Link from "next/link";
 
 export default function FeaturedCard({ item }: { item: Product }) {

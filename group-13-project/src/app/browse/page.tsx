@@ -1,4 +1,4 @@
-import { fetchProductCategories, fetchProducts } from "@/app/lib/data"
+import { fetchProductCategories, fetchProducts } from "@/lib/data"
 import { ProductGallery } from "./gallery"
 import { Suspense } from "react";
 

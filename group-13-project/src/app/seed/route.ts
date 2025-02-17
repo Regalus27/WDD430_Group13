@@ -1,10 +1,10 @@
 // import bcrypt from 'bcrypt';
 // import bcrypt from 'bcryptjs';
-import { userProfiles, users } from '@/app/lib/placeholder-data';
+import { userProfiles, users } from '@/lib/placeholder-data';
 import { sql } from '@vercel/postgres';
-import { User } from '@/app/lib/definitions';
+import { User } from '@/lib/definitions';
 import { NextResponse } from 'next/server';
-import { fetchUsers } from '@/app/lib/utils';
+import { fetchUsers } from '@/lib/utils';
 
 
 // eslint-disable-next-line

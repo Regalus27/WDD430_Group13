@@ -1,4 +1,4 @@
-import { Review } from "@/app/lib/definitions";
+import { Review } from "@/lib/definitions";
 import Image from "next/image";
 import { RiStarFill, RiStarLine } from "react-icons/ri"
 

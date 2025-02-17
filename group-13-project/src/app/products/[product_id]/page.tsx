@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation"
 import ProductPage from "./product-form"
-import { fetchProductById, fetchReviewByProductId } from "@/app/lib/data"
+import { fetchProductById, fetchReviewByProductId } from "@/lib/data"
 import { Suspense } from "react"
 
 export default async function Product(props: {params: Promise<{product_id: string}>}) {

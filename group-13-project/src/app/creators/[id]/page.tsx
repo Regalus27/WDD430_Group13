@@ -1,5 +1,5 @@
 
-import { fetchArtistById } from '@/app/lib/data'; 
+import { fetchArtistById } from '@/lib/data'; 
 import { notFound } from 'next/navigation';
 import { FaFacebook, FaInstagram, FaPinterest } from "react-icons/fa";
 import Image from 'next/image';

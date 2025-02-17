@@ -1,5 +1,5 @@
-import { Product } from "@/app/lib/definitions";
-import { formatPrice } from "@/app/lib/utils";
+import { Product } from "@/lib/definitions";
+import { formatPrice } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
 

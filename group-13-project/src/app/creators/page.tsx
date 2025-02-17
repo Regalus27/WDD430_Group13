@@ -1,4 +1,4 @@
-import { fetchUserProfiles } from "@/app/lib/data";
+import { fetchUserProfiles } from "@/lib/data";
 
 import Image from "next/image";
 import { BtnViewArtist, BtnViewArtistDesktop } from "@/app/ui/creators/buttons";

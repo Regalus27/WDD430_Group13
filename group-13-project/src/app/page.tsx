@@ -1,6 +1,6 @@
 import { CardGrid } from "./ui/card-grid";
 import { Suspense } from "react";
-import { fetchNewestProduct, fetchProducts } from "@/app/lib/data";
+import { fetchNewestProduct, fetchProducts } from "@/lib/data";
 import FeaturedCard from "./ui/featuredCard";
 import { notFound } from "next/navigation";
 

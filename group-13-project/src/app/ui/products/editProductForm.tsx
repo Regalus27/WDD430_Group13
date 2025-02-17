@@ -1,7 +1,7 @@
 'use client';
 
-import { updateProduct } from "@/app/lib/actions";
-import { Product } from "@/app/lib/definitions";
+import { updateProduct } from "@/lib/actions";
+import { Product } from "@/lib/definitions";
 import Link from "next/link";
 import CreateCategorySelect from "./categorySelect";
 

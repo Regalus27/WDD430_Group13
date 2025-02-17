@@ -1,6 +1,6 @@
 'use client';
 
-import { fetchProductCategories } from "@/app/lib/data";
+import { fetchProductCategories } from "@/lib/data";
 
 // Populate select options based on categories
 export default function CreateCategorySelect({

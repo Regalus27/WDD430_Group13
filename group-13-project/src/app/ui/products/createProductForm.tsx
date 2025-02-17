@@ -1,8 +1,8 @@
 'use client';
 
-import { createProduct } from "@/app/lib/actions";
+import { createProduct } from "@/lib/actions";
 import CreateCategorySelect from "./categorySelect";
-import { fetchProductCategories } from "@/app/lib/data";
+import { fetchProductCategories } from "@/lib/data";
 
 export default function CreateProductForm() {
     /**

@@ -1,8 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { formatPrice } from "@/app/lib/utils";
-import { Product, Review } from "@/app/lib/definitions";
+import { formatPrice } from "@/lib/utils";
+import { Product, Review } from "@/lib/definitions";
 import ReviewInput from "@/app/ui/reviews/review-input";
 import ReviewPost from "@/app/ui/reviews/review-post";
 import {ulid} from 'ulid'

@@ -1,4 +1,4 @@
-import { fetchArtistById } from "@/app/lib/data";
+import { fetchArtistById } from "@/lib/data";
 import ProfileForm from "./profileForm";
 import { notFound } from "next/navigation";
 

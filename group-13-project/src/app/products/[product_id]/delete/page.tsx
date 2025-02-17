@@ -1,5 +1,5 @@
 import DeleteProductForm from "@/app/ui/products/deleteProductForm";
-import { fetchProductById } from "@/app/lib/data";
+import { fetchProductById } from "@/lib/data";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
