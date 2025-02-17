@@ -1,24 +1,14 @@
 export type Product = {
-    product_id: string;
-    user_id: string;
-    product_name: string;
-    price_in_cents: number;
-    category: string;
-    description: string;
-    image_url: string;
-    created_at: Date;
-};
-
-export type CardData = {
     product_id: string,
-    user_id: string,
     product_name: string,
-    price_in_cents: string,
+    price_in_cents: number,
     category: string,
+    description: string,
     image_url: string,
-    created_at: string,
+    created_at: Date,
+    user_id: string,
     name: string,
-}
+};
 
 export type Review = {
     review_id: string;

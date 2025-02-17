@@ -5,13 +5,13 @@ import Link from "next/link";
 import { useState } from "react";
 import { Logo } from "./Logo";
 import { usePathname } from "next/navigation";
-// import clsx from "clsx";
 import { RiMenuLine, RiCloseLargeFill } from "react-icons/ri";
 
 export function Navbar() {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
-  const [isLoggedIn, setLoggedIn] = useState(false);
+  // const [isLoggedIn, setLoggedIn] = useState(false);
+  const isLoggedIn = false;
 
   return (
     <nav

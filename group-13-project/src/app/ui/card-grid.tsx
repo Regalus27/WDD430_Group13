@@ -1,8 +1,7 @@
 "use client";
 
 // import Image from "next/image"
-import type { CardData } from "@/lib/definitions";
-import { clsx } from "clsx";
+import type { Product } from "@/lib/definitions";
 import { ProductCard } from "./product-card";
 import { useState } from "react";
 
@@ -11,12 +10,9 @@ import { useState } from "react";
   TODO: 
 */
 
-export function CardGrid(props: { data: Array<CardData> }) {
-  // Replace 0 with current page
-  const itemsPerPage = 12;
+export function CardGrid({data, itemsPerPage}: { data: Array<Product>, itemsPerPage: number }) {  
   const [currentPage, setCurrentPage] = useState(1);
 
-  const data = props.data;
 
   // Pagination Logic
   const totalPages = Math.ceil(data.length / itemsPerPage);
@@ -31,7 +27,7 @@ export function CardGrid(props: { data: Array<CardData> }) {
         className={"grid gap-2"}
         style={{ gridTemplateColumns: `repeat(auto-fit, minmax(200px, 1fr))` }}
       >
-        {paginatedProducts.map((item: CardData) => {
+        {paginatedProducts.map((item: Product) => {
           return <ProductCard key={item.product_id} data={item} />;
         })}
         {/* Pagination Controls */}

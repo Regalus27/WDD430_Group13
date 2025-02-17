@@ -1,31 +1,20 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import type { CardData, Product } from "@/lib/definitions";
+import { useState, Suspense } from "react";
+import type { Product } from "@/lib/definitions";
 import { CardGrid } from "../ui/card-grid";
-import { formatPrice } from "@/lib/utils";
 
 const categories = ["Chairs", "Beds", "Tables"];
 // TODO: We need to add more options to filter by. Eg. Material (wood, metal, etc), Medium(Oil Painting, jewlery, Sculpter), Theme (Nature, Industrial, Romance, Anime)
 
-export const ProductGallery = (props: { products: CardData[] }) => {
+export const ProductGallery = (props: { products: Product[] }) => {
   const { products } = props;
 
   const [search, setSearch] = useState("");
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
-  // const [selectedDietary, setSelectedDietary] = useState<string[]>([]);
   const [expanded, setExpanded] = useState(false);
-  // const [expandedDietary, setExpandedDietary] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
   const [minPrice, setMinPrice] = useState<number | "">("");
   const [maxPrice, setMaxPrice] = useState<number | "">("");
-
-  useEffect(() => {
-    const handleResize = () => setIsMobile(window.innerWidth < 800);
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
 
   if (!products) return <div>Products Not Found!</div>;
   // Count products in each category and dietary option
@@ -33,11 +22,6 @@ export const ProductGallery = (props: { products: CardData[] }) => {
     acc[category] = products!.filter((p) => p.category === category).length;
     return acc;
   }, {} as Record<string, number>);
-
-  // const dietaryCounts = dietaryOptions.reduce((acc, option) => {
-  //     acc[option] = products.filter((p) => p.dietaryOptions === option).length;
-  //     return acc;
-  // }, {} as Record<string, number>);
 
   // Filtering Logic
   const filteredProducts = products!.filter((product) => {
@@ -48,14 +32,14 @@ export const ProductGallery = (props: { products: CardData[] }) => {
       selectedCategories.length === 0 ||
       selectedCategories.includes(product.category);
     // const matchesDietary = selectedDietary.length === 0 || selectedDietary.includes(product.dietaryOptions);
-    const price = parseInt(product.price_in_cents)
+    const price = +(product.price_in_cents);
 
     const matchesPrice =
-      (minPrice === "" || price >= minPrice*100) &&
-      (maxPrice === "" || price <= maxPrice*100);
+      (minPrice === "" || price >= minPrice * 100) &&
+      (maxPrice === "" || price <= maxPrice * 100);
 
     return (
-      matchesSearch && matchesCategory /* && matchesDietary */ && matchesPrice
+      matchesSearch && matchesCategory && matchesPrice
     );
   });
 
@@ -170,48 +154,6 @@ export const ProductGallery = (props: { products: CardData[] }) => {
               </div>
             )}
           </div>
-
-          {/* Dietary Filters */}
-          {/* <div className="flex items-center cursor-pointer" onClick={() => setExpandedDietary(!expandedDietary)}>
-                        <h3 className="font-bold mb-2">Dietary</h3>
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            strokeWidth={2}
-                            stroke="currentColor"
-                            className={`transform transition-transform ${expandedDietary ? '' : 'rotate-180'} w-4 h-4 ml-auto`}
-                        >
-                            <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                d="M19 9l-7 7-7-7"
-                            />
-                        </svg>
-                    </div> */}
-
-          {/* Conditionally render dietary options based on expandedDietary state */}
-          {/* {expandedDietary && (
-                        <div className="mt-2">
-                            {dietaryOptions.map(option => (
-                                <label key={option} className="block">
-                                    <input
-                                        type="checkbox"
-                                        checked={selectedDietary.includes(option)}
-                                        onChange={() =>
-                                            setSelectedDietary(prev =>
-                                                prev.includes(option)
-                                                    ? prev.filter(d => d !== option)
-                                                    : [...prev, option]
-                                            )
-                                        }
-                                        className="mr-5 mb-5"
-                                    />
-                                    {option} ({dietaryCounts[option]})
-                                </label>
-                            ))}
-                        </div>
-                    )} */}
         </aside>
 
         <div className="h-auto border-l border-black"></div>
@@ -234,8 +176,9 @@ export const ProductGallery = (props: { products: CardData[] }) => {
             </button>
           </div>
           {/* Product List */}
-          <CardGrid data={filteredProducts} />
-
+          <Suspense>
+            <CardGrid data={filteredProducts} itemsPerPage={9} />
+          </Suspense>
         </main>
       </section>
     </div>

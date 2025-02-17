@@ -54,8 +54,11 @@ export const convertToActualPriceInCents = (price: number) => {
   return Math.round(price * 100);
 };
 
-export const formatPrice = (price: number) => {
+export const formatPrice = (price: number | string) => {
   // Requires item prices to be stored in cents.
+
+  // if price is string it will convert to number
+  price = +(price)
 
   if (price < 0) {
       price *= -1;
