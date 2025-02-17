@@ -1,11 +1,14 @@
 'use client'
 
+import { createReview } from "@/app/lib/actions";
+import { useParams } from "next/navigation";
 import React, { useState } from "react";
 import { RiStarFill, RiStarLine } from "react-icons/ri"
 
 export default function ReviewInput() {
 
   const arr = [1, 2, 3, 4, 5];
+  const param = useParams();
 
   const [rating, setRating] = useState<number>(0)
 
@@ -17,13 +20,28 @@ export default function ReviewInput() {
     setRating(value)
   }
 
+  function handleForm(formData: FormData) {
+    const id = param.product_id?.toString()!;
+
+    const reviewObj = {
+      rating: rating,
+      review_text: formData.get("review")?.toString() || "",
+      product_id: id,
+      user_id: "2433b8a1-1967-41f6-8ca0-d73ad8ddf94c"
+    }
+
+    createReview(reviewObj);
+
+    console.log(reviewObj)
+  }
+
   return (
-    <form className="grid w-full mt-10">
+    <form className="grid w-full mt-10" action={handleForm}>
       <h2 className="text-2xl">Review Product</h2>
       <p>Rating:</p>
       <div className="flex">
         {arr.map((a, i) => {
-          const star = i < rating ? <RiStarFill className="w-7 h-7 fill-accent-600" /> : <RiStarLine className="w-10 h-10 fill-accent-600" />
+          const star = i < rating ? <RiStarFill className="w-7 h-7 fill-accent-600" /> : <RiStarLine className="w-7 h-7 fill-accent-600" />
           return (
           <div key={`star${a}`} className="hover:scale-130">
             <label htmlFor={`star${a}`}>{star}</label>

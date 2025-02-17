@@ -11,11 +11,11 @@ export type Product = {
 };
 
 export type Review = {
-    review_id: string;
-    user_id: string;
+    name: string;
+    user_img: string,
     product_id: string;
     review_text: string;
-    review_rating: number;
+    rating: number;
 };
 
 export type User = {

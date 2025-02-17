@@ -2,12 +2,15 @@
 
 import Image from "next/image";
 import { formatPrice } from "@/app/lib/utils";
-import { Product } from "@/app/lib/definitions";
+import { Product, Review } from "@/app/lib/definitions";
 import ReviewInput from "@/app/ui/reviews/review-input";
 import ReviewPost from "@/app/ui/reviews/review-post";
+import {ulid} from 'ulid'
 
-export default function ProductPage({product} : {product: Product}) {
+export default function ProductPage({product, reviews} : {product: Product, reviews: Review[]}) {
   const isMobile = false;
+
+  console.log(reviews)
 
   return (
     <>
@@ -76,9 +79,12 @@ export default function ProductPage({product} : {product: Product}) {
         </div>
       </div>
     </section>
+    <p>Total reviews: {reviews.length}</p>
     <ReviewInput />
     <div>
-      <ReviewPost />
+      {!reviews ? null : reviews.map(review => (
+        <ReviewPost review={review} key={ulid()}/>
+      ))}
     </div>
     </>
   );

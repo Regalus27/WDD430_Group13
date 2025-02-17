@@ -1,5 +1,5 @@
 import { sql } from '@vercel/postgres';
-import { Product, UserProfile } from './definitions';
+import { Product, Review, UserProfile } from './definitions';
 
 
 // returns an array of strings representing the categories products can be sorted into.
@@ -49,7 +49,7 @@ export async function fetchProducts() {
         products.created_at,
         users.name
       FROM products
-      LEFT JOIN users ON products.user_id = users.user_id
+      LEFT JOIN users ON products.user_id = users.user_id;
     `;
     return data.rows.flat();
   } catch (error) {
@@ -71,7 +71,7 @@ export async function fetchNewestProduct() {
         users.name
       FROM products
       LEFT JOIN users ON products.user_id = users.user_id
-      ORDER BY created_at
+      ORDER BY created_at;
     `
     return data.rows;
   } catch (error) {
@@ -134,6 +134,27 @@ export async function fetchArtistById(id: string) {
   }
 }
 
+export async function fetchReviewByProductId(id: string) {
+  try {
+    const data = await sql<Review[]>`
+      SELECT
+        review.rating,
+        review.review_text,
+        review.product_id,
+        users.name,
+        users.image_url
+      FROM review
+      LEFT JOIN users ON review.user_id = users.user_id
+      WHERE review.product_id = ${id}; 
+    `
 
+    if(!data || data.rows.length === 0) {
+      return []
+    }
+    return data.rows.flat()
+  } catch (error) {
+    throw new Error('Failed to fetch review: ' + error)
+  }
+}
 
 
