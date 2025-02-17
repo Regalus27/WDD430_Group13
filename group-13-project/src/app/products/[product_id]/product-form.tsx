@@ -5,13 +5,15 @@ import { formatPrice, isAuth } from "@/lib/utils";
 import { Product, Review } from "@/lib/definitions";
 import ReviewInput from "@/app/ui/reviews/review-input";
 import ReviewPost from "@/app/ui/reviews/review-post";
+import { addToCart, CartItem } from "@/lib/cartUtils";
 import {ulid} from 'ulid'
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 export default function ProductPage({product, reviews} : {product: Product, reviews: Review[]}) {
   const isMobile = false;
   const path = usePathname();
+  const router = useRouter();
 
   const auth = isAuth();
 
@@ -73,11 +75,25 @@ export default function ProductPage({product, reviews} : {product: Product, revi
         </div>
 
         {/* Buttons */}
-        <div className="mt-6 space-y-3 grid grid-cols-2 gap-5">
-          <button className="w-full py-3 bg-inherit border-secondary-600 border-2 text-secondary-600 rounded-xl font-semibold h-full hover:bg-secondary-600 hover:text-white">
-            Add to Cart
+        <div className="mt-6 space-y-3">
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              const cartItem: CartItem = { ...product, Quantity: 1 };
+              addToCart(cartItem);
+            }}
+            className="w-full py-3 bg-black text-white rounded-full font-semibold hover:bg-[#333333]">
+            Add To Cart
           </button>
-          <button className="w-full py-3 bg-primary-600 text-white rounded-xl font-semibold h-full hover:bg-primary-800">
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              const cartItem: CartItem = { ...product, Quantity: 1 };
+              addToCart(cartItem);
+              router.push("/cart");
+            }}
+            className="w-full py-3 bg-azure-900 text-white rounded-full font-semibold hover:opacity-90"
+          >
             Buy Now
           </button>
         </div>
