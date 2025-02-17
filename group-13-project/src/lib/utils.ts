@@ -50,6 +50,10 @@ export async function fetchUsers() {
   }
 }
 
+// Convert form price data to database format
+export const convertToActualPriceInCents = (price: number) => {
+  return Math.round(price * 100);
+};
 
 export const formatPrice = (price: number) => {
   // Requires item prices to be stored in cents.

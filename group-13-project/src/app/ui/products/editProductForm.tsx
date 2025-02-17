@@ -3,6 +3,7 @@
 import { updateProduct } from "@/lib/actions";
 import { Product } from "@/lib/definitions";
 import Link from "next/link";
+import CreateCategorySelect from "./categorySelect";
 
 export default function EditProductForm({
     product,
