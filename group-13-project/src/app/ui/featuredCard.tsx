@@ -25,8 +25,10 @@ export default function FeaturedCard({ item }: { item: Product }) {
       <div className="p-4 grid h-full grid-rows-[auto_auto_1fr_auto]">
         <h2 className="text-4xl">{item.product_name}</h2>
         <p>{formatPrice(item.price_in_cents)}</p>
-        <h3>Description</h3>
-        <p>{item.description || "No Description Given..."}</p>
+        <div>
+          <h3 className="text-2xl">Description</h3>
+          <p>{item.description || "No Description Given..."}</p>
+        </div>
         <div className="grid grid-cols-3 gap-5 min-h-[60px]">
             <button className="bg-primary-500 text-seafoam-100 px-1 py-2 rounded-md">
             Add to Cart!

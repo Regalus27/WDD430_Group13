@@ -22,7 +22,7 @@ export default async function Home() {
       {/** Newest Cards */}
       <h1 className="mt-5 text-2xl uppercase">Newest Items</h1>
       <Suspense fallback={<h2>Loading...</h2>}>
-        <CardGrid data={data.flat()} itemsPerPage={10} />
+        <CardGrid data={data.flat()} itemsPerPage={6} />
       </Suspense>
     </main>
   );
