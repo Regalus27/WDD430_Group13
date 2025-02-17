@@ -33,8 +33,6 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
             height={500} width={500}
             alt={artistData.name}
             className="w-32 h-32 rounded-full border-4  border-yellow-400 object-cover"
-            width={100}
-            height={100}
           />
           <div>
             <h1 className="text-3xl font-semibold text-gray-900">{artistData.name}</h1>
