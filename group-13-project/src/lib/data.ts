@@ -48,12 +48,8 @@ export async function fetchUserProfiles() {
   `;
 
     return data.rows;
-<<<<<<< HEAD
     // eslint-disable-next-line
   } catch (error) {
-=======
-  } catch {
->>>>>>> origin/kolawole_Jegs
     throw new Error("Failed to fetch user profiles.");
   }
 }
