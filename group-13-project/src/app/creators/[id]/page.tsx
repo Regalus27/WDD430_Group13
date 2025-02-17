@@ -2,7 +2,7 @@
 import { fetchArtistById } from '@/lib/data'; 
 import { notFound } from 'next/navigation';
 import { FaFacebook, FaInstagram, FaPinterest } from "react-icons/fa";
-// import Image from 'next/image';
+import Image from 'next/image';
 
 // eslint-disable-next-line
 export async function generateMetadata(props: {params: any}) {;
@@ -29,6 +29,7 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
         <div className="flex items-center space-x-6">
           <Image
             src={'/mockup.png'}
+            height={500} width={500}
             alt={artistData.name}
             className="w-32 h-32 rounded-full border-4  border-yellow-400 object-cover"
           />

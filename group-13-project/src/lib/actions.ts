@@ -4,6 +4,55 @@ import { sql } from '@vercel/postgres';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { z } from 'zod';
+import { convertToActualPriceInCents } from './utils';
+
+const CreateFormSchema = z.object({
+    product_id: z.string(),
+    user_id: z.string(),
+    product_name: z.string(),
+    price_in_cents: z.coerce.number().positive(),
+    category: z.string(),
+    description: z.string(),
+    image_url: z.string(),
+    created_at: z.string(),
+});
+
+const CreateProduct = CreateFormSchema.omit({
+    product_id: true,
+    created_at: true,
+});
+
+export async function createProduct(passed_user_id: string, formData: FormData) {
+    // Validate Form Data
+    const {
+        user_id,
+        product_name,
+        price_in_cents,
+        category,
+        description,
+        image_url
+    } = CreateProduct.parse({
+        user_id: passed_user_id,
+        product_name : formData.get('product_name'),
+        price_in_cents: formData.get('price_in_cents'),
+        category: formData.get('category'),
+        description: formData.get('description'),
+        image_url: '/mockup.png'
+        //image_url: formData.get('image_url'),
+    });
+
+    // adjust price to be in cents (Input in dollars)
+    const actual_price_in_cents = convertToActualPriceInCents(price_in_cents);
+    const created_at = Date.now();
+
+    await sql`
+        INSERT INTO products (user_id, product_name, price_in_cents, category, description, image_url, created_at)
+        VALUES (${user_id}, ${product_name}, ${actual_price_in_cents}, ${category}, ${description}, ${image_url}, to_timestamp(${created_at} / 1000.0));
+    `;
+
+    // redirect to creator profile? Otherwise grab newest item tied to user account and navigate to that
+    redirect(`/`);
+}
 
 // Shape of Update Form Data
 const UpdateFormSchema = z.object({
@@ -39,7 +88,7 @@ export async function updateProduct(product_id: string, formData: FormData) {
         description: formData.get('description'),
     });
     // Add in new info
-    const actual_price_in_cents = price_in_cents * 100; // sloppy
+    const actual_price_in_cents = convertToActualPriceInCents(price_in_cents);
     const created_at = Date.now();
 
     await sql`

@@ -1,7 +1,10 @@
-import EditProductForm from "@/app/ui/editProductForm";
+import EditProductForm from "@/app/ui/products/editProductForm";
 import { fetchProductById } from "@/lib/data";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
+
+// TODO: Update the update query to check if user_id matches user_id of queried object
+// Needs auth first though.
 
 export const metadata: Metadata = {
     title: 'Edit Product',
