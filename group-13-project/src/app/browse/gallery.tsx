@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, Suspense } from "react";
-import type { Product } from "@/lib/definitions";
+import type { Product } from "@/app/lib/definitions";
 import { CardGrid } from "../ui/card-grid";
 
 const categories = ["Chairs", "Beds", "Tables"];

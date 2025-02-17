@@ -1,6 +1,6 @@
 'use client'
-import { fetchArtistById, fetchUserProfiles } from "@/lib/data";
-import { UserProfile } from "@/lib/definitions";
+import { fetchArtistById, fetchUserProfiles } from "@/app/lib/data";
+import { UserProfile } from "@/app/lib/definitions";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";

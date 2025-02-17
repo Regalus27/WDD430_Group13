@@ -1,7 +1,7 @@
 'use client';
 
-import { deleteProduct } from "@/lib/actions";
-import { Product } from "@/lib/definitions";
+import { deleteProduct } from "@/app/lib/actions";
+import { Product } from "@/app/lib/definitions";
 
 export default function DeleteProductForm({
     product,

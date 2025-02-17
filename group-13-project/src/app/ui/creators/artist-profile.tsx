@@ -1,7 +1,7 @@
 import { ArrowPathIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
 import Image from 'next/image';
-import { fetchUserProfiles } from '@/lib/data';
+import { fetchUserProfiles } from '@/app/lib/data';
 import { notFound } from 'next/navigation';
 
 export default async function ArtistProfile() {

@@ -1,7 +1,7 @@
 "use client";
 
 // import Image from "next/image"
-import type { Product } from "@/lib/definitions";
+import type { Product } from "@/app/lib/definitions";
 import { ProductCard } from "./product-card";
 import { useEffect, useState } from "react";
 import { usePathname, useSearchParams, useRouter } from "next/navigation";
