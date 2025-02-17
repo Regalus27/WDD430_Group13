@@ -10,12 +10,8 @@ import { RiMenuLine, RiCloseLargeFill } from "react-icons/ri";
 export function Navbar() {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
-  const [isLoggedIn, setLoggedIn] = useState(false);
-
-  function handleLogin() {
-    setLoggedIn(false);
-  } handleLogin()
-
+  // const [isLoggedIn, setLoggedIn] = useState(false);
+  const isLoggedIn = false;
 
   return (
     <nav

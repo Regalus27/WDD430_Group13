@@ -2,10 +2,15 @@ import { CardGrid } from "./ui/card-grid";
 import { Suspense } from "react";
 import { fetchNewestProduct, fetchProducts } from "@/lib/data";
 import FeaturedCard from "./ui/featuredCard";
+import { notFound } from "next/navigation";
 
 export default async function Home() {
   const data = await fetchNewestProduct();
   const featured = (await fetchProducts()).reduce((prev, current) => prev.price_in_cents < current.price_in_cents ? current : prev )
+
+  if(!data) {
+    notFound();
+  }
 
   return (
     <main role="main" className="w-full">

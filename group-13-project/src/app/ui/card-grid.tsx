@@ -10,11 +10,7 @@ import { useState } from "react";
   TODO: 
 */
 
-export function CardGrid({data, itemsPerPage}: { data: Array<Product>, itemsPerPage: number }) {
-  // Replace 0 with current page
-  // const itemsPerPage = 12;
-  // const data = props.data;
-  
+export function CardGrid({data, itemsPerPage}: { data: Array<Product>, itemsPerPage: number }) {  
   const [currentPage, setCurrentPage] = useState(1);
 
 

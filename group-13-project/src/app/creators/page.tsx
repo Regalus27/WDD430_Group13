@@ -1,15 +1,17 @@
+import { fetchUserProfiles } from "@/lib/data";
 
-import {fetchUserProfiles} from '@/lib/data';
-
-import Image from 'next/image';
-import { BtnViewArtist, BtnViewArtistDesktop } from '@/app/ui/creators/buttons';
+import Image from "next/image";
+import { BtnViewArtist, BtnViewArtistDesktop } from "@/app/ui/creators/buttons";
+import { notFound } from "next/navigation";
 
 export default async function Page() {
+  const users = await fetchUserProfiles();
 
-    const users = await fetchUserProfiles();
+  if (!users) notFound();
+
   return (
     <div className="flex w-full flex-col md:col-span-4 p-2">
-    {/* <div className="flex w-full flex-col md:col-span-4 p-2 bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 min-h-screen"> */}
+      {/* <div className="flex w-full flex-col md:col-span-4 p-2 bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 min-h-screen"> */}
       <h2 className="mt-6 text-3xl font-extrabold text-center drop-shadow-lg">
         🎨 Creators Catalogue 🚀
       </h2>
@@ -39,7 +41,9 @@ export default async function Page() {
                     <BtnViewArtist id={user.user_id} />
                   </div>
                   <div className="flex w-full justify-between pt-4">
-                    <p className="text-purple-600 font-medium">{user.artstyle}</p>
+                    <p className="text-purple-600 font-medium">
+                      {user.artstyle}
+                    </p>
                   </div>
                 </div>
               ))}
@@ -52,7 +56,10 @@ export default async function Page() {
                   <th scope="col" className="px-4 py-5 sm:pl-6 text-lg ">
                     Creator
                   </th>
-                  <th scope="col" className="px-3 py-5 text-lg text-left"> Style</th>
+                  <th scope="col" className="px-3 py-5 text-lg text-left">
+                    {" "}
+                    Style
+                  </th>
                   <th scope="col" className="relative py-3 pl-6 pr-3">
                     <span className="sr-only">View</span>
                   </th>
