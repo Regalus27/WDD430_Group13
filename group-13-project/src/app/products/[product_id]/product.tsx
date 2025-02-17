@@ -3,8 +3,12 @@
 import Image from "next/image";
 import { formatPrice } from "@/lib/utils";
 import { Product } from "@/lib/definitions";
+import { addToCart, CartItem } from "@/lib/cartUtils";
+import { useRouter } from "next/navigation";
 
-export default function ProductPage({product} : {product: Product}) {
+
+export default function ProductPage({ product }: { product: Product }) {
+  const router = useRouter();
   const isMobile = false;
 
   return (
@@ -65,10 +69,24 @@ export default function ProductPage({product} : {product: Product}) {
 
         {/* Buttons */}
         <div className="mt-6 space-y-3">
-          <button className="w-full py-3 bg-black text-white rounded-full font-semibold hover:bg-[#333333]">
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              const cartItem: CartItem = { ...product, Quantity: 1 };
+              addToCart(cartItem);
+            }}
+            className="w-full py-3 bg-black text-white rounded-full font-semibold hover:bg-[#333333]">
             Add To Cart
           </button>
-          <button className="w-full py-3 bg-azure-900 text-white rounded-full font-semibold hover:opacity-90">
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              const cartItem: CartItem = { ...product, Quantity: 1 };
+              addToCart(cartItem);
+              router.push("/cart");
+            }}
+            className="w-full py-3 bg-azure-900 text-white rounded-full font-semibold hover:opacity-90"
+          >
             Buy Now
           </button>
         </div>
