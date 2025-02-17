@@ -9,9 +9,7 @@ import React, { useActionState } from "react";
 
 export default function ProfilePage({artist}: {artist: UserProfile}) {
   function handleSubmit(formData: FormData) {
-    const email = formData.get("email");
-    const image = formData.get("image");
-    console.log(email, image)
+    console.log(formData.entries().toArray().toString())
     return
   }
 

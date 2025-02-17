@@ -33,9 +33,9 @@ export default function FeaturedCard({ item }: { item: Product }) {
             <button className="bg-primary-500 text-seafoam-100 px-1 py-2 rounded-md">
             Add to Cart!
             </button>
-            <button className="bg-primary-500 text-seafoam-100 px-5 py-2 rounded-md">
+            {/* <button className="bg-primary-500 text-seafoam-100 px-5 py-2 rounded-md">
             Learn More!
-            </button>
+            </button> */}
         </div>
       </div>
     </div>

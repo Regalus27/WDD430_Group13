@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation"
-import ProductPage from "./product"
+import ProductPage from "./product-form"
 import { fetchProductById } from "@/lib/data"
 
 export default async function Product(props: {params: Promise<{product_id: string}>}) {
