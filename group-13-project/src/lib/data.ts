@@ -1,5 +1,5 @@
 import { sql } from '@vercel/postgres';
-import { CardData, Product, UserProfile } from './definitions';
+import { Product, UserProfile } from './definitions';
 
 
 export async function fetchProductById(product_id: string) {
@@ -37,6 +37,7 @@ export async function fetchProducts() {
         products.product_name,
         products.price_in_cents,
         products.category,
+        products.description,
         products.image_url,
         products.created_at,
         users.name
@@ -51,7 +52,7 @@ export async function fetchProducts() {
 
 export async function fetchNewestProduct() {
   try {
-    const data = await sql<CardData[]>`
+    const data = await sql<Product[]>`
       SELECT
         products.product_id,
         products.user_id,

@@ -4,18 +4,19 @@ import { notFound } from 'next/navigation';
 import { FaFacebook, FaInstagram, FaPinterest } from "react-icons/fa";
 import Image from 'next/image';
 
-// eslint-disable-next-line
-export async function generateMetadata(props: {params: any}) {;
-  const artistData = await fetchArtistById(props.params.id);
+
+export async function generateMetadata(props: {params: Promise<{id: string}> }) {;
+  const {id} = await props.params
+  const artistData = await fetchArtistById(id);
 
   return {
-    title: artistData?.name || "Creator not found",
+    title: `Handcraft Haven | ${artistData?.name}` || "Creator not found",
   };
 }
 
 export default async function Page(props: { params: Promise<{ id: string }> }) {
     const params = await props.params;
-    const id = params.id;
+    const {id} = await params;
     const artistData = await fetchArtistById(id);
     if (!artistData) {
       notFound();

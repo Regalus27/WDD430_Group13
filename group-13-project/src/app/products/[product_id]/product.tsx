@@ -1,27 +1,11 @@
 "use client";
 
-import { notFound, useParams } from "next/navigation";
 import Image from "next/image";
-// import { useState, useEffect } from "react";
-import { fetchProductById } from "@/lib/data";
 import { formatPrice } from "@/lib/utils";
 import { Product } from "@/lib/definitions";
 
-type params = {
-  product_id: string
-}
-
 export default function ProductPage({product} : {product: Product}) {
-  // const { product_id } = useParams<params>();
-  // const  = params;
-  // const [isMobile, setIsMobile] = useState(false);
   const isMobile = false;
-
-
-
-  // if (!product) {
-  //   return <div className="text-center text-xl font-semibold mt-10">Product not found</div>;
-  // }
 
   return (
     <section className={`flex ${isMobile ? "flex-col" : ""} bg-[#f5f1eb] rounded-lg shadow-md w-full`}>
@@ -65,7 +49,7 @@ export default function ProductPage({product} : {product: Product}) {
         <h1 className="text-2xl font-bold">{product.product_name}</h1>
         <div className="flex items-center justify-between">
 
-          <p className="text-xl text-customBrown font-semibold mt-2">${formatPrice(product.price_in_cents)}</p>
+          <p className="text-xl text-customBrown font-semibold mt-2">{formatPrice(product.price_in_cents)}</p>
 
         </div>
 
@@ -75,9 +59,7 @@ export default function ProductPage({product} : {product: Product}) {
         <div className="mt-4">
           <h3 className="text-lg font-semibold">Description</h3>
           <p className="text-sm text-gray-600 mb-20">
-            Add a contemporary design and a pop of colour to a cozy seating area or your living room
-            with this chaise-inspired loveseat. We love all the mid-century details from the
-            low-profile back and round arm to the sleek, black-finished tapered legs.
+            {product.description}
           </p>
         </div>
 
