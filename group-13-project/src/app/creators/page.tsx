@@ -1,5 +1,3 @@
-
-import {fetchUserProfiles} from '@/lib/data';
 import Search from '@/app/ui/search';
 import TableCreators from '@/app/ui/creators/table';
 import { Suspense } from 'react';
@@ -7,7 +5,7 @@ import { Suspense } from 'react';
 export default async function Page(props: {
   searchParams?: Promise<{
     query?: string;
-    // page?: string;
+    page?: string;
   }>;
 }) {
     const searchParams = await props.searchParams;

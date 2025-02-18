@@ -59,7 +59,7 @@ export async function updateProfile(id: string, formData: FormData) {
       WHERE user_id = ${id};
     `;
     
-  } catch (error) {
+  } catch {
     return { message: 'Database Error: Failed to Update Profile.' };
   }
   revalidatePath(`/profile/${id}`);

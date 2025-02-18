@@ -1,21 +1,21 @@
 import { userProfiles, users } from '@/lib/placeholder-data';
 import { sql } from '@vercel/postgres';
-import { User } from '@/lib/definitions';
+// import { User } from '@/lib/definitions';
 import { NextResponse } from 'next/server';
 
-async function seedUsers() {
-  const insertedUsers = await Promise.all(
-    users.map(async (user) => {
-      // const hashedPassword = await bcrypt.hash(user.password, 10);
-      const hashedPassword = user.password;
-      return sql<User>`
-        INSERT INTO users (name, email, image_url, password)
-        VALUES (${user.name}, ${user.email}, ${user.image_url}, ${hashedPassword})
-      `;
-    })
-  );
-  return insertedUsers;
-}
+// async function seedUsers() {
+//   const insertedUsers = await Promise.all(
+//     users.map(async (user) => {
+//       // const hashedPassword = await bcrypt.hash(user.password, 10);
+//       const hashedPassword = user.password;
+//       return sql<User>`
+//         INSERT INTO users (name, email, image_url, password)
+//         VALUES (${user.name}, ${user.email}, ${user.image_url}, ${hashedPassword})
+//       `;
+//     })
+//   );
+//   return insertedUsers;
+// }
 
 
 export async function fetchUsers() {
