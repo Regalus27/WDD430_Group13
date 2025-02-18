@@ -5,6 +5,7 @@ import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { z } from 'zod';
 import { convertToActualPriceInCents } from './utils';
+import { put } from '@vercel/blob';
 
 const CreateFormSchema = z.object({
     product_id: z.string(),
@@ -111,6 +112,15 @@ export async function updateProduct(product_id: string, formData: FormData) {
 
     revalidatePath(`/products/${product_id}/edit`);
     redirect(`/products/${product_id}/edit`);
+}
+
+export async function uploadImage(formData: FormData) {
+    const imageFile = formData.get('image') as File;
+    const blob = await put(imageFile.name, imageFile, {
+        access: 'public',
+    });
+    revalidatePath('/');
+    console.log(blob);
 }
 
 const CreateReviewSchema = z.object({
