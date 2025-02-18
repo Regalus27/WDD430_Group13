@@ -21,11 +21,18 @@ export default function ReviewInput() {
   }
 
   function handleForm(formData: FormData) {
-    const id = param.product_id?.toString()!;
 
+    if(!formData) return
+
+    const id = param.product_id?.toString();
+    let review_text = formData.get("review")?.toString();
+
+    if(!id) return
+
+    if (review_text == null) review_text = "";
     const reviewObj = {
       rating: rating,
-      review_text: formData.get("review")?.toString() || "",
+      review_text: review_text,
       product_id: id,
       user_id: "2433b8a1-1967-41f6-8ca0-d73ad8ddf94c"
     }

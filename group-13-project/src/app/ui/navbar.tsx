@@ -93,7 +93,7 @@ export function Navbar() {
           onClick={() => {
             setIsOpen((openState) => !openState);
           }}
-          className="md:hidden justify-self-end p-5 scale-150"
+          className="md:hidden justify-self-end p-3 mr-3 bg-inherit scale-150"
         >
           {isOpen ? <RiCloseLargeFill /> : <RiMenuLine />}
         </button>
