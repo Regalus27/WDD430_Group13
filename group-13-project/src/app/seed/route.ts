@@ -1,6 +1,6 @@
 import { userProfiles, users } from '@/lib/placeholder-data';
 import { sql } from '@vercel/postgres';
-// import { User } from '@/lib/definitions';
+import { User } from '@/lib/definitions';
 import { NextResponse } from 'next/server';
 
 // async function seedUsers() {
