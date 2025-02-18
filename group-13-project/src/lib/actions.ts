@@ -38,21 +38,19 @@ export async function createProduct(passed_user_id: string, formData: FormData) 
         price_in_cents: formData.get('price_in_cents'),
         category: formData.get('category'),
         description: formData.get('description'),
-        image_url: '/mockup.png'
-        //image_url: formData.get('image_url'),
+        image_url: await uploadImage(formData),
     });
 
     // adjust price to be in cents (Input in dollars)
     const actual_price_in_cents = convertToActualPriceInCents(price_in_cents);
     const created_at = Date.now();
 
-    await sql`
+    const response = await sql`
         INSERT INTO products (user_id, product_name, price_in_cents, category, description, image_url, created_at)
         VALUES (${user_id}, ${product_name}, ${actual_price_in_cents}, ${category}, ${description}, ${image_url}, to_timestamp(${created_at} / 1000.0));
     `;
-
-    // redirect to creator profile? Otherwise grab newest item tied to user account and navigate to that
-    redirect(`/`);
+    console.log(response);
+    redirect(`/`); // If I can extract product_id from response redirect to product page.
 }
 
 export async function deleteProduct(product_id: string, user_id: string) {
@@ -114,13 +112,23 @@ export async function updateProduct(product_id: string, formData: FormData) {
     redirect(`/products/${product_id}/edit`);
 }
 
+// Returns the blob url to access this image if successful (image_url)
 export async function uploadImage(formData: FormData) {
     const imageFile = formData.get('image') as File;
-    const blob = await put(imageFile.name, imageFile, {
-        access: 'public',
-    });
-    revalidatePath('/');
-    console.log(blob);
+    if (imageFile.size / 1024 / 1024 > 4) {
+        throw new Error("Unable to upload image. (Maximum filesize: 4MB)");
+    }
+    if (imageFile.type.split('/')[0] !== 'image') {
+        throw new Error("Invalid filetype.");
+    }
+    try {
+        const blob = await put(imageFile.name, imageFile, {
+            access: 'public',
+        });
+        return blob.url;
+    } catch {
+        throw new Error("Unable to upload image.");
+    }
 }
 
 const CreateReviewSchema = z.object({
