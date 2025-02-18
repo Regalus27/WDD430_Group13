@@ -1,15 +1,16 @@
 'use client'
-import { fetchArtistById, fetchUserProfiles } from "@/lib/data";
+// import { fetchArtistById, fetchUserProfiles } from "@/lib/data";
 import { UserProfile } from "@/lib/definitions";
 import Image from "next/image";
 import Link from "next/link";
-import { notFound } from "next/navigation";
+// import { notFound } from "next/navigation";
 import React, { useState } from "react";
-import { RiEmotionSadLine } from "react-icons/ri";
+// import { RiEmotionSadLine } from "react-icons/ri";
 
 
 export default function ProfilePage({artist}: {artist: UserProfile}) {
 
+  //eslint-disable-next-line
   const [form, setForm] = useState({
     email: artist.email,
     name: artist.name,
@@ -20,6 +21,7 @@ export default function ProfilePage({artist}: {artist: UserProfile}) {
     // TODO: validate and update values in DB
 
     // console.log(formData.entries().toArray().toString())
+    console.log(formData.get("email"))
     return
   }
 
