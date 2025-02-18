@@ -1,5 +1,13 @@
 import { sql } from '@vercel/postgres';
-import { Product } from './definitions';
+import { Product, Review, UserProfile } from './definitions';
+
+
+// returns an array of strings representing the categories products can be sorted into.
+export function fetchProductCategories() {
+    // Imperfect, but its 2am. In a real application, I would use enum_range(null::category_enum) to get the values and pull from that.
+    // Or I'll end up doing that next week if we want to add more categories.
+    return ['Art & Collectibles', 'Bath & Beauty', 'Books, Movies & Music', 'Clothing & Accessories', 'Electronics', 'Home & Living', 'Toys & Games'];
+}
 
 export async function fetchProductById(product_id: string) {
     try {
@@ -23,10 +31,53 @@ export async function fetchProductById(product_id: string) {
         return product[0];
     } catch (error) {
         console.error(error);
-        throw new Error("Product not found.");
+        // throw new Error("Product not found.");
     }
 }
-import { UserProfile} from './definitions';
+
+export async function fetchProducts() {
+  try {
+    const data = await sql<Product[]>`
+      SELECT
+        products.product_id,
+        products.user_id,
+        products.product_name,
+        products.price_in_cents,
+        products.category,
+        products.description,
+        products.image_url,
+        products.created_at,
+        users.name
+      FROM products
+      LEFT JOIN users ON products.user_id = users.user_id;
+    `;
+    return data.rows.flat();
+  } catch (error) {
+    throw new Error("Error fetching products. Message: " + error)
+  }
+}
+
+export async function fetchNewestProduct() {
+  try {
+    const data = await sql<Product[]>`
+      SELECT
+        products.product_id,
+        products.user_id,
+        products.product_name,
+        products.price_in_cents,
+        products.category,
+        products.image_url,
+        products.created_at,
+        users.name
+      FROM products
+      LEFT JOIN users ON products.user_id = users.user_id
+      ORDER BY created_at;
+    `
+    return data.rows;
+  } catch (error) {
+    throw new Error("Error fetching products. Message: " + error)
+  }
+}
 
 export async function fetchUserProfiles() {
   try {
@@ -48,16 +99,11 @@ export async function fetchUserProfiles() {
   `;
 
     return data.rows;
-<<<<<<< HEAD
     // eslint-disable-next-line
   } catch (error) {
-=======
-  } catch {
->>>>>>> origin/kolawole_Jegs
     throw new Error("Failed to fetch user profiles.");
   }
 }
-
 
 export async function fetchArtistById(id: string) {
  
@@ -88,6 +134,27 @@ export async function fetchArtistById(id: string) {
   }
 }
 
+export async function fetchReviewByProductId(id: string) {
+  try {
+    const data = await sql<Review[]>`
+      SELECT
+        review.rating,
+        review.review_text,
+        review.product_id,
+        users.name,
+        users.image_url
+      FROM review
+      LEFT JOIN users ON review.user_id = users.user_id
+      WHERE review.product_id = ${id}; 
+    `
 
+    if(!data || data.rows.length === 0) {
+      return []
+    }
+    return data.rows.flat()
+  } catch (error) {
+    throw new Error('Failed to fetch review: ' + error)
+  }
+}
 
 

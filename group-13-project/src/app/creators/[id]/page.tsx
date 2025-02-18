@@ -1,21 +1,22 @@
 
-import { fetchArtistById } from '@/lib/data'; 
+import { fetchArtistById } from '@/lib/data';
 import { notFound } from 'next/navigation';
 import { FaFacebook, FaInstagram, FaPinterest } from "react-icons/fa";
-// import Image from 'next/image';
+import Image from 'next/image';
 
-// eslint-disable-next-line
-export async function generateMetadata(props: {params: any}) {;
-  const artistData = await fetchArtistById(props.params.id);
+
+export async function generateMetadata(props: {params: Promise<{id: string}> }) {;
+  const {id} = await props.params
+  const artistData = await fetchArtistById(id);
 
   return {
-    title: artistData?.name || "Creator not found",
+    title: `Handcraft Haven | ${artistData?.name}` || "Creator not found",
   };
 }
 
 export default async function Page(props: { params: Promise<{ id: string }> }) {
     const params = await props.params;
-    const id = params.id;
+    const {id} = await params;
     const artistData = await fetchArtistById(id);
     if (!artistData) {
       notFound();
@@ -29,6 +30,7 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
         <div className="flex items-center space-x-6">
           <Image
             src={'/mockup.png'}
+            height={500} width={500}
             alt={artistData.name}
             className="w-32 h-32 rounded-full border-4  border-yellow-400 object-cover"
           />
@@ -41,7 +43,7 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
         {/* Bio Section */}
         <div className="mt-6">
           <p className="text-xl text-gray-800">{artistData.bio}</p>
-    
+
           <p className="mt-2 text-gray-600">{artistData.description}</p>
         </div>
 
@@ -53,19 +55,19 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
 
         {/* Social Media Links */}
         <div className="flex justify-around mt-6">
-            <a href={artistData.instagram} target="_blank" className="text-pink-600 transform hover:scale-135 transition duration-500">
-              <FaInstagram size={30} />
-            </a>
-            <a href={artistData.facebook} target="_blank" className="text-blue-600 transform hover:scale-135 transition duration-500">
-              <FaFacebook size={30} />
-            </a>
-            <a href={artistData.pinterest} target="_blank" className="text-red-600 transform hover:scale-135 transition duration-500">
-              <FaPinterest size={30} />
-            </a>
-          </div>
+          <a href={artistData.instagram} target="_blank" className="text-pink-600 transform hover:scale-135 transition duration-500">
+            <FaInstagram size={30} />
+          </a>
+          <a href={artistData.facebook} target="_blank" className="text-blue-600 transform hover:scale-135 transition duration-500">
+            <FaFacebook size={30} />
+          </a>
+          <a href={artistData.pinterest} target="_blank" className="text-red-600 transform hover:scale-135 transition duration-500">
+            <FaPinterest size={30} />
+          </a>
+        </div>
       </div>
     </div>
 
-    
+
   );
 }

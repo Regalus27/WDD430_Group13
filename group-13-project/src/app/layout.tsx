@@ -22,7 +22,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={OnestSans.className}>
-        <div className="container mx-auto max-w-[1200px] px-10">
+        <div className="container mx-auto max-w-full lg:max-w-[1200px] px-10">
           <Navbar />
           {children}
           <Footer />
