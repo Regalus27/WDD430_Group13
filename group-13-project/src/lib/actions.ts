@@ -49,8 +49,8 @@ export async function createProduct(passed_user_id: string, formData: FormData) 
         INSERT INTO products (user_id, product_name, price_in_cents, category, description, image_url, created_at)
         VALUES (${user_id}, ${product_name}, ${actual_price_in_cents}, ${category}, ${description}, ${image_url}, to_timestamp(${created_at} / 1000.0));
     `;
-    console.log(response);
-    redirect(`/`); // If I can extract product_id from response redirect to product page.
+    revalidatePath(`/creators/${user_id}`);
+    redirect(`/creators/${user_id}`);
 }
 
 export async function deleteProduct(product_id: string, user_id: string) {
@@ -82,7 +82,6 @@ const UpdateProduct = UpdateFormSchema.omit({
     product_id: true,
     user_id: true,
     created_at: true,
-    image_url: true, // remove once add image processing
 });
 
 export async function updateProduct(product_id: string, formData: FormData) {
@@ -91,12 +90,14 @@ export async function updateProduct(product_id: string, formData: FormData) {
         product_name,
         price_in_cents,
         category,
-        description
+        description,
+        image_url,
     } = UpdateProduct.parse({
         product_name: formData.get('product_name'),
         price_in_cents: formData.get('price_in_cents'), // need to multiply by 100 to convert to cents
         category: formData.get('category'),
         description: formData.get('description'),
+        image_url: await uploadImage(formData),
     });
     // Add in new info
     const actual_price_in_cents = convertToActualPriceInCents(price_in_cents);
@@ -104,7 +105,7 @@ export async function updateProduct(product_id: string, formData: FormData) {
 
     await sql`
         UPDATE products
-        SET product_name = ${product_name}, price_in_cents = ${actual_price_in_cents}, category = ${category}, description = ${description}, created_at = to_timestamp(${created_at} / 1000.0)
+        SET product_name = ${product_name}, price_in_cents = ${actual_price_in_cents}, category = ${category}, description = ${description}, created_at = to_timestamp(${created_at} / 1000.0), image_url = ${image_url}
         WHERE product_id = ${product_id};
     `;
 
