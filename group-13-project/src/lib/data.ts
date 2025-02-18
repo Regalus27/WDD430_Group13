@@ -1,5 +1,5 @@
 import { sql } from '@vercel/postgres';
-import { Product } from './definitions';
+import { Product, CreatorField, UserProfile } from './definitions';
 
 export async function fetchProductById(product_id: string) {
     try {
@@ -26,7 +26,7 @@ export async function fetchProductById(product_id: string) {
         throw new Error("Product not found.");
     }
 }
-import { UserProfile} from './definitions';
+
 
 export async function fetchUserProfiles() {
   try {
@@ -83,7 +83,7 @@ export async function fetchArtistById(id: string) {
   }
 }
 
-const ITEMS_PER_PAGE = 3;
+const ITEMS_PER_PAGE = 4;
 export async function fetchFilteredCreators(
   query: string,
   currentPage: number,
@@ -114,4 +114,40 @@ export async function fetchFilteredCreators(
 }
 
 
+export async function fetchCreatorPages(query: string) {
+  try {
+    // Join `users` and `userprofiles` tables
+    const count = await sql`
+    SELECT COUNT(*) AS count
+    FROM users
+    LEFT JOIN user_profiles ON users.user_id = user_profiles.user_id
+    WHERE users.name ILIKE ${`%${query}%`} OR
+        users.email ILIKE ${`%${query}%`} OR
+        user_profiles.artstyle ILIKE ${`%${query}%`}
+  `;
+  // const totalCreators = Number(count.rows[0]?.count || 0);
+  const totalPages = Math.ceil(Number(count.rows[0].count) / ITEMS_PER_PAGE);
+  return totalPages;
+  } catch (error) {
+    console.log('Database Error:', error);
+    throw new Error("Failed to fetch total number of profiles.");
+  }
+}
 
+export async function fetchCreatorById(id: string) {
+  try {
+    const data = await sql<CreatorField>`
+      SELECT
+        users.user_id,
+        users.name
+      FROM Users
+      WHERE users.user_id = ${id};
+    `;
+
+    const customers = data.rows;
+    return customers;
+  } catch (err) {
+    console.error('Database Error:', err);
+    throw new Error('Failed to fetch all customers.');
+  }
+}

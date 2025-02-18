@@ -1,25 +1,19 @@
 
 import {fetchUserProfiles} from '@/lib/data';
 import Search from '@/app/ui/search';
-// import {Search } from ''
 import TableCreators from '@/app/ui/creators/table';
-
-import Image from 'next/image';
-// import { BtnViewArtist, BtnViewArtistDesktop } from '@/app/ui/creators/buttons';
 import { Suspense } from 'react';
 
 export default async function Page(props: {
   searchParams?: Promise<{
     query?: string;
-    page?: string;
+    // page?: string;
   }>;
 }) {
     const searchParams = await props.searchParams;
     const query = searchParams?.query || '';
     const currentPage = Number(searchParams?.page) || 1;
-    const users = await fetchUserProfiles();
   return (
-    // <div className="flex w-full flex-col md:col-span-4 p-2">
      <div className="w-full border-b py-3 text-sm last-of-type:border-none [&:first-child>td:first-child]:rounded-tl-lg [&:first-child>td:last-child]:rounded-tr-lg [&:last-child>td:first-child]:rounded-bl-lg [&:last-child>td:last-child]:rounded-br-lg"> 
       
       <div className="mt-6 flow-root">
@@ -37,9 +31,7 @@ export default async function Page(props: {
           <Suspense key={query + currentPage} >
             <TableCreators query={query} currentPage={currentPage} />
           </Suspense>
-          <div className="mt-5 flex w-full justify-center">
-            {/* <Pagination totalPages={totalPages} /> */}
-          </div>
+          
         </div>
           </div>
         </div>

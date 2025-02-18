@@ -1,6 +1,6 @@
-
-import { fetchArtistById } from '@/lib/data'; 
-import { notFound } from 'next/navigation';
+import { UpdateProfile } from "../../ui/profile/button";
+import { fetchArtistById } from '@/lib/data';
+import { notFound } from "next/navigation"; 
 import { Metadata } from 'next';
 import { FaFacebook, FaInstagram, FaPinterest } from "react-icons/fa";
 import Image from 'next/image';
@@ -8,7 +8,7 @@ import Image from 'next/image';
 export async function generateMetadata(props: { params: { id: string } }): Promise<Metadata> {
   const params = await props.params;
   const artistData = await fetchArtistById(params.id);
-
+  
   return {
     title: artistData?.name || "Creator not found",
   };
@@ -18,18 +18,20 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
     const params = await props.params;
     const id = params.id;
     const artistData = await fetchArtistById(id);
+    
     if (!artistData) {
       notFound();
     }
 
   return (
-
+    
     <div className=" py-8 px-4 sm:px-6 lg:px-8">
-      <h1 className="text-4xl font-semibold text-gray-900 mb-5 "> Creator Profile </h1>
+      <h1 className="text-4xl font-semibold text-gray-900 mb-5 "> Profile </h1>
+
       <div className="max-w-6xl mx-auto bg-white p-6 rounded-lg shadow-lg">
-        {/* Header */}
+        
         <div className="flex items-center space-x-6">
-          <Image
+          <Image 
             src={artistData.image_url}
             alt={artistData.name}
             width={28}
@@ -41,6 +43,10 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
             <p className="text-sm text-gray-600">{artistData.email}</p>
           </div>
         </div>
+        <div className="flex justify-end gap-2">
+         <UpdateProfile id={artistData.user_id} />
+
+     </div>
 
         {/* Bio Section */}
         <div className="mt-6">

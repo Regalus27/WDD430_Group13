@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import { fetchFilteredCreators } from '@/lib/data';
-import { BtnViewCreator } from '@/app/ui/creators/buttons';
+import { BtnViewCreator , BtnViewProfile} from '@/app/ui/creators/buttons';
 
 export default async function CreatorsTable({
   query,
@@ -27,7 +27,7 @@ export default async function CreatorsTable({
         
               <div className="mb-2 flex items-center">
                 <Image
-                  src={user.image_url? user.image_url : "/creators/default.png"}
+                  src={user.image_url}
                   className="mr-2 rounded-full"
                   width={28}
                   height={28}
@@ -36,8 +36,9 @@ export default async function CreatorsTable({
                 <p>{user.name}</p>
               </div>
            
-            <div className="justify-end">
+            <div className="justify-end gap-2">
               <BtnViewCreator id={user.user_id} variant= 'icon' />
+              <BtnViewProfile id={user.user_id} variant= 'icon' />
             </div>
           </div>
           <div className="flex w-full items-center justify-between pt-4">
@@ -73,7 +74,7 @@ export default async function CreatorsTable({
             <td className="whitespace-nowrap py-3 pl-6 pr-3">
               <div className="flex items-center gap-3">
                 <Image
-                  src={user.image_url? user.image_url : "/creators/default.png"}
+                  src={user.image_url}
                   className="rounded-full"
                   width={28}
                   height={28}
@@ -88,6 +89,8 @@ export default async function CreatorsTable({
             <td className="whitespace-nowrap py-3 pl-6 pr-3">
               <div className="flex justify-end gap-3">
               <BtnViewCreator id={user.user_id} variant= 'text'/>
+              <BtnViewProfile id={user.user_id} variant= 'text' />
+
               </div>
             </td>
           </tr>

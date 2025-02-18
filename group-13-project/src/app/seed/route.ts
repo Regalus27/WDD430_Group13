@@ -1,8 +1,6 @@
-import bcrypt from 'bcrypt';
-// import bcrypt from 'bcryptjs';
 import { userProfiles, users } from '@/lib/placeholder-data';
 import { sql } from '@vercel/postgres';
-import { User, UserProfile } from '@/lib/definitions';
+import { User } from '@/lib/definitions';
 import { NextResponse } from 'next/server';
 
 async function seedUsers() {
