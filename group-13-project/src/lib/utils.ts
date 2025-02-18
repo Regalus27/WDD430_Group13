@@ -44,3 +44,6 @@ export const formatPrice = (price: number | string) => {
 export function cn(...classes: string[]) {
   return classes.filter(Boolean).join(' ');
 }
+export function comparePasswords(passwordEntered: string, passwordSaved: string) : boolean{
+    return passwordEntered === passwordSaved
+}
