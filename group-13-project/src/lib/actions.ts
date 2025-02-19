@@ -38,7 +38,7 @@ export async function createProduct(passed_user_id: string, formData: FormData) 
         price_in_cents: formData.get('price_in_cents'),
         category: formData.get('category'),
         description: formData.get('description'),
-        image_url: await uploadImage(formData),
+        image_url: await uploadImage(formData.get('image') as File),
     });
 
     // adjust price to be in cents (Input in dollars)
@@ -97,7 +97,7 @@ export async function updateProduct(product_id: string, formData: FormData) {
         price_in_cents: formData.get('price_in_cents'), // need to multiply by 100 to convert to cents
         category: formData.get('category'),
         description: formData.get('description'),
-        image_url: await uploadImage(formData),
+        image_url: await uploadImage(formData.get('image') as File),
     });
     // Add in new info
     const actual_price_in_cents = convertToActualPriceInCents(price_in_cents);
@@ -114,8 +114,7 @@ export async function updateProduct(product_id: string, formData: FormData) {
 }
 
 // Returns the blob url to access this image if successful (image_url)
-export async function uploadImage(formData: FormData) {
-    const imageFile = formData.get('image') as File;
+export async function uploadImage(imageFile: File) {
     if (imageFile.size / 1024 / 1024 > 4) {
         throw new Error("Unable to upload image. (Maximum filesize: 4MB)");
     }
