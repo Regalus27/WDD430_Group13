@@ -5,18 +5,35 @@ export const authConfig = {
     signIn: '/login',
   },
   callbacks: {
+    async session({ session, token }) {
+      // Asegura que la sesión contenga la información del usuario
+      console.log("Session")
+      if (token) {
+        session.user = {
+          ...session.user,
+          id: token.sub, 
+          email: token.email,
+        };
+      }
+      return session;
+    },
+    async jwt({ token, user }) {
+      if (user) {
+        token.sub = user.id;
+        token.email = user.email;
+      }
+      return token;
+    },
     authorized({ auth, request: { nextUrl } }) {
       const isLoggedIn = !!auth?.user;
-      const isOnHome = nextUrl.pathname.startsWith('/');
-      console.log("Authorizating")
-      if (isOnHome) {
+      
+      const isOnPage = nextUrl.pathname;
+      
+      if (isOnPage.startsWith('/profile') || isOnPage.startsWith('/product') || isOnPage.startsWith('/cart')) {
         if (isLoggedIn) return true;
-        return false; 
-      } else if (isLoggedIn) {
-        return Response.redirect(new URL('/', nextUrl));
+        console.log("Not authorized - Redirecting to login");
+        return false; // No está autorizado, middleware manejará la redirección
       }
-      return true;
     },
   },
-  providers: []
 } satisfies NextAuthConfig;
