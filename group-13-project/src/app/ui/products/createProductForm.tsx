@@ -21,8 +21,28 @@ export default function CreateProductForm() {
     const createProductWithId = createProduct.bind(null, user_id);
     const defaultCategory = fetchProductCategories()[0];
 
+    const handleSubmit = (formData: FormData) => {
+        if (!formData) {
+            return;
+        }
+        // filesize validation
+        // Yes these are bad ways to send user feedback maybe I'll change them to something if I magically get time
+        const imageFile: File = formData.get('image') as File;
+        if (imageFile.type.split('/')[0] !== 'image') {
+            alert("Image must be an image.");
+            return;
+        }
+        console.log(imageFile.size);
+        if (imageFile.size / 1024 / 1024 > 500) {
+            alert("Image must be less than 500MB.");
+            return;
+        }
+
+        createProductWithId(formData);
+    }
+
     return (
-        <form action={createProductWithId} id="create_form" className="max-w-sm mx-auto">
+        <form action={handleSubmit} id="create_form" className="max-w-sm mx-auto">
             <div className="mb-5">
                 <label htmlFor="product_name" className="block mb-2 text-sm font-medium text-gray-900">Product Name</label>
                 <input type="text" name="product_name" id="product_name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />

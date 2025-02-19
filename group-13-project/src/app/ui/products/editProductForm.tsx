@@ -11,20 +11,32 @@ export default function EditProductForm({
 } : {
     product: Product;
 }) {
-    /**
-     * Product_Images
-     *  some sort of form that allows you to add X number of images
-     * I will come back to image handling. Just point to a default image
-     * and make a component that can be reused
-     */
-
     // Pass product id via binding
     const product_id:string = product.product_id;
     const updateProductWithId = updateProduct.bind(null, product_id);
     const deleteHref = `/products/${product_id}/delete`;
 
+    const handleSubmit = (formData: FormData) => {
+        if (!formData) {
+            return;
+        }
+        // filesize validation
+        // Yes these are bad ways to send user feedback maybe I'll change them to something if I magically get time
+        const imageFile: File = formData.get('image') as File;
+        if (imageFile.type.split('/')[0] !== 'image') {
+            alert("Image must be an image.");
+            return;
+        }
+        if (imageFile.size / 1024 / 1024 > 500) {
+            alert("Image must be less than 500MB.");
+            return;
+        }
+
+        updateProductWithId(formData);
+    }
+
     return (
-        <form action={updateProductWithId} className="max-w-sm mx-auto">
+        <form action={handleSubmit} className="max-w-sm mx-auto">
             <div className="mb-5">
                 <label htmlFor="product_name" className="block mb-2 text-sm font-medium text-gray-900">Product Name</label>
                 <input type="text" name="product_name" id="product_name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" defaultValue={product.product_name} required />

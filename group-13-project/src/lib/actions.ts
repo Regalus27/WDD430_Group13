@@ -109,8 +109,8 @@ export async function updateProduct(product_id: string, formData: FormData) {
         WHERE product_id = ${product_id};
     `;
 
-    revalidatePath(`/products/${product_id}/edit`);
-    redirect(`/products/${product_id}/edit`);
+    revalidatePath(`/products/${product_id}/`);
+    redirect(`/products/${product_id}/`);
 }
 
 // Returns the blob url to access this image if successful (image_url)

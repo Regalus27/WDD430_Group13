@@ -5,7 +5,7 @@ export default function ImageUploadComponent() {
     // Also figure out how to pass in the current image
     return (
         <div className="mb-5">
-            <label htmlFor="image" className="block mb-2 text-sm font-medium text-gray-900">Image</label>
+            <label htmlFor="image" className="block mb-2 text-sm font-medium text-gray-900">Image (Must be smaller than 3MB)</label>
             <input type="file" id="image" name="image" accept="image/*" required />
         </div>
     );
