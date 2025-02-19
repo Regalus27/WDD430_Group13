@@ -1,5 +1,5 @@
 import { sql } from '@vercel/postgres';
-import { Product, Review, UserProfile } from './definitions';
+import { Product, CreatorField, Review, UserProfile } from './definitions';
 
 
 // returns an array of strings representing the categories products can be sorted into.
@@ -99,8 +99,7 @@ export async function fetchUserProfiles() {
   `;
 
     return data.rows;
-    // eslint-disable-next-line
-  } catch (error) {
+  } catch {
     throw new Error("Failed to fetch user profiles.");
   }
 }
@@ -134,6 +133,36 @@ export async function fetchArtistById(id: string) {
   }
 }
 
+const ITEMS_PER_PAGE = 4;
+export async function fetchFilteredCreators(
+  query: string,
+  currentPage: number,
+  ) {
+  const offset = (currentPage - 1) * ITEMS_PER_PAGE;
+
+  try {
+    const creators = await sql<UserProfile>`
+      SELECT
+         users.user_id,
+        users.name,
+        users.email,
+        users.image_url,
+        user_profiles.artstyle
+      FROM users
+      LEFT JOIN user_profiles ON users.user_id = user_profiles.user_id
+      WHERE users.name ILIKE ${`%${query}%`} OR
+        users.email ILIKE ${`%${query}%`} OR
+        user_profiles.artstyle ILIKE ${`%${query}%`}
+      ORDER BY users.name
+      LIMIT ${ITEMS_PER_PAGE} OFFSET ${offset}
+    `;
+
+    return creators.rows;
+  } catch {
+    throw new Error('Failed to fetch invoices.');
+  }
+}
+
 export async function fetchReviewByProductId(id: string) {
   try {
     const data = await sql<Review[]>`
@@ -157,4 +186,40 @@ export async function fetchReviewByProductId(id: string) {
   }
 }
 
+export async function fetchCreatorPages(query: string) {
+  try {
+    // Join `users` and `userprofiles` tables
+    const count = await sql`
+    SELECT COUNT(*) AS count
+    FROM users
+    LEFT JOIN user_profiles ON users.user_id = user_profiles.user_id
+    WHERE users.name ILIKE ${`%${query}%`} OR
+        users.email ILIKE ${`%${query}%`} OR
+        user_profiles.artstyle ILIKE ${`%${query}%`}
+  `;
+  // const totalCreators = Number(count.rows[0]?.count || 0);
+  const totalPages = Math.ceil(Number(count.rows[0].count) / ITEMS_PER_PAGE);
+  return totalPages;
+  } catch (error) {
+    console.log('Database Error:', error);
+    throw new Error("Failed to fetch total number of profiles.");
+  }
+}
 
+export async function fetchCreatorById(id: string) {
+  try {
+    const data = await sql<CreatorField>`
+      SELECT
+        users.user_id,
+        users.name
+      FROM Users
+      WHERE users.user_id = ${id};
+    `;
+
+    const customers = data.rows;
+    return customers;
+  } catch (err) {
+    console.error('Database Error:', err);
+    throw new Error('Failed to fetch all customers.');
+  }
+}
