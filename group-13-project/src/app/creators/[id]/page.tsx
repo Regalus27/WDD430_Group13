@@ -1,11 +1,10 @@
 
 import { fetchArtistById } from '@/lib/data'; 
 import { notFound } from 'next/navigation';
-import { Metadata } from 'next';
 import { FaFacebook, FaInstagram, FaPinterest } from "react-icons/fa";
 import Image from 'next/image';
 
-export async function generateMetadata(props: { params: { id: string } }): Promise<Metadata> {
+export async function generateMetadata(props: {params: Promise<{id: string}>}) {
   const params = await props.params;
   const artistData = await fetchArtistById(params.id);
 
@@ -14,8 +13,9 @@ export async function generateMetadata(props: { params: { id: string } }): Promi
   };
 }
 
-export default async function Page(props: { params: { id: string } }) {
-  const { id } = await props.params;
+export default async function Page(props: {params: Promise<{id: string}>}) {
+  const params = await props.params;
+  const id = params.id;
 //   const artistData = await fetchArtistById(id);
 
 // export default async function Page(props: { params: Promise<{ id: string }> }) {
