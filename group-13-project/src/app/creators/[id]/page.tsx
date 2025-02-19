@@ -15,7 +15,7 @@ export async function generateMetadata(props: { params: { id: string } }): Promi
 }
 
 export default async function Page(props: { params: { id: string } }) {
-  const { id } = props.params;
+  const { id } = await props.params;
 //   const artistData = await fetchArtistById(id);
 
 // export default async function Page(props: { params: Promise<{ id: string }> }) {
