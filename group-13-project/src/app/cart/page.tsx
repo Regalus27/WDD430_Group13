@@ -20,7 +20,11 @@ const getLocalStorage = (key: string): CartItem[] => {
 
 const setLocalStorage = (key: string, value: CartItem[]) => {
     if (typeof window !== 'undefined') {
-        localStorage.setItem(key, JSON.stringify(value));
+        if (value.length > 0) {
+            localStorage.setItem(key, JSON.stringify(value));
+        } else {
+            localStorage.removeItem(key);
+        }
     }
 };
 
@@ -28,28 +32,34 @@ const CartPage: React.FC = () => {
     const [cartItems, setCartItems] = useState<CartItem[]>([]);
     const [cartTotal, setCartTotal] = useState<number>(0);
 
+    // Load cart items from localStorage when the component mounts
     useEffect(() => {
-        setCartItems(getLocalStorage('so-cart'));
+        const items = getLocalStorage('so-cart');
+        setCartItems(items);
     }, []);
 
+    // Update the cart total whenever cartItems change
     useEffect(() => {
-        if (cartItems.length > 0) {
-            setLocalStorage('so-cart', cartItems);
-        }
         const total = cartItems.reduce((sum, item) => sum + item.price_in_cents * item.Quantity, 0);
         setCartTotal(total);
     }, [cartItems]);
 
     const handleQuantityChange = (index: number, delta: number) => {
-        setCartItems(prevCart =>
-            prevCart.map((item, i) =>
+        setCartItems(prevCart => {
+            const updatedCart = prevCart.map((item, i) =>
                 i === index ? { ...item, Quantity: Math.max(1, item.Quantity + delta) } : item
-            )
-        );
+            );
+            setLocalStorage('so-cart', updatedCart);
+            return updatedCart;
+        });
     };
 
     const handleRemoveItem = (index: number) => {
-        setCartItems(prevCart => prevCart.filter((_, i) => i !== index));
+        setCartItems(prevCart => {
+            const updatedCart = prevCart.filter((_, i) => i !== index);
+            setLocalStorage('so-cart', updatedCart);
+            return updatedCart;
+        });
     };
 
     return (
@@ -63,7 +73,8 @@ const CartPage: React.FC = () => {
                         {cartItems.map((item, index) => (
                             <li key={item.product_id} className="bg-white p-4 rounded-lg shadow-md flex flex-col md:flex-row items-center gap-4">
                                 <a href="#" className="w-24 h-24 flex-shrink-0">
-                                    <Image src={item.image_url} alt={item.product_name} className="w-full h-full object-cover rounded-lg" />
+                                    <Image src={item.image_url} alt={item.product_name} height={200}
+                                        width={200} className="w-full h-full object-cover rounded-lg" />
                                 </a>
                                 <div className="flex-1">
                                     <a href="#">
