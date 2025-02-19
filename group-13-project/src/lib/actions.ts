@@ -45,7 +45,7 @@ export async function createProduct(passed_user_id: string, formData: FormData) 
     const actual_price_in_cents = convertToActualPriceInCents(price_in_cents);
     const created_at = Date.now();
 
-    const response = await sql`
+    await sql`
         INSERT INTO products (user_id, product_name, price_in_cents, category, description, image_url, created_at)
         VALUES (${user_id}, ${product_name}, ${actual_price_in_cents}, ${category}, ${description}, ${image_url}, to_timestamp(${created_at} / 1000.0));
     `;
