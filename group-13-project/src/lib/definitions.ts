@@ -26,15 +26,29 @@ export type User = {
     profile_picture_path: string;
 };
 
+export type CreatorField = {
+    user_id: string;
+    name: string;
+};
+
+export type ProfileForm = {
+    user_id: string;
+    bio: string;
+    image_url: string,
+    description: string;
+    artstyle: string;
+    instagram: string;
+    facebook: string;
+    pinterest: string;
+};
 export type UserProfile = {
     user_profile_id: string;
     user_id: string;
     name: string,
     email: string,
-    bio: string;
     image_url: string,
+    bio: string;
     description: string;
-    workshop: string;
     artstyle: string;
     instagram: string;
     facebook: string;
