@@ -14,9 +14,13 @@ export async function generateMetadata(props: { params: { id: string } }): Promi
   };
 }
 
-export default async function Page(props: { params: Promise<{ id: string }> }) {
-    const params = await props.params;
-    const id = params.id;
+export default async function Page(props: { params: { id: string } }) {
+  const { id } = props.params;
+//   const artistData = await fetchArtistById(id);
+
+// export default async function Page(props: { params: Promise<{ id: string }> }) {
+//     const params = await props.params;
+//     const id = params.id;
     const artistData = await fetchArtistById(id);
     if (!artistData) {
       notFound();
