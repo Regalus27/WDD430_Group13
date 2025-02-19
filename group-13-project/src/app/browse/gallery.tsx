@@ -4,7 +4,6 @@ import { useState, Suspense } from "react";
 import type { Product } from "@/lib/definitions";
 import { CardGrid } from "../ui/cards/card-grid";
 
-const categories = ["Chairs", "Beds", "Tables"];
 // TODO: We need to add more options to filter by. Eg. Material (wood, metal, etc), Medium(Oil Painting, jewlery, Sculpter), Theme (Nature, Industrial, Romance, Anime)
 // TODO: Replace useStates and use formData instead
 

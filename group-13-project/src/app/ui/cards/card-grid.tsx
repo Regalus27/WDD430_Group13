@@ -3,7 +3,6 @@
 // import Image from "next/image"
 import type { Product } from "@/lib/definitions";
 import { ProductCard } from "./product-card";
-import { Suspense, useEffect, useState } from "react";
 import { usePathname, useSearchParams, useRouter } from "next/navigation";
 
 
@@ -37,7 +36,6 @@ export function CardGrid({data, itemsPerPage}: { data: Array<Product>, itemsPerP
 
   return (
     <div>
-      <Suspense fallback={<p>Loading...</p>}>
         <div
           className={"grid gap-2 grid-cols-[repeat(auto-fit,_minmax(200px,_1fr))] md:grid-cols-[repeat(auto-fit,_minmax(300px,_1fr))]"}
           // style={{ gridTemplateColumns: `repeat(auto-fit, minmax(200px, 1fr))` }}
@@ -47,7 +45,6 @@ export function CardGrid({data, itemsPerPage}: { data: Array<Product>, itemsPerP
           })}
           {/* Pagination Controls */}
         </div>
-      </Suspense>
         <div className="flex justify-between items-center mt-6">
           <button
             disabled={currentPage === 1}

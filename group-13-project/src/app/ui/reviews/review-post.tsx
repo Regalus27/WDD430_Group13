@@ -10,7 +10,7 @@ export default function ReviewPost({review}: {review: Review}) {
   return (
     <div className="my-10 p-5 bg-azure-950 text-white grid grid-rows-[auto_1fr] gap-5">
       <div className="flex items-center">
-        <Image height={100} width={100} src={'/mockup.png'} alt={"user_img"} className="rounded-full mt-2"/>
+        <Image height={100} width={100} src={user_img} alt={"profile picture"} className="rounded-full mt-2"/>
         <h3 className="text-center mx-5 text-2xl">{name}</h3>
       </div>
       <div className="flex flex-col">

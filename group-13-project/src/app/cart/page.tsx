@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 
 interface CartItem {
@@ -62,7 +63,7 @@ const CartPage: React.FC = () => {
                         {cartItems.map((item, index) => (
                             <li key={item.product_id} className="bg-white p-4 rounded-lg shadow-md flex flex-col md:flex-row items-center gap-4">
                                 <a href="#" className="w-24 h-24 flex-shrink-0">
-                                    <img src={item.image_url} alt={item.product_name} className="w-full h-full object-cover rounded-lg" />
+                                    <Image src={item.image_url} alt={item.product_name} className="w-full h-full object-cover rounded-lg" />
                                 </a>
                                 <div className="flex-1">
                                     <a href="#">
@@ -75,7 +76,7 @@ const CartPage: React.FC = () => {
                                     </div>
                                     <p className="text-lg font-semibold mt-2">${((item.price_in_cents * item.Quantity) / 100).toFixed(2)}</p>
                                 </div>
-                                <button className="text-red-500 font-semibold hover:text-red-700" onClick={() => handleRemoveItem(index)}>Remove</button>
+                                <button className="text-red-500 font-semibold bg-inherit hover:text-red-700" onClick={() => handleRemoveItem(index)}>Remove</button>
                             </li>
                         ))}
                     </ul>

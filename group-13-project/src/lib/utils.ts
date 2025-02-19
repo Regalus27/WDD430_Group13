@@ -17,7 +17,7 @@ export async function fetchUsers() {
 }
 
 export const isAuth = () => {
-  return true
+  return false
 }
 
 // Convert form price data to database format
