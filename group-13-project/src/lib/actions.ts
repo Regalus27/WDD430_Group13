@@ -5,6 +5,7 @@ import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { z } from 'zod';
 import { convertToActualPriceInCents } from './utils';
+import { put } from '@vercel/blob';
 
 const CreateFormSchema = z.object({
     product_id: z.string(),
@@ -37,8 +38,7 @@ export async function createProduct(passed_user_id: string, formData: FormData) 
         price_in_cents: formData.get('price_in_cents'),
         category: formData.get('category'),
         description: formData.get('description'),
-        image_url: '/mockup.png'
-        //image_url: formData.get('image_url'),
+        image_url: await uploadImage(formData.get('image') as File),
     });
 
     // adjust price to be in cents (Input in dollars)
@@ -49,9 +49,8 @@ export async function createProduct(passed_user_id: string, formData: FormData) 
         INSERT INTO products (user_id, product_name, price_in_cents, category, description, image_url, created_at)
         VALUES (${user_id}, ${product_name}, ${actual_price_in_cents}, ${category}, ${description}, ${image_url}, to_timestamp(${created_at} / 1000.0));
     `;
-
-    // redirect to creator profile? Otherwise grab newest item tied to user account and navigate to that
-    redirect(`/`);
+    revalidatePath(`/creators/${user_id}`);
+    redirect(`/creators/${user_id}`);
 }
 
 export async function deleteProduct(product_id: string, user_id: string) {
@@ -83,34 +82,64 @@ const UpdateProduct = UpdateFormSchema.omit({
     product_id: true,
     user_id: true,
     created_at: true,
-    image_url: true, // remove once add image processing
+    image_url: true // handled below
 });
 
-export async function updateProduct(product_id: string, formData: FormData) {
+export async function updateProduct(product_id: string, formData: FormData, ignoreImage?: boolean) {
     // Validate Form Data
     const {
         product_name,
         price_in_cents,
         category,
-        description
+        description,
     } = UpdateProduct.parse({
         product_name: formData.get('product_name'),
-        price_in_cents: formData.get('price_in_cents'), // need to multiply by 100 to convert to cents
+        price_in_cents: formData.get('price_in_cents'),
         category: formData.get('category'),
         description: formData.get('description'),
     });
+
     // Add in new info
     const actual_price_in_cents = convertToActualPriceInCents(price_in_cents);
     const created_at = Date.now();
 
-    await sql`
-        UPDATE products
-        SET product_name = ${product_name}, price_in_cents = ${actual_price_in_cents}, category = ${category}, description = ${description}, created_at = to_timestamp(${created_at} / 1000.0)
-        WHERE product_id = ${product_id};
-    `;
+    // janky image_url bypass
+    if (ignoreImage) {
+        await sql`
+            UPDATE products
+            SET product_name = ${product_name}, price_in_cents = ${actual_price_in_cents}, category = ${category}, description = ${description}, created_at = to_timestamp(${created_at} / 1000.0)
+            WHERE product_id = ${product_id};
+        `;
+    }
+    else {
+        const image_url = await uploadImage(formData.get('image') as File);
+        await sql`
+            UPDATE products
+            SET product_name = ${product_name}, price_in_cents = ${actual_price_in_cents}, category = ${category}, description = ${description}, created_at = to_timestamp(${created_at} / 1000.0), image_url = ${image_url}
+            WHERE product_id = ${product_id};
+        `;
+    }
 
-    revalidatePath(`/products/${product_id}/edit`);
-    redirect(`/products/${product_id}/edit`);
+    revalidatePath(`/products/${product_id}/`);
+    redirect(`/products/${product_id}/`);
+}
+
+// Returns the blob url to access this image if successful (image_url)
+export async function uploadImage(imageFile: File) {
+    if (imageFile.size / 1024 / 1024 > 4) {
+        throw new Error("Unable to upload image. (Maximum filesize: 4MB)");
+    }
+    if (imageFile.type.split('/')[0] !== 'image') {
+        throw new Error("Invalid filetype.");
+    }
+    try {
+        const blob = await put(imageFile.name, imageFile, {
+            access: 'public',
+        });
+        return blob.url;
+    } catch {
+        throw new Error("Unable to upload image.");
+    }
 }
 
 const CreateReviewSchema = z.object({
