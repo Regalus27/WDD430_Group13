@@ -6,7 +6,6 @@ export const authConfig = {
   },
   callbacks: {
     async session({ session, token }) {
-      // Asegura que la sesión contenga la información del usuario
       console.log("Session")
       if (token) {
         session.user = {
@@ -32,8 +31,9 @@ export const authConfig = {
       if (isOnPage.startsWith('/profile') || isOnPage.startsWith('/product') || isOnPage.startsWith('/cart')) {
         if (isLoggedIn) return true;
         console.log("Not authorized - Redirecting to login");
-        return false; // No está autorizado, middleware manejará la redirección
+        return false;
       }
     },
   },
+  providers : []
 } satisfies NextAuthConfig;
