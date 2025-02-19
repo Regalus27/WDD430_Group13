@@ -27,6 +27,7 @@ export default async function Page(props: {params: Promise<{id: string}>}) {
     instagram: creator.instagram,
     facebook: creator.facebook,
     pinterest: creator.pinterest,
+    image_url: creator.image_url,
   };
 
   return (
