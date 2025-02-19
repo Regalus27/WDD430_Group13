@@ -3,7 +3,7 @@ import { sql } from '@vercel/postgres';
 
 import { UserProfile } from "@/lib/definitions";
 
-export async function fetchArtistById(){
+async function fetchArtistById(){
   const id = '891ccb08-e0b6-4aba-a439-33154b58dff0'
   try {
     const data = await sql<UserProfile>`
