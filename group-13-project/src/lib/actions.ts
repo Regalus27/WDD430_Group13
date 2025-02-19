@@ -66,6 +66,8 @@ export async function deleteProduct(product_id: string, user_id: string) {
     redirect(`/creators/${user_id}`);
 }
 
+import { signIn } from '../../auth';
+import { AuthError } from 'next-auth';
 // Shape of Update Form Data
 const UpdateFormSchema = z.object({
     product_id: z.string(),
@@ -139,3 +141,22 @@ export async function createReview(review: {rating: number, review_text: string,
         VALUES (${rating}, ${review_text}, ${product_id}, ${user_id});
     `
 }
+export async function authenticate(
+    prevState: string | undefined,
+    formData: FormData,
+  ) {
+    try {
+       console.log("Authenticating") 
+       await signIn('credentials', formData);
+    } catch (error) {
+      if (error instanceof AuthError) {
+        switch (error.type) {
+          case 'CredentialsSignin':
+            return 'Invalid credentials.';
+          default:
+            return 'Something went wrong.';
+        }
+      }
+      throw error;
+    }
+  }
