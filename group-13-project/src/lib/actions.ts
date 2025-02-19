@@ -82,32 +82,43 @@ const UpdateProduct = UpdateFormSchema.omit({
     product_id: true,
     user_id: true,
     created_at: true,
+    image_url: true // handled below
 });
 
-export async function updateProduct(product_id: string, formData: FormData) {
+export async function updateProduct(product_id: string, formData: FormData, ignoreImage?: boolean) {
     // Validate Form Data
     const {
         product_name,
         price_in_cents,
         category,
         description,
-        image_url,
     } = UpdateProduct.parse({
         product_name: formData.get('product_name'),
-        price_in_cents: formData.get('price_in_cents'), // need to multiply by 100 to convert to cents
+        price_in_cents: formData.get('price_in_cents'),
         category: formData.get('category'),
         description: formData.get('description'),
-        image_url: await uploadImage(formData.get('image') as File),
     });
+
     // Add in new info
     const actual_price_in_cents = convertToActualPriceInCents(price_in_cents);
     const created_at = Date.now();
 
-    await sql`
-        UPDATE products
-        SET product_name = ${product_name}, price_in_cents = ${actual_price_in_cents}, category = ${category}, description = ${description}, created_at = to_timestamp(${created_at} / 1000.0), image_url = ${image_url}
-        WHERE product_id = ${product_id};
-    `;
+    // janky image_url bypass
+    if (ignoreImage) {
+        await sql`
+            UPDATE products
+            SET product_name = ${product_name}, price_in_cents = ${actual_price_in_cents}, category = ${category}, description = ${description}, created_at = to_timestamp(${created_at} / 1000.0)
+            WHERE product_id = ${product_id};
+        `;
+    }
+    else {
+        const image_url = await uploadImage(formData.get('image') as File);
+        await sql`
+            UPDATE products
+            SET product_name = ${product_name}, price_in_cents = ${actual_price_in_cents}, category = ${category}, description = ${description}, created_at = to_timestamp(${created_at} / 1000.0), image_url = ${image_url}
+            WHERE product_id = ${product_id};
+        `;
+    }
 
     revalidatePath(`/products/${product_id}/`);
     redirect(`/products/${product_id}/`);
