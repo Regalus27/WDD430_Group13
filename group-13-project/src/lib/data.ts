@@ -71,7 +71,7 @@ export async function fetchNewestProduct() {
         users.name
       FROM products
       LEFT JOIN users ON products.user_id = users.user_id
-      ORDER BY created_at;
+      ORDER BY created_at DESC;
     `
     return data.rows;
   } catch (error) {
