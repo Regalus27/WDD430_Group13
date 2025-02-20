@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, Suspense } from "react";
+import { Suspense } from "react";
 import type { Product } from "@/lib/definitions";
 import { CardGrid } from "../../ui/cards/card-grid";
 
