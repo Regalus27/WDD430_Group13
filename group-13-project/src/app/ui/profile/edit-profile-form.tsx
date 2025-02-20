@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { updateProfile } from '@/app/ui/profile/actions'; // Import the server-side action
 import {ProfileForm} from '@/lib/definitions';
+import ImageUploadComponent from '../imageForm/imageUploadComponent';
 
 interface State {
   message: string | null;
@@ -29,6 +30,22 @@ export default function EditProfileForm({
   const handleSubmit = (formData: FormData) => {
     if (!formData) {
       return;
+    }
+
+    const bypassElement = document.getElementById("image_bypass") as HTMLInputElement;
+
+    if (!bypassElement.checked) {
+      // filesize validation
+      // Yes these are bad ways to send user feedback maybe I'll change them to something if I magically get time
+      const imageFile: File = formData.get('image') as File;
+      if (imageFile.type.split('/')[0] !== 'image') {
+        alert("Image must be an image.");
+        return;
+      }
+      if (imageFile.size / 1024 / 1024 > 500) {
+        alert("Image must be less than 500MB.");
+        return;
+      }
     }
 
     updateProfileWithId(formData);
@@ -79,6 +96,9 @@ export default function EditProfileForm({
           />
           {state.errors.artstyle && <p className="text-red-500 text-xs mt-1">{state.errors.artstyle}</p>}
         </div>
+
+        {/** Component to manage images and the vercel blob */}
+        <ImageUploadComponent></ImageUploadComponent>
 
         {/* instagram */}
         <div className="mb-4">
