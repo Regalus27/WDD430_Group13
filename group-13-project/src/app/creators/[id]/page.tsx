@@ -83,7 +83,7 @@ export default async function Page(props: {params: Promise<{id: string}>}) {
         <div className="mt-6">
           <h3 className="text-lg font-semibold text-gray-900"> Curated Collection: </h3>
         
-          <Suspense>
+          <Suspense fallback={<h2>Loading...</h2>}>
               <ProductGallery products ={products} />
           </Suspense>
         </div>

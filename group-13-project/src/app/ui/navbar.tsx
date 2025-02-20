@@ -2,17 +2,27 @@
 
 // import clsx from 'clsx';
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Logo } from "./Logo";
 import { usePathname } from "next/navigation";
-import { RiMenuLine, RiCloseLargeFill } from "react-icons/ri";
-import { isAuth } from "@/lib/utils";
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import { getUserId } from "@/lib/actions";
+import clsx from "clsx";
 
 export function Navbar() {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
-  // const [isLoggedIn, setLoggedIn] = useState(false);
-  const isLoggedIn = isAuth();
+  const [user, setUser] = useState<string>();
+  const inCart = 0;
+
+
+  useEffect(()=> {
+    getUserId().then(id => {
+      setUser(id);
+    })
+  })
+
+
 
   return (
     <nav
@@ -60,15 +70,18 @@ export function Navbar() {
             </Link>
           </div>
           <div className="grid md:grid-cols-2 grid-rows-2 md:grid-rows-1 md:col-end-5">
-            <Link
-              href="/cart"
-              className={
-                pathname === "/cart" ? "underline text-orange-500" : ""
-              }
-            >
-              Cart
-            </Link>
-            {isLoggedIn ? (
+            <div className={clsx("relative m-auto", )}>
+              <p className="bg-red-500 px-3 py-1 scale-70 text-white aspect-1/1 absolute rounded-full z-1 right-[-15px] top-[-20px] hidden">{inCart}</p>
+              <Link
+                href="/cart"
+                className={clsx("z-2 relative",
+                  pathname === "/cart" ? "underline text-orange-500" : ""
+                )}
+              >
+                Cart
+              </Link>
+            </div>
+            {user ? (
               <Link
                 href="/profile"
                 className={
@@ -95,7 +108,7 @@ export function Navbar() {
           }}
           className="md:hidden justify-self-end p-3 mr-3 bg-inherit scale-150"
         >
-          {isOpen ? <RiCloseLargeFill /> : <RiMenuLine />}
+          {isOpen ? <XMarkIcon /> : <Bars3Icon />}
         </button>
       </div>
       {isOpen ? 
@@ -129,7 +142,7 @@ export function Navbar() {
           >
             Cart
           </Link>
-          {isLoggedIn ? (
+          {user ? (
             <Link
               href="/profile"
               className={
