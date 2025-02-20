@@ -1,65 +1,82 @@
 'use client'
 
-import React, { useState, FormEvent } from 'react';
+import { Register } from '@/lib/actions';
+import React from 'react';
 
 const RegisterPage: React.FC = () => {
-  const [firstName, setFirstName] = useState<string>('');
-  const [lastName, setLastName] = useState<string>('');
-  const [email, setEmail] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
-  const [confirmPassword, setConfirmPassword] = useState<string>('');
+  // const [firstName, setFirstName] = useState<string>('');
+  // const [lastName, setLastName] = useState<string>('');
+  // const [email, setEmail] = useState<string>('');
+  // const [password, setPassword] = useState<string>('');
+  // const [confirmPassword, setConfirmPassword] = useState<string>('');
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const handleSubmit = async (formData: FormData) => {
+    // e.preventDefault();
+    const {password, confirmPassword} = {
+      password: formData.get("password"),
+      confirmPassword: formData.get("confirmPassword")
+    }
+
     if (password !== confirmPassword) {
       alert('Passwords do not match!');
       return;
     }
-    console.log('Registering:', { firstName, lastName, email, password });
+
+    Register(undefined, formData);
   };
 
   return (
     <div className="flex justify-center items-center min-h-max py-20 bg-gray-100">
       <div className="w-full max-w-md bg-white p-8 rounded-lg shadow-lg">
         <h1 className="text-2xl font-bold mb-4">Create Account</h1>
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <input
+        <form action={handleSubmit} className="space-y-4">
+          {/* <input
             type="text"
             placeholder="First Name"
-            value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
+            name='firstName'
+            id='firstName'
+            // value={firstName}
+            // onChange={(e) => setFirstName(e.target.value)}
             required
             className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
+          /> */}
           <input
             type="text"
-            placeholder="Last Name"
-            value={lastName}
-            onChange={(e) => setLastName(e.target.value)}
+            placeholder="Username"
+            name='username'
+            id='username'
+            // value={lastName}
+            // onChange={(e) => setLastName(e.target.value)}
             required
             className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
           <input
             type="email"
             placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            name='email'
+            id='email'
+            // value={email}
+            // onChange={(e) => setEmail(e.target.value)}
             required
             className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
           <input
             type="password"
             placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            name='password'
+            id='password'
+            // value={password}
+            // onChange={(e) => setPassword(e.target.value)}
             required
             className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
           <input
             type="password"
             placeholder="Confirm Password"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
+            name='confirmPassword'
+            id='confirmPassword'
+            // value={confirmPassword}
+            // onChange={(e) => setConfirmPassword(e.target.value)}
             required
             className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
