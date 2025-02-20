@@ -92,8 +92,7 @@ const UpdateProduct = UpdateFormSchema.omit({
 
 export async function updateProduct(
   product_id: string,
-  formData: FormData,
-  ignoreImage?: boolean
+  formData: FormData
 ) {
   // Validate Form Data
   const { product_name, price_in_cents, category, description } =
@@ -108,8 +107,9 @@ export async function updateProduct(
   const actual_price_in_cents = convertToActualPriceInCents(price_in_cents);
   const created_at = Date.now();
 
+  const image_bypass = formData.get('image_bypass');
   // janky image_url bypass
-  if (ignoreImage) {
+  if (image_bypass) {
     await sql`
             UPDATE products
             SET product_name = ${product_name}, price_in_cents = ${actual_price_in_cents}, category = ${category}, description = ${description}, created_at = to_timestamp(${created_at} / 1000.0)
