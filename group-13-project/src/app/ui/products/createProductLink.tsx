@@ -1,6 +1,6 @@
 'use client';
 
-import { isAuth } from "@/lib/utils";
+// import { isAuth } from "@/lib/utils";
 import Link from "next/link";
 
 export default function CreateProductLink() {
