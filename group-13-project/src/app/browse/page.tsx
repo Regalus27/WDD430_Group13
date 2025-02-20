@@ -8,7 +8,7 @@ export default async function Gallery() {
   const categories = await fetchProductCategories()
 
   return(
-    <Suspense>
+    <Suspense fallback={<h2>Loading...</h2>}>
       <ProductGallery products={products} categories={categories} />
     </Suspense>
   )

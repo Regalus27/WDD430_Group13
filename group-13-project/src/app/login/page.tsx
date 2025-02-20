@@ -3,7 +3,7 @@ import LoginForm from './login-form';
 
 const LoginPage: React.FC = () => {
   return (
-    <Suspense>
+    <Suspense fallback={<h2>Loading...</h2>}>
       <LoginForm />
     </Suspense>
   );

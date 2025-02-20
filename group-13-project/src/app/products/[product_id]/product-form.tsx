@@ -35,25 +35,6 @@ export default function ProductPage({product, reviews} : {product: Product, revi
             height={200}
             className="w-[450px] h-auto rounded-lg"
           />
-          {/* Guarantee Badge 
-          <div className={`absolute top-3 right-3 items-center ${isMobile ? 'p-1' : 'flex flex-col'}`}>
-            <div className="relative flex flex-col items-center">
-              {/* Yellow Dot 
-              <div className="w-2 h-2 bg-yellow-400 border-[2px] border-[#14132B] rounded-full z-10 relative"></div>
-
-              {/* Left and Right Bent Strings 
-              <div className="relative h-6 flex justify-between">
-                <div className="w-0.5 h-8 bg-[#14132B] absolute left-[-2px] top-[2px] rotate-[40deg] origin-top"></div>
-                <div className="w-0.5 h-8 bg-[#14132B] absolute right-[-2px] top-[2px] -rotate-[40deg] origin-top"></div>
-              </div>
-            </div> 
-
-            {/* Badge 
-            <div className={`relative bg-[#14132B] text-white ${isMobile ? 'px-1 py-1' : 'px-4 py-2'} text-sm font-semibold rounded-md shadow-lg rotate-[-10deg] mt-[-4px]`}>
-              <span className={`block ${isMobile ? 'text-sm' : ''} text-lg font-bold`}>90 days</span>
-              <span className="text-yellow-400 font-bold text-xs tracking-wide">GUARANTEE</span>
-            </div>
-          </div>*/}
 
         </div>
       </div> 
@@ -102,7 +83,13 @@ export default function ProductPage({product, reviews} : {product: Product, revi
     </section>
     {auth ? <Link href={path + "/edit"} className="relative inline-flex items-center rounded-md transition-all duration-300 px-4 py-2 text-normal text-white bg-primary-400 hover:bg-blue-800 hover:scale-105">Edit Page</Link> : null}
     <p>Total reviews: {reviews.length}</p>
-    <ReviewInput />
+    {false ? 
+      <ReviewInput /> : 
+      <div>
+        <p>Please Sign In to leave review!</p>
+        <a href="/login">Sign In</a>
+      </div>
+    }
     <div>
       {!reviews ? null : reviews.map(review => (
         <ReviewPost review={review} key={ulid()}/>

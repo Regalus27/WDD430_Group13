@@ -6,7 +6,7 @@ export const authConfig = {
   },
   callbacks: {
     async session({ session, token }) {
-      console.log("Session")
+      // console.log(session)
       if (token.sub && token.email) {
         session.user = {
           ...session.user,
@@ -25,7 +25,6 @@ export const authConfig = {
     },
     authorized({ auth, request: { nextUrl } }) {
       const isLoggedIn = !!auth?.user;
-      
       const isOnPage = nextUrl.pathname;
       
       if (isOnPage.startsWith('/profile') || isOnPage.startsWith('/product') || isOnPage.startsWith('/cart')) {

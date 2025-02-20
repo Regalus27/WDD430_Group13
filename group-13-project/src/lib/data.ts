@@ -158,10 +158,9 @@ export async function fetchArtistById(id: string) {
 
 const ITEMS_PER_PAGE = 4;
 export async function fetchFilteredCreators(
-  query: string,
-  currentPage: number,
+  query: string
   ) {
-  const offset = (currentPage - 1) * ITEMS_PER_PAGE;
+  // const offset = (currentPage - 1) * ITEMS_PER_PAGE;
 
   try {
     const creators = await sql<UserProfile>`
@@ -176,8 +175,6 @@ export async function fetchFilteredCreators(
       WHERE users.name ILIKE ${`%${query}%`} OR
         users.email ILIKE ${`%${query}%`} OR
         user_profiles.artstyle ILIKE ${`%${query}%`}
-      ORDER BY users.name
-      LIMIT ${ITEMS_PER_PAGE} OFFSET ${offset}
     `;
 
     return creators.rows;

@@ -3,7 +3,8 @@
 import { createReview } from "@/lib/actions";
 import { useParams } from "next/navigation";
 import React, { useState } from "react";
-import { RiStarFill, RiStarLine } from "react-icons/ri"
+import { StarIcon } from "@heroicons/react/24/outline";
+import { StarIcon as SolidStar } from "@heroicons/react/24/solid";
 
 export default function ReviewInput() {
 
@@ -46,7 +47,7 @@ export default function ReviewInput() {
       <p>Rating:</p>
       <div className="flex">
         {arr.map((a, i) => {
-          const star = i < rating ? <RiStarFill className="w-7 h-7 fill-accent-600" /> : <RiStarLine className="w-7 h-7 fill-accent-600" />
+          const star = i < rating ? <SolidStar className="w-7 h-7 fill-accent-600" /> : <StarIcon className="w-7 h-7 fill-accent-600" />
           return (
           <div key={`star${a}`} className="hover:scale-130">
             <label htmlFor={`star${a}`}>{star}</label>

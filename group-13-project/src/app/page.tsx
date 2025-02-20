@@ -20,7 +20,7 @@ export default async function Home() {
         <FeaturedCard item={featured}/>
       </Suspense>
       {/** Newest Cards */}
-      <h1 className="mt-5 text-2xl uppercase">Newest Items</h1>\
+      <h1 className="mt-5 text-2xl uppercase">Newest Items</h1>
       <Suspense fallback={<p>Loading...</p>} >
         <CardGrid data={data.flat()} itemsPerPage={6} />
       </Suspense>
