@@ -3,10 +3,10 @@ import { fetchArtistById } from '@/lib/data';
 import { notFound } from 'next/navigation';
 import { FaFacebook, FaInstagram, FaPinterest } from "react-icons/fa";
 import Image from 'next/image';
+import CreateProductLink from '@/app/ui/products/createProductLink';
 import { fetchProductByUserId } from "@/lib/data"
 import { ProductGallery } from "./gallery"
 import { Suspense } from "react";
-
 
 export async function generateMetadata(props: {params: Promise<{id: string}>}) {
   const params = await props.params;
@@ -59,6 +59,8 @@ export default async function Page(props: {params: Promise<{id: string}>}) {
           <h3 className="text-lg font-semibold text-gray-900">Art Style:</h3>
           <p className="text-gray-700">{artistData.artstyle}</p>
         </div>
+
+        <CreateProductLink></CreateProductLink>
 
         {/* Social Media Links */}
         <div className="mt-6">
