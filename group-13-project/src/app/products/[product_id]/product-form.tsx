@@ -1,7 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { formatPrice, isAuth } from "@/lib/utils";
+// import { formatPrice, isAuth } from "@/lib/utils";
+import { formatPrice } from "@/lib/utils";
 import { Product, Review } from "@/lib/definitions";
 import ReviewInput from "@/app/ui/reviews/review-input";
 import ReviewPost from "@/app/ui/reviews/review-post";
@@ -15,11 +16,11 @@ export default function ProductPage({product, reviews} : {product: Product, revi
   const path = usePathname();
   const router = useRouter();
 
-  const auth = isAuth();
+  // const auth = isAuth();
+  const auth = true; // So that I can show the edit page
 
   return (
     <>
-    {auth ? <Link href={path + "/edit"}>Edit Page</Link> : null}
     <section className={`flex ${isMobile ? "flex-col" : ""} bg-[#f5f1eb] rounded-lg shadow-md w-full`}>
       {/* Left Side - Images */}
       <div className={`${isMobile ? '' : 'flex md:flex-row gap-4'}`}>
@@ -80,6 +81,7 @@ export default function ProductPage({product, reviews} : {product: Product, revi
         </div>
       </div>
     </section>
+    {auth ? <Link href={path + "/edit"} className="relative inline-flex items-center rounded-md transition-all duration-300 px-4 py-2 text-normal text-white bg-primary-400 hover:bg-blue-800 hover:scale-105">Edit Page</Link> : null}
     <p>Total reviews: {reviews.length}</p>
     {false ? 
       <ReviewInput /> : 

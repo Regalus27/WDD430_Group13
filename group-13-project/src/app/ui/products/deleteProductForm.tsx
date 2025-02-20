@@ -16,9 +16,9 @@ export default function DeleteProductForm({
      * - Just click the big red button labeled Really Delete this Item?
      */
     // Blocked by auth, temp user id
-    const user_id = '891ccb08-e0b6-4aba-a439-33154b58dff0';
+    // const user_id = '891ccb08-e0b6-4aba-a439-33154b58dff0';
 
-    const deleteProductWithId = deleteProduct.bind(null, product.product_id, user_id);
+    const deleteProductWithId = deleteProduct.bind(null, product.product_id);
 
     return (
         <form action={deleteProductWithId} className="max-w-sm mx-auto">
