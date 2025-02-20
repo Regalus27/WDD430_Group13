@@ -4,6 +4,7 @@ import { z } from 'zod';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { sql } from '@vercel/postgres';
+import { uploadImage } from '@/lib/actions';
 
 const ProfileFormSchema = z.object({
     user_id: z.string(),
@@ -52,6 +53,26 @@ export async function updateProfile(id: string, formData: FormData) {
 
   const { bio, description, artstyle, instagram, facebook, pinterest } = validatedFields.data;
 
+  // Image Handling
+  // Pull value of checkbox that allows user to reuse old image
+  const image_bypass = formData.get('image_bypass');
+  if (!image_bypass) {
+    try {
+      // Get image File
+      const image_url = await uploadImage(formData.get('image') as File);
+
+      // Update image_url on user table
+      await sql`
+        UPDATE users
+        SET image_url = ${image_url}
+        WHERE user_id = ${id};
+      `;
+    } catch {
+      return { message: 'Database Error: Failed to Update Image.'}
+    }
+  }
+
+  // All other data
   try{
     await sql`
       UPDATE user_profiles
