@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Logo } from "./Logo";
 import { usePathname } from "next/navigation";
-import { RiMenuLine, RiCloseLargeFill } from "react-icons/ri";
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { getUserId } from "@/lib/actions";
 import clsx from "clsx";
 
@@ -108,7 +108,7 @@ export function Navbar() {
           }}
           className="md:hidden justify-self-end p-3 mr-3 bg-inherit scale-150"
         >
-          {isOpen ? <RiCloseLargeFill /> : <RiMenuLine />}
+          {isOpen ? <XMarkIcon /> : <Bars3Icon />}
         </button>
       </div>
       {isOpen ? 

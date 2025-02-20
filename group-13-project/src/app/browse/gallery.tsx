@@ -1,8 +1,9 @@
 "use client";
 
-import { useState, Suspense } from "react";
+import { useState, Suspense, useEffect } from "react";
 import type { Product } from "@/lib/definitions";
 import { CardGrid } from "../ui/cards/card-grid";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 // TODO: We need to add more options to filter by. Eg. Material (wood, metal, etc), Medium(Oil Painting, jewlery, Sculpter), Theme (Nature, Industrial, Romance, Anime)
 // TODO: Replace useStates and use formData instead
@@ -14,6 +15,16 @@ export const ProductGallery = ({products, categories}: { products: Product[], ca
   const [expanded, setExpanded] = useState(false);
   const [minPrice, setMinPrice] = useState<number | "">("");
   const [maxPrice, setMaxPrice] = useState<number | "">("");
+
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const pathname = usePathname();
+
+  useEffect(()=>{
+    const params = new URLSearchParams(searchParams);
+    params.set('page', "1");
+    router.push(`${pathname}?${params.toString()}`);
+  }, [selectedCategories])
 
   if (!products) return <div>Products Not Found!</div>;
   // Count products in each category and dietary option
@@ -175,7 +186,7 @@ export const ProductGallery = ({products, categories}: { products: Product[], ca
             </button>
           </div> */}
           {/* Product List */}
-          <Suspense>
+          <Suspense fallback={<p>Loading...</p>}>
             <CardGrid data={filteredProducts} itemsPerPage={6} />
           </Suspense>
         </main>

@@ -1,6 +1,7 @@
 import { Review } from "@/lib/definitions";
 import Image from "next/image";
-import { RiStarFill, RiStarLine } from "react-icons/ri"
+import { StarIcon as RiStarLine } from "@heroicons/react/24/outline";
+import { StarIcon as RiStarFill } from "@heroicons/react/24/solid";
 
 export default function ReviewPost({review}: {review: Review}) {
 
