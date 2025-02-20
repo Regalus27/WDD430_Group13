@@ -19,7 +19,8 @@ export default function FeaturedCard({ item }: { item: Product }) {
     <div className="grid grid-rows-[auto_1fr] md:grid-rows-1 md:grid-cols-[auto_1fr] gap-2 bg-azure-900 text-seafoam-100 h-max">
       <Link href={`/products/${item.product_id}`}>
         <Image
-          className="w-full sm:mt-10 md:mt-0 sm:w-max md:w-full object-cover min-h-[150px] place-self-center md:place-self-start"
+          layout="responsive"
+          className="w-full sm:mt-10 md:mt-0 sm:w-max md:w-full aspect-3/2 object-cover min-h-[150px] place-self-center md:place-self-start"
           alt=""
           src={item.image_url}
           height={400}

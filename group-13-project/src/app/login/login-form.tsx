@@ -4,7 +4,7 @@ import { useActionState } from "react";
 import { useSearchParams } from "next/navigation";
 import { authenticate } from "@/lib/actions";
 
-export default function LoginForm({Login}: {Login: any}) {
+export default function LoginForm() {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const searchParams = useSearchParams();

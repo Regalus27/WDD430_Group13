@@ -1,11 +1,11 @@
 'use client'
 import Image from "next/image";
 import Link from "next/link";
-import React, { useActionState, useState } from "react";
+import React, { useState } from "react";
 import { User } from "next-auth";
 
 
-export default function ProfilePage({user, logout} : {user: User, logout: any}) {
+export default function ProfilePage({user, logout} : {user: User, logout: () => Promise<void>}) {
 
   //eslint-disable-next-line
   const [form, setForm] = useState({
@@ -46,7 +46,7 @@ export default function ProfilePage({user, logout} : {user: User, logout: any}) 
       </form>
 
       <Link href={`/creators/${user?.id}`} className="text-primary-600 bg-azure-50 border-primary-500 border-2 px-5 py-3 mt-10" >Go To Creator Page</Link>
-      <form action={logout}>
+      <form action={() => logout()}>
         <button className="text-white bg-red-600 px-5 py-3 mt-10" >Logout</button>
       </form>
     </div>

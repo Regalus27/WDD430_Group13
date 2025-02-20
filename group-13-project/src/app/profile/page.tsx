@@ -1,4 +1,3 @@
-import { logOut } from "@/lib/actions";
 import ProfileForm from "./profileForm";
 import { notFound } from "next/navigation";
 import { auth, signOut } from "../../../auth";
