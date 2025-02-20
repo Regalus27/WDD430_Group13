@@ -3,14 +3,11 @@ import { fetchFilteredCreators } from '@/lib/data';
 import { BtnViewCreator , BtnViewProfile} from '@/app/ui/creators/buttons';
 
 export default async function CreatorsTable({
-  query,
-  currentPage,
+  query
 }: {
   query: string;
-  currentPage: number;
 }) {
-  const users = await fetchFilteredCreators(query, currentPage);
-
+  const users = await fetchFilteredCreators(query);
   return (
 
 <div className="mt-6 flow-root">

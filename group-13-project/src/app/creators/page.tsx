@@ -23,11 +23,11 @@ export default async function Page(props: {
             <h2 className={` text-2xl`}>🎨 Creators</h2>
           </div>
           <div className="mt-4 flex items-center justify-between gap-2 md:mt-8">
-            <Search placeholder="Search creators ..." />
+            <Search placeholder="Search for creators ..." />
             {/* <CreateInvoice /> */}
           </div>
           <Suspense key={query + currentPage} >
-            <TableCreators query={query} currentPage={currentPage} />
+            <TableCreators query={query} />
           </Suspense>
           
         </div>
