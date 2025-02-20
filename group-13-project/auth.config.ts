@@ -7,7 +7,7 @@ export const authConfig = {
   callbacks: {
     async session({ session, token }) {
       console.log("Session")
-      if (token) {
+      if (token.sub && token.email) {
         session.user = {
           ...session.user,
           id: token.sub, 

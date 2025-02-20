@@ -3,7 +3,7 @@ import { authConfig } from './auth.config';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { z } from 'zod';
 import { sql } from '@vercel/postgres';
-import type { User } from '@/app/lib/definitions';
+import type { User } from '@/lib/definitions';
 import { comparePasswords } from '@/lib/utils';
 
 async function getUser(email: string): Promise<User | undefined> {
