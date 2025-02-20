@@ -23,7 +23,7 @@ export default async function CreatorsTable({
           key={user.user_id}
           className="mb-2 w-full rounded-md bg-white p-4"
         >
-          <div className="flex items-center justify-between border-b pb-4">
+          <div className="flex flex-col items-center border-b pb-4">
         
               <div className="mb-2 flex items-center">
                 <Image
@@ -35,22 +35,17 @@ export default async function CreatorsTable({
                 />
                 <p>{user.name}</p>
               </div>
+              <p className="text-sm text-gray-500 mb-5">{user.artstyle}</p>
            
-            <div className="justify-end gap-2">
+            <div className="justify-end flex gap-2">
               <BtnViewCreator id={user.user_id} variant= 'icon' />
               <BtnViewProfile id={user.user_id} variant= 'icon' />
             </div>
           </div>
-          <div className="flex w-full items-center justify-between pt-4">
-            <div>
-            <p className="text-sm text-gray-500">{user.artstyle}</p>
-            </div>
-            
-          </div>
         </div>
       ))}
     </div>
-            {/* Desktop Table View */}
+    {/* Desktop Table View */}
     <table className="hidden min-w-full text-gray-900 md:table">
       <thead className="rounded-lg text-left text-sm font-normal">
         <tr>
@@ -87,7 +82,7 @@ export default async function CreatorsTable({
               {user.artstyle}
             </td>
             <td className="whitespace-nowrap py-3 pl-6 pr-3">
-              <div className="flex justify-end gap-3">
+              <div className="justify-end grid gap-3">
               <BtnViewCreator id={user.user_id} variant= 'text'/>
               <BtnViewProfile id={user.user_id} variant= 'text' />
 

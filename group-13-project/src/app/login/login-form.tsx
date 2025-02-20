@@ -1,10 +1,10 @@
 "use client";
 import React, { useState } from "react";
 import { useActionState } from "react";
-import { authenticate } from "../../lib/actions";
 import { useSearchParams } from "next/navigation";
+import { authenticate } from "@/lib/actions";
 
-export default function LoginForm() {
+export default function LoginForm({Login}: {Login: any}) {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const searchParams = useSearchParams();

@@ -12,7 +12,7 @@ export type Product = {
 
 export type Review = {
     name: string;
-    user_img: string,
+    image_url: string,
     product_id: string;
     review_text: string;
     rating: number;

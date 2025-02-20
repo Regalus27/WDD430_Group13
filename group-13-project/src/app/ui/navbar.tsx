@@ -2,17 +2,22 @@
 
 // import clsx from 'clsx';
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Logo } from "./Logo";
 import { usePathname } from "next/navigation";
 import { RiMenuLine, RiCloseLargeFill } from "react-icons/ri";
-import { isAuth } from "@/lib/utils";
+import { getUserId } from "@/lib/actions";
 
 export function Navbar() {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
-  // const [isLoggedIn, setLoggedIn] = useState(false);
-  const isLoggedIn = isAuth();
+  const [user, setUser] = useState<string>();
+
+  useEffect(()=> {
+    getUserId().then(id => {
+      setUser(id);
+    })
+  }, [])
 
   return (
     <nav
@@ -68,7 +73,7 @@ export function Navbar() {
             >
               Cart
             </Link>
-            {isLoggedIn ? (
+            {user ? (
               <Link
                 href="/profile"
                 className={
@@ -129,7 +134,7 @@ export function Navbar() {
           >
             Cart
           </Link>
-          {isLoggedIn ? (
+          {user ? (
             <Link
               href="/profile"
               className={

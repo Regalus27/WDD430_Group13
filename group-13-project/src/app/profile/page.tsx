@@ -1,13 +1,20 @@
-import { fetchArtistById } from "@/lib/data";
+import { logOut } from "@/lib/actions";
 import ProfileForm from "./profileForm";
 import { notFound } from "next/navigation";
+import { auth, signOut } from "../../../auth";
+
 
 export default async function ProfilePage() {
+  const user = (await auth())?.user
 
-  const user_id = "891ccb08-e0b6-4aba-a439-33154b58dff0"
-  const artist = await fetchArtistById(user_id)
+  async function logout () {
+    'use server'
+    console.log("Sign Out")
+    await signOut({redirectTo: "/"});
+  }
+    
 
-  if (!artist) notFound();
+  if (!user) notFound();
 
-  return <ProfileForm artist={artist}/>
+  return <ProfileForm user={user!} logout={logout}/>
 }
