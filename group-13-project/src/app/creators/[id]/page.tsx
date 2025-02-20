@@ -4,6 +4,9 @@ import { notFound } from 'next/navigation';
 import { FaFacebook, FaInstagram, FaPinterest } from "react-icons/fa";
 import Image from 'next/image';
 import CreateProductLink from '@/app/ui/products/createProductLink';
+import { fetchProductByUserId } from "@/lib/data"
+import { ProductGallery } from "./gallery"
+import { Suspense } from "react";
 
 export async function generateMetadata(props: {params: Promise<{id: string}>}) {
   const params = await props.params;
@@ -17,12 +20,9 @@ export async function generateMetadata(props: {params: Promise<{id: string}>}) {
 export default async function Page(props: {params: Promise<{id: string}>}) {
   const params = await props.params;
   const id = params.id;
-//   const artistData = await fetchArtistById(id);
+  const artistData = await fetchArtistById(id);
+  const products = (await fetchProductByUserId(id)) || [];
 
-// export default async function Page(props: { params: Promise<{ id: string }> }) {
-//     const params = await props.params;
-//     const id = params.id;
-    const artistData = await fetchArtistById(id);
     if (!artistData) {
       notFound();
     }
@@ -63,17 +63,32 @@ export default async function Page(props: {params: Promise<{id: string}>}) {
         <CreateProductLink></CreateProductLink>
 
         {/* Social Media Links */}
-        <div className="flex justify-around mt-6">
-          <a href={artistData.instagram} target="_blank" className="text-pink-600 transform hover:scale-135 transition duration-500">
-            <FaInstagram size={30} />
-          </a>
-          <a href={artistData.facebook} target="_blank" className="text-blue-600 transform hover:scale-135 transition duration-500">
-            <FaFacebook size={30} />
-          </a>
-          <a href={artistData.pinterest} target="_blank" className="text-red-600 transform hover:scale-135 transition duration-500">
-            <FaPinterest size={30} />
-          </a>
+        <div className="mt-6">
+            <h3 className="text-lg font-semibold text-gray-900">Social:</h3>
+          
+          <div className="flex justify-around mt-6">
+            <a href={artistData.instagram} target="_blank" className="text-pink-600 transform hover:scale-135 transition duration-500">
+              <FaInstagram size={30} />
+            </a>
+            <a href={artistData.facebook} target="_blank" className="text-blue-600 transform hover:scale-135 transition duration-500">
+              <FaFacebook size={30} />
+            </a>
+            <a href={artistData.pinterest} target="_blank" className="text-red-600 transform hover:scale-135 transition duration-500">
+              <FaPinterest size={30} />
+            </a>
+          </div>
         </div>
+        
+        {/* Creator Products */}
+        <div className="mt-6">
+          <h3 className="text-lg font-semibold text-gray-900"> Creator Product: </h3>
+        
+          <Suspense>
+              <ProductGallery products ={products} />
+          </Suspense>
+        </div>
+
+
       </div>
     </div>
 

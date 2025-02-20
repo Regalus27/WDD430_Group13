@@ -79,3 +79,6 @@ export const formatPrice = (price: number | string) => {
   });
 };
 
+export function comparePasswords(passwordEntered: string, passwordSaved: string) : boolean{
+    return passwordEntered === passwordSaved
+}
