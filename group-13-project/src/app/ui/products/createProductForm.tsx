@@ -28,16 +28,16 @@ export default function CreateProductForm() {
         // filesize validation
         // Yes these are bad ways to send user feedback maybe I'll change them to something if I magically get time
         const imageFile: File = formData.get('image') as File;
-        if (imageFile.type.split('/')[0] !== 'image') {
-            alert("Image must be an image.");
-            return;
+        if (imageFile) {
+            if (imageFile.type.split('/')[0] !== 'image') {
+                alert("Image must be an image.");
+                return;
+            }
+            if (imageFile.size / 1024 / 1024 > 500) {
+                alert("Image must be less than 500MB.");
+                return;
+            }
         }
-        console.log(imageFile.size);
-        if (imageFile.size / 1024 / 1024 > 500) {
-            alert("Image must be less than 500MB.");
-            return;
-        }
-
         createProductWithId(formData);
     }
 

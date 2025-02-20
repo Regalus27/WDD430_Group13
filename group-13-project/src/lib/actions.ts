@@ -21,6 +21,7 @@ const CreateFormSchema = z.object({
 const CreateProduct = CreateFormSchema.omit({
     product_id: true,
     created_at: true,
+    image_url: true
 });
 
 export async function createProduct(passed_user_id: string, formData: FormData) {
@@ -31,38 +32,37 @@ export async function createProduct(passed_user_id: string, formData: FormData) 
         price_in_cents,
         category,
         description,
-        image_url
     } = CreateProduct.parse({
         user_id: passed_user_id,
         product_name : formData.get('product_name'),
         price_in_cents: formData.get('price_in_cents'),
         category: formData.get('category'),
         description: formData.get('description'),
-        image_url: await uploadImage(formData.get('image') as File),
     });
 
     // adjust price to be in cents (Input in dollars)
     const actual_price_in_cents = convertToActualPriceInCents(price_in_cents);
     const created_at = Date.now();
-
+    // default image handling
+    const image_url = formData.get('image_bypass') ? '/mockup.png' : await uploadImage(formData.get('image') as File);
     await sql`
         INSERT INTO products (user_id, product_name, price_in_cents, category, description, image_url, created_at)
         VALUES (${user_id}, ${product_name}, ${actual_price_in_cents}, ${category}, ${description}, ${image_url}, to_timestamp(${created_at} / 1000.0));
     `;
-    revalidatePath(`/creators/${user_id}`);
-    redirect(`/creators/${user_id}`);
+    revalidatePath(`/creators/`);
+    redirect(`/creators/`);
 }
 
-export async function deleteProduct(product_id: string, user_id: string) {
+export async function deleteProduct(product_id: string) {
     // Form has no data to validate
     // TODO add authentication
     await sql`
         DELETE FROM products
-        WHERE product_id=${product_id} AND user_id=${user_id};
+        WHERE product_id=${product_id};
     `;
 
-    revalidatePath(`/creators/${user_id}`);
-    redirect(`/creators/${user_id}`);
+    revalidatePath(`/`);
+    redirect(`/`);
 }
 
 import { signIn } from '../../auth';
