@@ -9,7 +9,7 @@ export default async function CreatorsTable({
   query: string;
   currentPage: number;
 }) {
-  const users = await fetchFilteredCreators(query, currentPage);
+  const users = await fetchFilteredCreators(query);
 
   return (
 

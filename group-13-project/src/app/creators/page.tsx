@@ -27,7 +27,7 @@ export default async function Page(props: {
             {/* <CreateInvoice /> */}
           </div>
           <Suspense key={query + currentPage} >
-            <TableCreators query={query} currentPage={currentPage} />
+            <TableCreators query={query} />
           </Suspense>
           
         </div>
