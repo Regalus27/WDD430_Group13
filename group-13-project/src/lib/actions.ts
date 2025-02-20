@@ -209,3 +209,20 @@ export async function authenticate(
     throw error;
   }
 }
+
+export async function Register(prevState: string | undefined, formData: FormData) {
+  try {
+    const {username, email, password} = {
+      username: formData.get("username")?.toString(),
+      email: formData.get("email")?.toString(),
+      password: formData.get("password")?.toString()
+    }
+
+    await sql`
+      INSERT INTO users (name, email, password, image_url)
+      VALUES (${username}, ${email}, ${password}, ${"/mockup.png"});
+    `
+  } catch (error) {
+    console.log(error)
+  }
+}
